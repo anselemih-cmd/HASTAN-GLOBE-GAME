@@ -1,0 +1,1606 @@
+<!DOCTYPE html>  <html lang="en">  
+<head>  
+<meta charset="UTF-8">  
+<meta name="viewport" content="width=device-width, initial-scale=1.0">  
+<title>HASTAN GLOBE</title>  
+<link rel="stylesheet" href="style.css">  
+</head>  <body>  
+  <!-- =====================================================
+     HASTAN GLOBE LANDING PAGE
+====================================================== -->
+
+<section id="landingPage" class="landing-page">
+
+  <div class="landing-top">
+
+    <div class="landing-logo logo" aria-label="HASTAN GLOBE">
+      <span class="logo-h">H</span>
+      <span class="logo-astan">ASTAN</span>
+      <span class="logo-globe">GLOBE</span>
+    </div>
+
+    <div class="landing-tagline">
+      CONNECT • LEARN • WORK • EARN • GAME
+    </div>
+
+  </div>
+
+  <div class="landing-hero">
+
+    <div class="landing-icon">🌍</div>
+
+    <h1>
+      Work, Learn & Earn<br>
+      <span>With HASTAN GLOBE</span>
+    </h1>
+
+    <p>
+      Discover global opportunities, connect with people around the world,
+      learn, work and earn through HASTAN GLOBE.
+    </p>
+
+    <div class="landing-buttons">
+
+      <button
+        class="landing-login-btn"
+        onclick="openLandingLogin()">
+        🔐 Login
+      </button>
+
+      <button
+        class="landing-register-btn"
+        onclick="window.location.href='./register.html'">
+        🚀 Register
+      </button>
+
+    </div>
+
+  </div>
+
+  <div class="landing-opportunities">
+
+    <h2>What can you do?</h2>
+
+    <div class="landing-grid">
+
+      <div class="landing-card">
+        <div class="landing-card-icon">💼</div>
+        <h3>Global Jobs</h3>
+        <p>
+          Explore opportunities to work with people and businesses
+          from different countries.
+        </p>
+      </div>
+
+      <div class="landing-card">
+        <div class="landing-card-icon">💰</div>
+        <h3>Earn Up To TSh 100,000/Day</h3>
+        <p>
+          Complete available opportunities, activities and earning
+          programs on the platform.
+        </p>
+      </div>
+
+      <div class="landing-card">
+        <div class="landing-card-icon">💬</div>
+        <h3>Teach Kiswahili</h3>
+        <p>
+          Help foreigners learn Kiswahili and earn from language
+          learning opportunities.
+        </p>
+      </div>
+
+      <div class="landing-card">
+        <div class="landing-card-icon">⚽</div>
+        <h3>eFootball Gaming</h3>
+        <p>
+          Join HASTAN GLOBE gaming activities, matches and tournaments.
+        </p>
+      </div>
+
+    </div>
+
+  </div>
+
+  <div class="landing-bottom">
+
+    <strong>HASTAN GLOBE</strong>
+
+    <p>
+      One account. Multiple opportunities.
+    </p>
+
+  </div>
+
+</section>
+
+
+<!-- =====================================================
+     LANDING LOGIN
+====================================================== -->
+
+<div id="landingLoginModal" class="landing-login-modal">
+
+  <div class="landing-login-box">
+
+    <button
+      class="landing-close"
+      onclick="closeLandingLogin()">
+      ×
+    </button>
+
+    <div class="landing-login-logo logo">
+
+      <span class="logo-h">H</span>
+      <span class="logo-astan">ASTAN</span>
+      <span
+        class="logo-globe"
+        style="font-size:12px;margin-top:-30px">
+        GLOBE
+      </span>
+
+    </div>
+
+    <h2>Welcome Back 👋</h2>
+
+    <p>
+      Login to your HASTAN GLOBE account.
+    </p>
+
+    <div class="form-group">
+
+      <label>Email</label>
+
+      <input
+        class="form-control"
+        id="landingLoginEmail"
+        type="email"
+        placeholder="Email ya akaunti">
+
+    </div>
+
+    <div class="form-group">
+
+      <label>Password</label>
+
+      <input
+        class="form-control"
+        id="landingLoginPassword"
+        type="password"
+        placeholder="Password">
+
+    </div>
+
+    <button
+      class="landing-submit-login"
+      onclick="landingLogin()">
+
+      🔐 Login
+
+    </button>
+
+    <div
+      id="landingLoginError"
+      class="landing-login-error">
+    </div>
+
+    <div class="landing-register-text">
+
+      Don't have an account?
+
+      <button
+        onclick="window.location.href='./register.html'">
+        Register
+      </button>
+
+    </div>
+
+  </div>
+
+</div>
+
+
+<!-- =====================================================
+     LANDING PAGE CONTROL
+====================================================== -->
+
+<script>
+
+function openLandingLogin(){
+
+  const modal =
+    document.getElementById("landingLoginModal");
+
+  if(modal){
+    modal.classList.add("show");
+  }
+
+}
+
+function closeLandingLogin(){
+
+  const modal =
+    document.getElementById("landingLoginModal");
+
+  if(modal){
+    modal.classList.remove("show");
+  }
+
+}
+
+async function landingLogin(){
+
+  const email =
+    document.getElementById("landingLoginEmail").value.trim();
+
+  const password =
+    document.getElementById("landingLoginPassword").value;
+
+  const error =
+    document.getElementById("landingLoginError");
+
+  if(!email || !password){
+
+    error.textContent =
+      "Please enter your email and password.";
+
+    error.style.display = "block";
+
+    return;
+  }
+
+  /*
+   * Tumia loginUser() yako iliyopo.
+   * Tunahamisha values kwenye login form
+   * iliyopo Settings page.
+   */
+
+  const normalEmail =
+    document.getElementById("loginEmail");
+
+  const normalPassword =
+    document.getElementById("loginPassword");
+
+  if(normalEmail)
+    normalEmail.value = email;
+
+  if(normalPassword)
+    normalPassword.value = password;
+
+  error.style.display = "none";
+
+  closeLandingLogin();
+
+  if(typeof window.loginUser === "function"){
+
+    await window.loginUser();
+
+  }else{
+
+    error.textContent =
+      "Login system is not ready. Please refresh the page.";
+
+    error.style.display = "block";
+
+  }
+
+}
+
+
+/*
+ * Landing ionekane kwa user ambaye hajalogin.
+ * User aliye-login ataingia moja kwa moja dashboard.
+ */
+
+function checkLandingStatus(){
+
+  const landing =
+    document.getElementById("landingPage");
+
+  const normal =
+    document.getElementById("normalApp");
+
+  const loggedIn =
+    localStorage.getItem("normal_user") ||
+    localStorage.getItem("normal_user_uid");
+
+  if(loggedIn){
+
+    if(landing)
+      landing.style.display = "none";
+
+    if(normal)
+      normal.style.display = "block";
+
+  }else{
+
+    if(landing)
+      landing.style.display = "block";
+
+    if(normal)
+      normal.style.display = "none";
+
+  }
+
+}
+
+document.addEventListener(
+  "DOMContentLoaded",
+  function(){
+
+    checkLandingStatus();
+
+    /*
+     * Firebase Auth inaweza kuchukua muda kidogo
+     * kuthibitisha session.
+     */
+    setTimeout(checkLandingStatus,1000);
+    setTimeout(checkLandingStatus,2500);
+
+  }
+);
+
+</script>
+  <!-- =====================================================  
+     NORMAL APP  
+====================================================== -->  <div class="app" id="normalApp">  <header class="header">  <button class="menu-btn" onclick="openMenu()">☰</button>
+
+<div class="logo" aria-label="HASTAN GLOBE">  
+<span class="logo-h">H</span>  
+<span class="logo-astan">ASTAN</span>  
+<span class="logo-globe">GLOBE</span>  
+</div>  <div class="header-right">  <!-- =====================================================  
+     NOTIFICATION BUTTON + UNREAD BADGE  
+====================================================== -->  <button  
+class="icon-btn notification-btn"  
+onclick="showNotifications()"  
+id="notificationButton"  
+aria-label="Notifications">
+
+🔔
+
+<span  
+id="notificationBadge"  
+class="notification-badge"  
+style="display:none;">
+0
+</span>
+
+</button>  <button class="icon-btn" onclick="window.location.href='/game/'">🎮</button>
+
+</div>  </header>  <section id="homePage" class="page active">  <div class="welcome">  <h2 id="welcomeName">Karibu! 👋</h2>  <p id="welcomeMessage">  
+Karibu kwenye HASTAN GLOBE. Tunafurahi kukuona!  
+</p>  </div>  <div class="balance-grid">  <div class="balance-card profit">  
+<h4>📈 Net Profit</h4>  
+<strong id="netProfit">TSh 0</strong>  
+<small>Total earnings</small>  
+</div>  <div class="balance-card expenses">  
+<h4>💳 Expenses / Mtaji</h4>  
+<strong id="expensesBalance">TSh 10,000</strong>  
+<small>Fixed activation capital</small>  
+</div>  <div class="balance-card game-balance">  
+<h4>🎮 Gaming Balance</h4>  
+<strong id="gameBalance">TSh 0</strong>  
+<small>Gamer earnings</small>  
+</div>  <div class="balance-card main-balance">  
+<h4>💰 Main Balance</h4>  
+<strong id="mainBalance">TSh 0</strong>  
+</div>  </div>  <div class="welcome-bonus-card">  <div class="bonus-left">  <div class="bonus-icon">🎁</div>  <div>  
+<h4>Welcome Bonus</h4>  
+<small>Special HASTAN GLOBE welcome reward</small>  
+</div>  </div>  <strong>TSh 12,000</strong>
+
+</div>  <div class="section-title">  
+<h3>Activities</h3>  
+</div>  <div class="activity-grid">  <button class="activity" onclick="showPage('tasksPage',this)">  
+<div class="activity-icon">📋</div>  
+<span>Tasks</span>  
+</button>  <button class="activity" onclick="showPage('videosPage',this)">  
+<div class="activity-icon">🎥</div>  
+<span>Videos</span>  
+</button>  <!-- LIVE TV -->  <button class="activity" onclick="showPage('liveTvPage',this)">  
+<div class="activity-icon">📺</div>  
+<span>Live TV</span>  
+</button>  <button class="activity" onclick="showPage('adsPage',this)">  
+<div class="activity-icon">👍</div>  
+<span>Like Ads</span>  
+</button>  <button class="activity" onclick="showPage('quizPage',this)">  
+<div class="activity-icon">🌍</div>  
+<span>Travel Quiz</span>  
+</button>  <button class="activity" onclick="showPage('spinPage',this)">  
+<div class="activity-icon">🎡</div>  
+<span>Spin Wheel</span>  
+</button>  <button class="activity" onclick="showPage('socialPage',this)">  
+<div class="activity-icon">📱</div>  
+<span>Social Media</span>  
+</button>  <!-- SWAHILI CHAT -->  <button class="activity" onclick="showPage('swahiliChatPage',this)">  
+  <div class="activity-icon">💬</div>  
+  <span>Swahili Chat</span>  
+</button>  <button class="activity" onclick="notAvailable('Global Jobs')">  
+<div class="activity-icon">💼</div>  
+<span>Global Jobs</span>  
+</button>  </div>  <div class="section-title">  
+<h3>📅 Schedule</h3>  
+</div>  <div class="weekly-schedule">  <h3>Ratiba ya wiki nzima</h3>  <div class="weekly-day">  
+<strong>Monday</strong>  
+<div class="weekly-activity">🌍 Travel Quiz</div>  
+</div>  <div class="weekly-day">  
+<strong>Tuesday</strong>  
+<div class="weekly-activity">📘 Facebook Video</div>  
+</div>  <div class="weekly-day">  
+<strong>Wednesday</strong>  
+<div class="weekly-activity">📺 Live TV</div>  
+</div>  <div class="weekly-day">  
+<strong>Thursday</strong>  
+<div class="weekly-activity">🎵 TikTok Videos</div>  
+</div>  <div class="weekly-day">  
+<strong>Friday</strong>  
+<div class="weekly-activity">📺 Live TV</div>  
+</div>  <div class="weekly-day">  
+<strong>Saturday</strong>  
+<div class="weekly-activity">🎡 Spin</div>  
+</div>  <div class="weekly-day">  
+<strong>Sunday</strong>  
+<div class="weekly-activity">🏆 Leaderboard &amp; 👍 Ads Liking</div>  
+</div>  </div>  <div class="card">  <h3>📢 Ratiba ya Main Admin</h3>  <p style="color:#657080;font-size:13px;margin-bottom:10px">  
+Ratiba hii inaweza kubadilishwa au kuongezwa na Main Admin.  
+</p>  <div id="normalSchedules">  
+<p style="text-align:center;color:#777">Loading schedules...</p>  
+</div>  </div>  <div class="referral">  <h3 id="referralHeading">My Referral Link</h3>  <div class="referral-link" id="referralLink">  
+Please login...  
+</div>  <button class="copy-btn" onclick="copyReferral()">  
+Copy Link  
+</button>  <div class="referral-stats">  <div class="ref-stat">  
+<strong id="level1Count">0</strong>  
+<small>Level 1 Members</small>  
+</div>  <div class="ref-stat">  
+<strong id="level2Count">0</strong>  
+<small>Level 2 Members</small>  
+</div>  <div class="ref-stat">  
+<strong id="totalTeam">0</strong>  
+<small>Total Team</small>  
+</div>  </div>  </div>  </section>  <section id="tasksPage" class="page">  <div class="activity-header">  
+<h2>📋 Tasks</h2>  
+<p>Complete available tasks.</p>  
+</div>  <div id="tasksContainer">  
+<div class="loading-state">Loading tasks...</div>  
+</div>  </section>  <section id="videosPage" class="page">  <div class="activity-header">  
+<h2>🎥 Videos</h2>  
+<p>Watch available videos.</p>  
+</div>  <div id="videosContainer">  
+<div class="loading-state">Loading videos...</div>  
+</div>  </section>  <!-- =====================================================  
+     LIVE TV  
+====================================================== -->  <section id="liveTvPage" class="page">  <div class="activity-header">  
+<h2>📺 Live TV</h2>  
+<p>Watch live television.</p>  
+</div>  <div class="card" style="padding:10px;overflow:hidden;">  <iframe  
+src="https://tvgarden.world"  
+width="100%"  
+height="600"  
+frameborder="0"  
+allowfullscreen>  
+</iframe>  </div>  </section>  <section id="adsPage" class="page">  <div class="activity-header">  
+<h2>👍 Like Ads</h2>  
+<p>Like available advertisements.</p>  
+</div>  <div id="adsContainer">  
+<div class="loading-state">Loading advertisements...</div>  
+</div>  </section>  <section id="quizPage" class="page">  <div class="activity-header">  
+<h2>🌍 Travel Quiz</h2>  
+<p>Test your travel knowledge.</p>  
+</div>  <div id="quizContainer">  
+<div class="loading-state">Loading quiz...</div>  
+</div>  </section>  <section id="spinPage" class="page">  <div class="activity-header">  
+<h2>🎡 Spin Wheel</h2>  
+<p>Spin the wheel for an available reward.</p>  
+</div>  <div id="spinContainer">  
+<div class="loading-state">Loading spin wheel...</div>  
+</div>  </section>  <section id="socialPage" class="page">  <div class="activity-header">  
+<h2>📱 Social Media</h2>  
+<p>Complete available social media activities.</p>  
+</div>  <div class="card">  <h3>Social Media</h3>  <p>  
+Social Media activities will be managed by Main Admin.  
+</p>  <div class="reward">Admin controlled</div>  </div>  </section>  <!-- =====================================================  
+     SWAHILI CHAT  
+====================================================== -->  <section id="swahiliChatPage" class="page">    <!-- HEADER -->    <div style="  
+    background:linear-gradient(135deg,#0f7a45,#19a463);  
+    color:white;  
+    padding:18px;  
+    border-radius:16px;  
+    margin-bottom:15px;  
+  ">  <h2 style="margin:0 0 5px;">  
+  💬 Swahili Chat  
+</h2>  
+
+<div style="font-size:13px;opacity:.9;">  
+  HASTAN GLOBE  
+</div>  
+
+<!-- BALANCE -->  
+<div style="  
+  margin-top:14px;  
+  background:rgba(255,255,255,.15);  
+  padding:12px;  
+  border-radius:12px;  
+">  
+
+  <div style="font-size:13px;">  
+    Main Balance  
+  </div>  
+
+  <strong id="swahiliChatBalance"  
+          style="font-size:21px;">  
+    TSh 0  
+  </strong>  
+
+</div>
+
+  </div>    <!-- NOTICE -->    <div style="  
+    background:#eaf8f0;  
+    border:1px solid #b7e4c7;  
+    padding:13px;  
+    border-radius:12px;  
+    margin-bottom:15px;  
+    color:#176b3a;  
+    font-size:14px;  
+  ">  💬 <strong>Available Chat</strong><br>  
+Choose start chatting.
+
+  </div>    <!-- =================================================  
+       AVATAR STYLE  
+  ================================================== -->    <style>  
+  
+    .chat-avatar{  
+      width:58px;  
+      height:58px;  
+      border-radius:50%;  
+      object-fit:cover;  
+      display:block;  
+      border:3px solid #e5f5ec;  
+      box-shadow:0 2px 8px rgba(0,0,0,.12);  
+    }  
+  
+    .chat-active{  
+      display:inline-flex;  
+      align-items:center;  
+      gap:5px;  
+      font-size:13px;  
+      color:#16a34a;  
+    }  
+  
+    .chat-active-dot{  
+      width:8px;  
+      height:8px;  
+      background:#16a34a;  
+      border-radius:50%;  
+      display:inline-block;  
+      animation:chatActiveBlink 1.2s infinite;  
+      box-shadow:0 0 5px rgba(22,163,74,.7);  
+    }  
+  
+    @keyframes chatActiveBlink{  
+      0%,100%{  
+        opacity:1;  
+        transform:scale(1);  
+      }  
+      50%{  
+        opacity:.25;  
+        transform:scale(.75);  
+      }  
+    }  
+  
+    .chat-profile-card{  
+      background:white;  
+      padding:15px;  
+      border-radius:15px;  
+      margin-bottom:12px;  
+      box-shadow:0 3px 12px rgba(0,0,0,.08);  
+    }  
+  
+  </style>    <!-- =================================================  
+       EMMA  
+  ================================================== -->    <div class="chat-profile-card">  <div style="display:flex;align-items:center;gap:12px;">  
+
+  <img  
+    class="chat-avatar"  
+    src="https://randomuser.me/api/portraits/women/44.jpg"  
+    alt="Emma">  
+
+  <div style="flex:1;">  
+
+    <strong>Emma 🇺🇸</strong>  
+
+    <div class="chat-active">  
+      <span class="chat-active-dot"></span>  
+      USA • Active  
+    </div>  
+
+  </div>  
+
+</div>  
+
+<div style="margin-top:12px;">  
+  💰 TSh 25,000 • $10  
+</div>  
+
+<button  
+  class="action-btn"  
+  style="width:100%;margin-top:10px;"  
+  onclick="notAvailable('You need 15 referrals to start chat.')">  
+  Start Chat  
+</button>
+
+  </div>    <!-- =================================================  
+       SOPHIA  
+  ================================================== -->    <div class="chat-profile-card">  <div style="display:flex;align-items:center;gap:12px;">  
+
+  <img  
+    class="chat-avatar"  
+    src="https://randomuser.me/api/portraits/women/68.jpg"  
+    alt="Sophia">  
+
+  <div style="flex:1;">  
+
+    <strong>Sophia 🇬🇧</strong>  
+
+    <div class="chat-active">  
+      <span class="chat-active-dot"></span>  
+      UK • Active  
+    </div>  
+
+  </div>  
+
+</div>  
+
+<div style="margin-top:12px;">  
+  💰 TSh 35,000 • $14  
+</div>  
+
+<button  
+  class="action-btn"  
+  style="width:100%;margin-top:10px;"  
+  onclick="notAvailable('You need 15 referrals to start chat.')">  
+  Start Chat  
+</button>
+
+  </div>    <!-- =================================================  
+       DANIEL  
+  ================================================== -->    <div class="chat-profile-card">  <div style="display:flex;align-items:center;gap:12px;">  
+
+  <img  
+    class="chat-avatar"  
+    src="https://randomuser.me/api/portraits/men/32.jpg"  
+    alt="Daniel">  
+
+  <div style="flex:1;">  
+
+    <strong>Daniel 🇨🇦</strong>  
+
+    <div class="chat-active">  
+      <span class="chat-active-dot"></span>  
+      Canada • Active  
+    </div>  
+
+  </div>  
+
+</div>  
+
+<div style="margin-top:12px;">  
+  💰 TSh 45,000 • $18  
+</div>  
+
+<button  
+  class="action-btn"  
+  style="width:100%;margin-top:10px;"  
+  onclick="notAvailable('You need 15 referrals to start chat.')">  
+  Start Chat  
+</button>
+
+  </div>    <!-- =================================================  
+       OLIVIA  
+  ================================================== -->    <div class="chat-profile-card">  <div style="display:flex;align-items:center;gap:12px;">  
+
+  <img  
+    class="chat-avatar"  
+    src="https://randomuser.me/api/portraits/women/65.jpg"  
+    alt="Olivia">  
+
+  <div style="flex:1;">  
+
+    <strong>Olivia 🇦🇺</strong>  
+
+    <div class="chat-active">  
+      <span class="chat-active-dot"></span>  
+      Australia • Active  
+    </div>  
+
+  </div>  
+
+</div>  
+
+<div style="margin-top:12px;">  
+  💰 TSh 60,000 • $24  
+</div>  
+
+<button  
+  class="action-btn"  
+  style="width:100%;margin-top:10px;"  
+  onclick="notAvailable('You need 15 referrals to start chat.')">  
+  Start Chat  
+</button>
+
+  </div>    <!-- =================================================  
+       MICHAEL  
+  ================================================== -->  <div class="chat-profile-card">    <div style="display:flex;align-items:center;gap:12px;">  <img  
+  class="chat-avatar"  
+  src="https://randomuser.me/api/portraits/men/46.jpg"  
+  alt="Michael">  
+
+<div style="flex:1;">  
+
+  <strong>Michael 🇩🇪</strong>  
+
+  <div class="chat-active">  
+    <span class="chat-active-dot"></span>  
+    Germany • Active  
+  </div>  
+
+</div>
+
+  </div>    <div style="margin-top:12px;">  
+    💰 TSh 75,000 • $30  
+  </div>  <button  
+class="action-btn"  
+style="width:100%;margin-top:10px;"  
+onclick="openMichaelChat()">
+Start Chat
+</button>
+
+</div>    <!-- =================================================  
+       AMELIA  
+  ================================================== -->    <div class="chat-profile-card">  <div style="display:flex;align-items:center;gap:12px;">  
+
+  <img  
+    class="chat-avatar"  
+    src="https://randomuser.me/api/portraits/women/49.jpg"  
+    alt="Amelia">  
+
+  <div style="flex:1;">  
+
+    <strong>Amelia 🇫🇷</strong>  
+
+    <div class="chat-active">  
+      <span class="chat-active-dot"></span>  
+      France • Active  
+    </div>  
+
+  </div>  
+
+</div>  
+
+<div style="margin-top:12px;">  
+  💰 TSh 95,000 • $38  
+</div>  
+
+<button  
+  class="action-btn"  
+  style="width:100%;margin-top:10px;"  
+  onclick="notAvailable('You need 15 referrals to start chat.')">  
+  Start Chat  
+</button>
+
+  </div>  </section>  <!-- =====================================================  
+     TEAM PAGE  
+====================================================== -->  <section id="teamPage" class="page">  <div class="welcome">  
+<h2>👥 My Team</h2>  
+<p>Watu uliowaalika moja kwa moja wataonekana hapa automatically.</p>  
+</div>  <div class="card">  <div style="  
+display:flex;  
+justify-content:space-between;  
+align-items:center;  
+gap:10px;  
+margin-bottom:8px;  
+">  <h3>👥 Level 1 — Direct Members</h3>  <span class="team-count-badge" id="teamLevel1Badge">  
+0  
+</span>  </div>  <p>  
+Hawa ni users waliosajiliwa moja kwa moja kupitia referral link yako.  
+</p>  <button class="team-refresh-btn" onclick="loadTeamMembers()">  
+↻ Refresh Team  
+</button>  <div id="level1MembersContainer">  <div class="loading-state">  
+Loading your direct team...  
+</div>  </div>  </div>  <div class="card">  <div style="  
+display:flex;  
+justify-content:space-between;  
+align-items:center;  
+gap:10px;  
+margin-bottom:8px;  
+">  <h3>👥 Level 2 — Indirect Members</h3>  <span class="team-count-badge" id="teamLevel2Badge">  
+0  
+</span>  </div>  <p>  
+Hawa ni users waliojiunga kupitia members wa Level 1.  
+</p>  <div id="level2MembersContainer">  <div class="loading-state">  
+Loading Level 2...  
+</div>  </div>  </div>  <div class="card">  <h3>📊 Team Summary</h3>  <p id="teamSummary">  
+Level 1: 0 Members<br>  
+Level 2: 0 Members<br>  
+Total Team: 0 Members  
+</p>  </div>  </section>  <section id="earningsPage" class="page">  <div class="welcome">  
+<h2>💰 Earnings</h2>  
+<p>Your earnings overview</p>  
+</div>  <div class="card">  <h3>Main Balance</h3>  <h2 id="earningsMainBalance"  
+style="color:#087443;margin-top:10px">  
+TSh 0  
+</h2>  <p>Referral money + Spin Wheel winnings</p>  </div>  <div class="card">  <h3>Activity Earnings</h3>  <h2 id="earningsActivity"  
+style="color:#159d68;margin-top:10px">  
+TSh 0  
+</h2>  <p>Money earned from completed activities.</p>  </div>  <div class="card">  <h3>Net Profit</h3>  <h2 id="earningsNetProfit"  
+style="color:#087cca;margin-top:10px">  
+TSh 0  
+</h2>  <p>Lifetime total earnings</p>  </div>  <div class="card">  <h3>Withdrawal</h3>  <p>  
+Withdrawals are made from Main Balance only. Minimum withdrawal is TSh 12,000.  
+Your withdrawal request will be pending until it is reviewed and approved by Payment Admin.  
+</p>  <button class="action-btn" onclick="withdraw()">Withdraw</button>
+
+</div>  </section>  <section id="profilePage" class="page">  <div class="welcome">  
+<h2>👤 My Profile</h2>  
+<p>Account information</p>  
+</div>  <div class="card">  <div style="text-align:center;font-size:60px">👤</div>  <h2 id="profileName"  
+style="text-align:center;margin-bottom:15px">  
+User  
+</h2>  <p>  
+<strong>Username:</strong>  
+<span id="profileUsername">--</span>  
+</p>  <p>  
+<strong>Email:</strong>  
+<span id="profileEmail">--</span>  
+</p>  <p>  
+<strong>Referral ID:</strong>  
+<span id="profileReferralId">--</span>  
+</p>  <p>  
+<strong>Account Status:</strong>  
+<span id="profileStatus">Pending Activation</span>  
+</p>  </div>  <div class="card">  <h3>⚙️ Settings</h3>  <button class="action-btn"  
+onclick="showPage('settingsPage',null)">
+Open Settings
+</button>
+
+</div>  </section>  <section id="settingsPage" class="page">  <div class="welcome">  
+<h2>⚙️ Settings</h2>  
+<p>Manage your HASTAN GLOBE account.</p>  
+</div>  <div id="settingsLoggedOut">  <div class="settings-status">  
+🔐 Ingia kwenye akaunti yako ya HASTAN GLOBE.  
+</div>  <div class="settings-login-box">  <div style="text-align:center;margin-bottom:14px">  <div class="logo"  
+aria-label="HASTAN GLOBE"  
+style="height:65px">  <span class="logo-h" style="font-size:44px">H</span>
+<span class="logo-astan" style="font-size:34px">ASTAN</span>
+<span class="logo-globe"  
+style="font-size:15px;margin-top:-38px">
+GLOBE
+</span>
+
+</div>  </div>  <h3 style="text-align:center;color:#087443">  
+🔐 HASTAN GLOBE Login  
+</h3>  <p style="text-align:center">  
+Tumia email na password ya akaunti yako ya HASTAN GLOBE.  
+</p>  <div class="form-group">  <label>Email ya Akaunti</label>
+
+<input  
+class="form-control"  
+id="loginEmail"  
+type="email"  
+placeholder="Email ya HASTAN GLOBE"  
+autocomplete="username">
+
+</div>  <div class="form-group">  <label>Password</label>
+
+<input  
+class="form-control"  
+id="loginPassword"  
+type="password"  
+placeholder="Password ya akaunti yako"  
+autocomplete="current-password">
+
+</div>  <button  
+class="action-btn"  
+id="loginButton"  
+onclick="loginUser()"  
+style="width:100%">
+
+🔐 Ingia HASTAN GLOBE
+
+</button>  <div id="loginError" class="settings-error"></div>  
+<div id="loginSuccess" class="settings-success"></div>  </div>  </div>  <div id="settingsLoggedIn" style="display:none">  <div class="settings-status">  
+✅ Umeingia kwenye akaunti yako ya HASTAN GLOBE.  
+</div>  <div class="card">  <h3>👤 HASTAN GLOBE Account</h3>  <p>Email ya akaunti:</p>  <strong  
+id="loggedInEmail"  
+style="display:block;margin-top:8px;color:#087443;word-break:break-all">
+
+</strong>  </div>  <div class="card">  <h3>🚪 Toka kwenye akaunti</h3>  <p>  
+Ondoka kwenye akaunti yako ya HASTAN GLOBE kwenye kifaa hiki.  
+</p>  <button  
+class="action-btn"  
+onclick="logoutUser()"  
+style="width:100%;background:#c0392b">
+🚪 Logout
+</button>
+
+</div>  </div>  </section>  <!-- =====================================================  
+     NOTIFICATIONS PAGE  
+====================================================== -->  <section id="notificationsPage" class="page">  <div class="welcome">  <h2>🔔 Notifications</h2>  <p>Your latest notifications</p>  </div>  <div id="notificationsContainer">  <div class="loading-state">  
+Loading notifications...  
+</div>  </div>  </section>  <section id="withdrawPage" class="page">  <div class="welcome">  
+<h2>💸 Withdraw</h2>  
+<p>Request withdrawal from your Main Balance.</p>  
+</div>  <div class="card">  <div style="  
+background:#eaf8f1;  
+border-radius:14px;  
+padding:16px;  
+margin-bottom:15px;  
+border-left:4px solid #087443;  
+">  <div style="font-size:12px;color:#657080;margin-bottom:5px;">  
+Available Main Balance  
+</div>  <strong  
+id="withdrawAvailableBalance"  
+style="display:block;font-size:24px;color:#087443;">
+TSh 0
+</strong>
+
+<div style="font-size:11px;color:#777;margin-top:5px;">  
+Minimum withdrawal: TSh 12,000  
+</div>  </div>  <div class="form-group">  <label>Amount</label>
+
+<input  
+class="form-control"  
+id="withdrawAmount"  
+type="number"  
+min="12000"  
+step="1"  
+placeholder="Minimum TSh 12,000">
+
+</div>  <div class="form-group">  <label>Payment Number</label>
+
+<input  
+class="form-control"  
+id="withdrawNumber"  
+type="text"  
+placeholder="07XXXXXXXX">
+
+</div>  <button  
+class="action-btn"  
+id="withdrawSubmitButton"  
+onclick="submitWithdrawal()">
+Submit Withdrawal
+</button>
+
+<div style="  
+margin-top:10px;  
+font-size:11px;  
+color:#777;  
+text-align:center;">  
+The withdrawal amount is reserved immediately when you submit the request.  
+</div>  </div>  <div class="withdraw-history">  <div class="withdraw-history-header">  <h3>📜 Withdrawal History</h3>  <button  
+class="withdraw-refresh"  
+onclick="loadWithdrawalHistory()">
+↻ Refresh
+</button>
+
+</div>  <div id="withdrawalHistoryContainer">  
+<div class="withdraw-history-loading">  
+Loading withdrawal history...  
+</div>  
+</div>  </div>  </section>  <nav class="bottom-nav">  <button class="nav-btn active"  
+onclick="showPage('homePage',this)">
+🏠
+<span>Home</span>
+</button>
+
+<button class="nav-btn"  
+onclick="showPage('teamPage',this)">
+👥
+<span>Team</span>
+</button>
+
+<button class="nav-btn"  
+onclick="showPage('earningsPage',this)">
+💰
+<span>Earnings</span>
+</button>
+
+<button class="nav-btn"  
+onclick="showPage('profilePage',this)">
+👤
+<span>Profile</span>
+</button>
+
+</nav>  </div>  <!-- =====================================================  
+     MENU  
+====================================================== -->  <div class="overlay" id="overlay" onclick="closeMenu()"></div>  <aside class="side-menu" id="sideMenu">  <div class="menu-header">  <h2>HASTAN GLOBE</h2>  <p>CONNECT • LEARN • WORK • EARN • GAME</p>  </div>  <button class="menu-item"  
+onclick="showPageFromMenu('homePage')">
+🏠 Home
+</button>
+
+<button class="menu-item"  
+onclick="showPageFromMenu('tasksPage')">
+📋 Tasks
+</button>
+
+<button class="menu-item"  
+onclick="showPageFromMenu('videosPage')">
+🎥 Videos
+</button>
+
+<!-- LIVE TV -->  <button class="menu-item"  
+onclick="showPageFromMenu('liveTvPage')">
+📺 Live TV
+</button>
+
+<button class="menu-item"  
+onclick="showPageFromMenu('adsPage')">
+👍 Like Ads
+</button>
+
+<button class="menu-item"  
+onclick="showPageFromMenu('quizPage')">
+🌍 Travel Quiz
+</button>
+
+<button class="menu-item"  
+onclick="showPageFromMenu('spinPage')">
+🎡 Spin Wheel
+</button>
+
+<button class="menu-item"  
+onclick="showPageFromMenu('socialPage')">
+📱 Social Media
+</button>
+
+<!-- SWAHILI CHAT -->  <button class="menu-item" onclick="showPageFromMenu('swahiliChatPage')">  
+  💬 Swahili Chat  
+</button>  <button class="menu-item"  
+onclick="notAvailable('Global Jobs')">
+💼 Global Jobs
+</button>
+
+<div class="menu-divider"></div>  <button class="menu-item"  
+onclick="showPageFromMenu('teamPage')">
+👥 My Team
+</button>
+
+<button class="menu-item"  
+onclick="showPageFromMenu('earningsPage')">
+💰 Earnings
+</button>
+
+<button class="menu-item"  
+onclick="showPageFromMenu('notificationsPage')">
+🔔 Notifications
+</button>
+
+<button class="menu-item"  
+onclick="window.location.href='/game/'">
+🎮 Gamer Mode
+</button>
+
+<button class="menu-item"  
+onclick="showPageFromMenu('withdrawPage')">
+💸 Withdraw
+</button>
+
+<button class="menu-item"  
+onclick="showPageFromMenu('settingsPage')">
+⚙️ Settings
+</button>
+
+</aside>  <!-- =====================================================  
+     GAMER MODE  
+====================================================== -->  <section id="gamerMode">  <div class="gamer-header">  <button class="gamer-back" onclick="backNormal()">  
+← Back  
+</button>  <div class="gamer-logo">  
+⚽ HASTAN GLOBE  
+</div>  <button class="gamer-back"  
+onclick="showGamerNotifications()">
+🔔
+</button>
+
+</div>  <div class="gamer-content">  <div id="gamerHome" class="gamer-page active">  <div class="gamer-profile">  <div class="avatar">H</div>  <div>  <h2 id="gamerProfileName">User</h2>  <p style="color:#8c98a5;margin-top:4px">  
+eFootball ID:  
+<span id="gamerId">--</span>  
+</p>  <p style="color:#54d4ff;margin-top:4px">  
+Rank #24  
+</p>  </div>  </div>  <div class="gamer-balance">  <small>Gamer Balance</small>
+
+<strong id="gamerBalance">TSh 0</strong>
+
+</div>  <div class="team-card">  <p style="color:#8c98a5">MY TEAM</p>  <div class="team-name">HASTAN FC</div>  <p style="color:#8c98a5;margin-top:7px">  
+eFootball Team  
+</p>  </div>  <div class="gamer-menu-grid">  <button class="gamer-menu-btn"  
+onclick="showGamerSub('tournamentsPage')">
+
+<div>🏆</div>  
+Tournaments  
+</button>  <button class="gamer-menu-btn"  
+onclick="showGamerSub('matchesPage')">
+
+<div>⚽</div>  
+My Matches  
+</button>  <button class="gamer-menu-btn"  
+onclick="showGamerSub('schedulePage')">
+
+<div>📅</div>  
+Schedule  
+</button>  <button class="gamer-menu-btn"  
+onclick="showGamerSub('rankingPage')">
+
+<div>🏅</div>  
+Ranking  
+</button>  <button class="gamer-menu-btn"  
+onclick="showGamerSub('resultPage')">
+
+<div>📤</div>  
+Submit Result  
+</button>  <button class="gamer-menu-btn"  
+onclick="showGamerSub('historyPage')">
+
+<div>📜</div>  
+History  
+</button>  <button class="gamer-menu-btn"  
+onclick="showGamerSub('walletPage')">
+
+<div>💰</div>  
+Prizes  
+</button>  <button class="gamer-menu-btn"  
+onclick="showGamerNotifications()">
+
+<div>🔔</div>  
+Notifications  
+</button>  </div>  <div class="match-card">  <h3>🔥 Next Match</h3>  <div class="match-vs">  <strong>HASTAN FC</strong>
+
+<span class="vs">VS</span>
+
+<strong>Opponent</strong>
+
+</div>  <p style="color:#8c98a5">  
+Match Fee: TSh 5,000  
+</p>  <p style="color:#8c98a5;margin-top:5px">  
+Today • 20:00  
+</p>  </div>  <div class="gamer-stat-grid">  <div class="gamer-stat">  
+<strong>12</strong>  
+<small>Matches</small>  
+</div>  <div class="gamer-stat">  
+<strong>8</strong>  
+<small>Wins</small>  
+</div>  <div class="gamer-stat">  
+<strong>4</strong>  
+<small>Losses</small>  
+</div>  </div>  </div>  <div id="tournamentsPage" class="gamer-page">  <div class="team-card">  <h2>🏆 Tournaments</h2>  <p style="color:#8c98a5;margin-top:7px">  
+Available eFootball tournaments.  
+</p>  </div>  <div class="match-card">  <h3>HASTAN CUP</h3>  <p style="color:#8c98a5;margin-top:7px">  
+32 Players  
+</p>  <p style="color:#54d4ff;margin-top:7px">  
+Entry: TSh 5,000  
+</p>  <button class="gamer-action"  
+onclick="notAvailable('Tournament Registration')">
+Join Tournament
+</button>
+
+</div>  </div>  <div id="matchesPage" class="gamer-page">  <div class="team-card">  
+<h2>⚽ My Matches</h2>  
+</div>  <div class="match-card">  <h3>Match #001</h3>  <div class="match-vs">  <strong>HASTAN FC</strong>
+
+<span class="vs">VS</span>
+
+<strong>Opponent</strong>
+
+</div>  <p style="color:#8c98a5">  
+Status: Scheduled  
+</p>  </div>  </div>  <div id="schedulePage" class="gamer-page">  <div class="team-card">  
+<h2>📅 Match Schedule</h2>  
+</div>  <div class="match-card">  <p style="color:#54d4ff">  
+Today • 20:00  
+</p>  <h3 style="margin-top:10px">  
+HASTAN FC vs Opponent  
+</h3>  <p style="color:#8c98a5;margin-top:7px">  
+Match Fee: TSh 5,000  
+</p>  </div>  </div>  <div id="rankingPage" class="gamer-page">  <div class="team-card">  
+<h2>🏅 Ranking</h2>  
+</div>  <div class="match-card">  <h3>#24 — <span id="rankingUserName">Player</span></h3>  <p style="color:#8c98a5;margin-top:7px">  
+HASTAN FC  
+</p>  </div>  <div class="match-card">  <h3>#25 — Player</h3>  <p style="color:#8c98a5;margin-top:7px">  
+Team  
+</p>  </div>  </div>  <div id="resultPage" class="gamer-page">  <div class="team-card">  <h2>📤 Submit Result</h2>  <p style="color:#8c98a5;margin-top:7px">  
+Submit your match result for admin verification.  
+</p>  </div>  <div class="match-card">  <div class="form-group">  <label>Opponent</label>
+
+<input  
+class="gamer-input"  
+id="opponentInput"  
+placeholder="Opponent username">
+
+</div>  <div class="form-group">  <label>Your Score</label>
+
+<input  
+class="gamer-input"  
+id="yourScore"  
+type="number"  
+min="0"  
+placeholder="0">
+
+</div>  <div class="form-group">  <label>Opponent Score</label>
+
+<input  
+class="gamer-input"  
+id="opponentScore"  
+type="number"  
+min="0"  
+placeholder="0">
+
+</div>  <div class="form-group">  <label>Proof Image</label>
+
+<input  
+class="gamer-input"  
+id="proofImage"  
+type="file"  
+accept="image/*">
+
+</div>  <button class="gamer-action"  
+onclick="submitGamerResult()">
+Submit Result
+</button>
+
+</div>  </div>  <div id="historyPage" class="gamer-page">  <div class="team-card">  
+<h2>📜 Tournament History</h2>  
+</div>  <div class="match-card">  <h3>Previous Match</h3>  <p style="color:#54d4ff;margin-top:7px">  
+Won  
+</p>  <p style="color:#8c98a5;margin-top:5px">  
+HASTAN FC 3 - 1 Opponent  
+</p>  </div>  </div>  <div id="walletPage" class="gamer-page">  <div class="team-card">  <h2>💰 Gamer Wallet</h2>  <p style="color:#8c98a5;margin-top:8px">  
+Available Gamer Balance  
+</p>  <h1  
+style="margin-top:10px;color:#54d4ff"  
+id="gamerWalletBalance">  
+TSh 0  
+</h1>  </div>  <div class="match-card">  <h3>Withdraw Gamer Prize</h3>  <p style="color:#8c98a5;margin-top:7px">  
+Gamer withdrawals require Payment Admin approval.  
+</p>  <div class="form-group">  <label>Payment Number</label>
+
+<input  
+class="gamer-input"  
+id="gamerWithdrawNumber"  
+type="text"  
+placeholder="07XXXXXXXX">
+
+</div>  <button class="gamer-action"  
+onclick="withdrawGamer()">
+Withdraw
+</button>
+
+</div>  </div>  </div>  </section>  <!-- =====================================================  
+     ACTIVATION SCREEN  
+====================================================== -->  <div id="activationScreen">  <div class="activation-box">  <div class="activation-logo">  <div class="logo" aria-label="HASTAN GLOBE">  <span class="logo-h" style="font-size:40px">H</span>
+
+<span class="logo-astan" style="font-size:32px">  
+ASTAN  
+</span>  <span class="logo-globe"  
+style="font-size:13px;margin-top:-35px">
+GLOBE
+</span>
+
+</div>  </div>  <div class="activation-icon">🔐</div>  <h2>Activate Your Account</h2>  <p>  
+Akaunti yako imesajiliwa lakini bado haija-activate.  
+Tafadhali lipa activation fee ya HASTAN GLOBE.  
+Baada ya Payment Admin kuthibitisha malipo, akaunti yako ita-activate.  
+</p>  <div class="activation-payment">  <small>LIPA HASTAN GLOBE</small>
+
+<div class="activation-number">  
+356574572  
+</div>  <div class="activation-name">  
+Vodacom M-Pesa  
+</div>  <div class="activation-name">  
+LIPA HASTAN GLOBE  
+</div>  <div class="activation-amount">  
+Activation Fee: TSh 10,000  
+</div>  </div>  <div class="activation-status" id="activationStatusText">  
+⏳ Account yako inasubiri activation ya Payment Admin.  
+</div>  <button class="activation-refresh"  
+onclick="checkActivationStatus()">
+🔄 Check Activation Status
+</button>
+
+<button class="activation-logout"  
+onclick="logoutUser()">
+🚪 Logout
+</button>
+
+</div>  </div>  <!-- =====================================================  
+     MODAL  
+====================================================== -->  <div class="modal" id="modal">  <div class="modal-box">  <div class="modal-icon" id="modalIcon">  
+ℹ️  
+</div>  <h3 id="modalTitle">  
+Notice  
+</h3>  <p id="modalMessage">  
+Message  
+</p>  <button class="close-modal"  
+onclick="closeModal()">
+OK
+</button>
+
+</div>  </div>  <!-- =====================================================  
+     BASIC JAVASCRIPT  
+====================================================== -->  <script type="module" src="script.js"></script>  <!-- =====================================================  
+     FIREBASE  
+====================================================== -->  <!-- =====================================================  
+     MICHAEL CHAT PAGE  
+====================================================== -->  <section id="michaelChatPage" class="page" style="display:none;">  
+  <!-- CLOSE MICHAEL CHAT -->  
+<div style="  
+  display:flex;  
+  justify-content:flex-end;  
+  margin-bottom:8px;  
+">  
+  <button  
+    type="button"  
+    onclick="closeMichaelChat()"  
+    style="  
+      border:none;  
+      background:#ffffff;  
+      color:#555;  
+      width:40px;  
+      height:40px;  
+      border-radius:50%;  
+      font-size:22px;  
+      font-weight:bold;  
+      box-shadow:0 2px 8px rgba(0,0,0,.12);  
+      cursor:pointer;  
+    "  
+  >  
+    ×  
+  </button>  
+</div>  
+  <!-- CHAT HEADER -->  
+  <div style="  
+    background:linear-gradient(135deg,#0f7a45,#19a463);  
+    color:white;  
+    padding:18px;  
+    border-radius:16px;  
+    margin-bottom:12px;  
+  ">  <div style="  
+  display:flex;  
+  align-items:center;  
+  gap:12px;  
+">  
+
+  <img  
+    src="https://randomuser.me/api/portraits/men/46.jpg"  
+    style="  
+      width:55px;  
+      height:55px;  
+      border-radius:50%;  
+      object-fit:cover;  
+      border:3px solid white;  
+    "  
+    alt="Michael">  
+
+  <div>  
+    <strong style="font-size:18px;">  
+      Michael 🇩🇪  
+    </strong>  
+
+    <div style="font-size:13px;">  
+      🟢 Active • Germany  
+    </div>  
+  </div>  
+
+</div>  
+
+<!-- BALANCE -->  
+<div style="  
+  margin-top:14px;  
+  background:rgba(255,255,255,.15);  
+  padding:13px;  
+  border-radius:12px;  
+">  
+
+  <div style="font-size:13px;">  
+    Main Balance  
+  </div>  
+
+  <strong  
+    id="michaelChatBalance"  
+    style="font-size:23px;">  
+    TSh 256,000  
+  </strong>  
+
+</div>
+
+  </div>    <!-- CHAT AREA -->    <div id="michaelMessages" style="  
+    background:#f5f7f6;  
+    padding:12px;  
+    border-radius:15px;  
+    min-height:430px;  
+    max-height:520px;  
+    overflow-y:auto;  
+  ">  <!-- MICHAEL -->  
+<div style="  
+  display:flex;  
+  gap:8px;  
+  margin-bottom:12px;  
+">  
+
+  <img  
+    src="https://randomuser.me/api/portraits/men/46.jpg"  
+    style="  
+      width:36px;  
+      height:36px;  
+      border-radius:50%;  
+      object-fit:cover;  
+    ">  
+
+  <div style="  
+    background:white;  
+    padding:10px 13px;  
+    border-radius:13px;  
+    max-width:78%;  
+    box-shadow:0 2px 5px rgba(0,0,0,.06);  
+  ">  
+    Hello habari Tanzania 👋  
+  </div>  
+
+</div>  
+
+
+<!-- USER -->  
+<div style="  
+  display:flex;  
+  justify-content:flex-end;  
+  margin-bottom:12px;  
+">  
+
+  <div style="  
+    background:#19a463;  
+    color:white;  
+    padding:10px 13px;  
+    border-radius:13px;  
+    max-width:78%;  
+  ">  
+    Mimi.. Nzuri uko vizuri..  
+  </div>  
+
+</div>  
+
+
+<!-- MICHAEL -->  
+<div style="  
+  display:flex;  
+  gap:8px;  
+  margin-bottom:12px;  
+">  
+
+  <img  
+    src="https://randomuser.me/api/portraits/men/46.jpg"  
+    style="  
+      width:36px;  
+      height:36px;  
+      border-radius:50%;  
+      object-fit:cover;  
+    ">  
+
+  <div style="  
+    background:white;  
+    padding:10px 13px;  
+    border-radius:13px;  
+    max-width:78%;  
+  ">  
+    Visuri kidogo, walimu hakuna huku.  
+  </div>  
+
+</div>  
+
+
+<!-- USER -->  
+<div style="  
+  display:flex;  
+  justify-content:flex-end;  
+  margin-bottom:12px;  
+">  
+
+  <div style="  
+    background:#19a463;  
+    color:white;  
+    padding:10px 13px;  
+    border-radius:13px;  
+    max-width:78%;  
+  ">  
+    Walimu wapo wengi tu..  
+  </div>  
+
+</div>  
+
+
+<!-- MICHAEL -->  
+<div style="  
+  display:flex;  
+  gap:8px;  
+  margin-bottom:12px;  
+">  
+
+  <img  
+    src="https://randomuser.me/api/portraits/men/46.jpg"  
+    style="  
+      width:36px;  
+      height:36px;  
+      border-radius:50%;  
+      object-fit:cover;  
+    ">  
+
+  <div style="  
+    background:white;  
+    padding:10px 13px;  
+    border-radius:13px;  
+    max-width:78%;  
+  ">  
+    Sawa kabisa 😊 nataka kujifunza sana sana Kiswahili.  
+  </div>  
+
+</div>
+
+  </div>    <!-- =====================================================  
+     MICHAEL CHAT INPUT  
+====================================================== -->  <div style="  
+  display:flex;  
+  gap:8px;  
+  margin-top:10px;  
+  padding:10px;  
+  background:white;  
+  border-radius:14px;  
+  border:1px solid #e5e5e5;  
+  width:100%;  
+  position:relative;  
+  z-index:50;  
+">  <input
+id="michaelMessageInput"
+type="text"
+placeholder="Andika ujumbe..."
+autocomplete="off"
+style="
+flex:1;
+min-width:0;
+height:48px;
+padding:0 13px;
+border:1px solid #ccc;
+border-radius:12px;
+outline:none;
+font-size:16px;
+background:white;
+color:#222;
+"
+onkeydown="
+if(event.key === 'Enter'){
+event.preventDefault();
+sendMichaelMessage();
+}
+"
+
+> 
+
+<button
+type="button"
+onclick="sendMichaelMessage()"
+style="
+width:75px;
+height:48px;
+border:none;
+border-radius:12px;
+background:#19a463;
+color:white;
+font-weight:bold;
+font-size:15px;
+cursor:pointer;
+"
+
+> 
+
+SEND
+
+  </button>  </div>  </section> 
+</body>  
+</html>

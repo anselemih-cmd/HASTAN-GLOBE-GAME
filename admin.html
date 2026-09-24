@@ -1,0 +1,876 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>HASTAN GLOBE - Main Admin</title>
+
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: Arial, sans-serif;
+        }
+
+        body {
+            background: #f2f8f5;
+            color: #172033;
+        }
+
+        .hidden {
+            display: none !important;
+        }
+
+        header {
+            background: linear-gradient(135deg, #087f5b, #168aad);
+            color: white;
+            padding: 18px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 10px;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .brand h1 {
+            font-size: 22px;
+        }
+
+        .brand p {
+            font-size: 12px;
+            opacity: .9;
+            margin-top: 4px;
+        }
+
+        #logoutBtn {
+            border: 0;
+            background: #ef4444;
+            color: white;
+            padding: 10px 14px;
+            border-radius: 8px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+        main {
+            max-width: 1200px;
+            margin: auto;
+            padding: 18px;
+        }
+
+        #loading {
+            background: white;
+            padding: 15px;
+            border-radius: 10px;
+            margin-bottom: 15px;
+            text-align: center;
+        }
+
+        #message {
+            padding: 12px;
+            border-radius: 8px;
+            margin-bottom: 15px;
+            display: none;
+        }
+
+        .success {
+            background: #dcfce7;
+            color: #166534;
+        }
+
+        .error {
+            background: #fee2e2;
+            color: #991b1b;
+        }
+
+        .stats {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 12px;
+            margin-bottom: 20px;
+        }
+
+        .stat {
+            background: white;
+            border-radius: 12px;
+            padding: 18px;
+            box-shadow: 0 3px 12px rgba(0,0,0,.06);
+        }
+
+        .stat h3 {
+            font-size: 13px;
+            color: #64748b;
+        }
+
+        .stat strong {
+            display: block;
+            font-size: 28px;
+            margin-top: 8px;
+            color: #087f5b;
+        }
+
+        .menu {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 12px;
+            margin-bottom: 25px;
+        }
+
+        .menu button {
+            border: 0;
+            background: white;
+            padding: 18px 10px;
+            border-radius: 12px;
+            box-shadow: 0 3px 12px rgba(0,0,0,.06);
+            cursor: pointer;
+            font-size: 15px;
+            font-weight: bold;
+            color: #172033;
+        }
+
+        .menu button:hover {
+            background: #e9f8f1;
+        }
+
+        .admin-section {
+            background: white;
+            border-radius: 14px;
+            padding: 20px;
+            margin-bottom: 20px;
+            box-shadow: 0 3px 12px rgba(0,0,0,.06);
+        }
+
+        .admin-section h2 {
+            color: #087f5b;
+            margin-bottom: 15px;
+        }
+
+        .form-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 12px;
+        }
+
+        .full {
+            grid-column: 1 / -1;
+        }
+
+        label {
+            display: block;
+            font-weight: bold;
+            font-size: 13px;
+            margin-bottom: 5px;
+        }
+
+        input,
+        textarea,
+        select {
+            width: 100%;
+            padding: 11px;
+            border: 1px solid #cbd5e1;
+            border-radius: 8px;
+            outline: none;
+            background: white;
+        }
+
+        textarea {
+            min-height: 90px;
+            resize: vertical;
+        }
+
+        input:focus,
+        textarea:focus,
+        select:focus {
+            border-color: #087f5b;
+        }
+
+        .primary {
+            background: #087f5b;
+            color: white;
+            border: 0;
+            padding: 11px 18px;
+            border-radius: 8px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+        .secondary {
+            background: #64748b;
+            color: white;
+            border: 0;
+            padding: 9px 14px;
+            border-radius: 7px;
+            cursor: pointer;
+        }
+
+        .danger {
+            background: #dc2626;
+            color: white;
+            border: 0;
+            padding: 9px 14px;
+            border-radius: 7px;
+            cursor: pointer;
+        }
+
+        .item-list {
+            margin-top: 20px;
+            display: grid;
+            gap: 12px;
+        }
+
+        .item {
+            border: 1px solid #e2e8f0;
+            border-radius: 10px;
+            padding: 14px;
+            background: #fafafa;
+        }
+
+        .item h3 {
+            margin-bottom: 6px;
+        }
+
+        .item p {
+            color: #475569;
+            margin: 5px 0;
+            line-height: 1.5;
+        }
+
+        .item-actions {
+            display: flex;
+            gap: 8px;
+            margin-top: 10px;
+            flex-wrap: wrap;
+        }
+
+        .tabs {
+            display: flex;
+            gap: 8px;
+            flex-wrap: wrap;
+            margin-bottom: 15px;
+        }
+
+        .tabs button {
+            border: 0;
+            background: #e2e8f0;
+            padding: 9px 13px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: bold;
+        }
+
+        .tabs button.active {
+            background: #087f5b;
+            color: white;
+        }
+
+        .activity-tab {
+            margin-top: 10px;
+        }
+
+        .preview {
+            max-width: 250px;
+            max-height: 180px;
+            border-radius: 10px;
+            margin-top: 10px;
+            object-fit: cover;
+            display: none;
+        }
+
+        .poster-card {
+            display: flex;
+            gap: 15px;
+            align-items: flex-start;
+        }
+
+        .poster-card img {
+            width: 130px;
+            height: 90px;
+            object-fit: cover;
+            border-radius: 8px;
+        }
+
+        .user-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr;
+            gap: 10px;
+            padding: 12px;
+            border-bottom: 1px solid #e2e8f0;
+        }
+
+        .empty {
+            text-align: center;
+            padding: 20px;
+            color: #64748b;
+        }
+
+        .status {
+            display: inline-block;
+            padding: 4px 8px;
+            border-radius: 20px;
+            background: #dcfce7;
+            color: #166534;
+            font-size: 12px;
+            font-weight: bold;
+        }
+
+        @media(max-width: 800px) {
+            .stats {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .menu {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .form-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .full {
+                grid-column: auto;
+            }
+
+            .user-row {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        @media(max-width: 480px) {
+            header {
+                padding: 14px;
+            }
+
+            .brand h1 {
+                font-size: 18px;
+            }
+
+            main {
+                padding: 10px;
+            }
+
+            .menu button {
+                padding: 15px 5px;
+                font-size: 13px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+<header>
+    <div class="brand">
+        <h1>🌍 HASTAN GLOBE</h1>
+        <p>MAIN ADMIN PANEL</p>
+    </div>
+
+    <button id="logoutBtn">Logout</button>
+</header>
+
+<main>
+
+    <div id="loading">Checking Main Admin...</div>
+    <div id="message"></div>
+
+    <!-- STATS -->
+    <div class="stats">
+
+        <div class="stat">
+            <h3>Total Users</h3>
+            <strong id="totalUsers">0</strong>
+        </div>
+
+        <div class="stat">
+            <h3>Videos</h3>
+            <strong id="videoCount">0</strong>
+        </div>
+
+        <div class="stat">
+            <h3>Schedules</h3>
+            <strong id="scheduleCount">0</strong>
+        </div>
+
+        <div class="stat">
+            <h3>Notifications</h3>
+            <strong id="notificationCount">0</strong>
+        </div>
+
+    </div>
+
+    <!-- MENU -->
+    <div class="menu">
+
+        <button data-section="usersSection">👥 Users</button>
+
+        <button data-section="activitiesSection">🎯 Activities</button>
+
+        <button data-section="scheduleSection">📅 Schedule</button>
+
+        <button data-section="notificationsSection">🔔 Notifications</button>
+
+        <button data-section="referralsSection">🤝 Referrals</button>
+
+        <button data-section="gamerSection">🎮 Gamer System</button>   
+      <button
+    type="button"
+    onclick="window.location.href='/game/admin.html'">
+    🎮 Game Mode Admin
+</button>
+        <button data-section="settingsSection">⚙️ Settings</button>
+
+    </div>
+
+    <!-- USERS -->
+    <section id="usersSection" class="admin-section hidden">
+
+        <h2>👥 Users</h2>
+
+        <div id="usersList" class="item-list">
+            <div class="empty">Loading users...</div>
+        </div>
+
+    </section>
+
+    <!-- ACTIVITIES -->
+    <section id="activitiesSection" class="admin-section hidden">
+
+        <h2>🎯 Activities</h2>
+
+        <div class="tabs">
+
+            <button class="activity-menu active" data-tab="videosTab">
+                🎥 Videos
+            </button>
+
+            <button class="activity-menu" data-tab="adsTab">
+                🖼️ Posters
+            </button>
+
+            <button class="activity-menu" data-tab="quizTab">
+                🌍 Travel Quiz
+            </button>
+
+            <button class="activity-menu" data-tab="spinTab">
+                🎡 Spin Wheel
+            </button>
+
+        </div>
+
+
+        <!-- VIDEOS -->
+        <div id="videosTab" class="activity-tab">
+
+            <h3>Add Video</h3>
+
+            <form id="videoForm">
+
+                <input type="hidden" id="videoId">
+
+                <div class="form-grid">
+
+                    <div>
+                        <label>Video Title</label>
+                        <input id="videoTitle" required>
+                    </div>
+
+                    <div>
+                        <label>Reward (TSh)</label>
+                        <input id="videoReward" type="number" min="0" required>
+                    </div>
+
+                    <div class="full">
+                        <label>Video URL</label>
+                        <input
+                            id="videoUrl"
+                            type="url"
+                            placeholder="https://..."
+                            required
+                        >
+                    </div>
+
+                    <div class="full">
+                        <label>Description</label>
+                        <textarea id="videoDescription"></textarea>
+                    </div>
+
+                </div>
+
+                <br>
+
+                <button class="primary" type="submit">
+                    Save Video
+                </button>
+
+                <button
+                    class="secondary hidden"
+                    type="button"
+                    id="cancelVideoEdit">
+                    Cancel Edit
+                </button>
+
+            </form>
+
+            <div id="videosList" class="item-list"></div>
+
+        </div>
+
+
+        <!-- POSTERS -->
+        <div id="adsTab" class="activity-tab hidden">
+
+            <h3>Add Poster / Image Ad</h3>
+
+            <form id="adForm">
+
+                <input type="hidden" id="adId">
+
+                <div class="form-grid">
+
+                    <div>
+                        <label>Poster Title</label>
+                        <input id="adTitle" required>
+                    </div>
+
+                    <div>
+                        <label>Reward (TSh)</label>
+                        <input id="adReward" type="number" min="0" required>
+                    </div>
+
+                    <div class="full">
+                        <label>Choose Real Image</label>
+
+                        <input
+                            id="adImageFile"
+                            type="file"
+                            accept="image/*"
+                            required
+                        >
+
+                        <img
+                            id="adPreview"
+                            class="preview"
+                            alt="Image Preview"
+                        >
+                    </div>
+
+                    <div class="full">
+                        <label>Description</label>
+                        <textarea id="adDescription"></textarea>
+                    </div>
+
+                </div>
+
+                <br>
+
+                <button class="primary" type="submit">
+                    Upload & Save Poster
+                </button>
+
+                <button
+                    class="secondary hidden"
+                    type="button"
+                    id="cancelAdEdit">
+                    Cancel Edit
+                </button>
+
+            </form>
+
+            <div id="imageAdsList" class="item-list"></div>
+
+        </div>
+
+
+        <!-- QUIZ -->
+        <div id="quizTab" class="activity-tab hidden">
+
+            <h3>Add Travel Quiz</h3>
+
+            <form id="quizForm">
+
+                <input type="hidden" id="quizId">
+
+                <div class="form-grid">
+
+                    <div class="full">
+                        <label>Question</label>
+                        <textarea id="quizQuestion" required></textarea>
+                    </div>
+
+                    <div>
+                        <label>Option A</label>
+                        <input id="quizOptionA" required>
+                    </div>
+
+                    <div>
+                        <label>Option B</label>
+                        <input id="quizOptionB" required>
+                    </div>
+
+                    <div>
+                        <label>Option C</label>
+                        <input id="quizOptionC" required>
+                    </div>
+
+                    <div>
+                        <label>Option D</label>
+                        <input id="quizOptionD" required>
+                    </div>
+
+                    <div>
+                        <label>Correct Answer</label>
+
+                        <select id="quizCorrectAnswer" required>
+                            <option value="">Select</option>
+                            <option value="A">A</option>
+                            <option value="B">B</option>
+                            <option value="C">C</option>
+                            <option value="D">D</option>
+                        </select>
+                    </div>
+
+                    <div>
+                        <label>Reward (TSh)</label>
+                        <input
+                            id="quizReward"
+                            type="number"
+                            min="0"
+                            required
+                        >
+                    </div>
+
+                </div>
+
+                <br>
+
+                <button class="primary" type="submit">
+                    Save Quiz
+                </button>
+
+                <button
+                    class="secondary hidden"
+                    type="button"
+                    id="cancelQuizEdit">
+                    Cancel Edit
+                </button>
+
+            </form>
+
+            <div id="travelQuizList" class="item-list"></div>
+
+        </div>
+
+
+        <!-- SPIN -->
+        <div id="spinTab" class="activity-tab hidden">
+
+            <h3>Add Spin Wheel Reward</h3>
+
+            <form id="spinForm">
+
+                <input type="hidden" id="spinId">
+
+                <div class="form-grid">
+
+                    <div>
+                        <label>Reward Name</label>
+                        <input id="spinName" required>
+                    </div>
+
+                    <div>
+                        <label>Amount (TSh)</label>
+                        <input
+                            id="spinAmount"
+                            type="number"
+                            min="0"
+                            required
+                        >
+                    </div>
+
+                    <div>
+                        <label>Probability (%)</label>
+                        <input
+                            id="spinProbability"
+                            type="number"
+                            min="0"
+                            max="100"
+                            step="0.01"
+                            required
+                        >
+                    </div>
+
+                </div>
+
+                <br>
+
+                <button class="primary" type="submit">
+                    Save Spin Reward
+                </button>
+
+                <button
+                    class="secondary hidden"
+                    type="button"
+                    id="cancelSpinEdit">
+                    Cancel Edit
+                </button>
+
+            </form>
+
+            <div id="spinWheelList" class="item-list"></div>
+
+        </div>
+
+    </section>
+
+
+    <!-- SCHEDULE -->
+    <section id="scheduleSection" class="admin-section hidden">
+
+        <h2>📅 Schedule</h2>
+
+        <form id="scheduleForm">
+
+            <input type="hidden" id="scheduleId">
+
+            <div class="form-grid">
+
+                <div>
+                    <label>Title</label>
+                    <input id="scheduleTitle" required>
+                </div>
+
+                <div>
+                    <label>Status</label>
+
+                    <select id="scheduleStatus">
+                        <option value="upcoming">Upcoming</option>
+                        <option value="active">Active</option>
+                        <option value="completed">Completed</option>
+                    </select>
+                </div>
+
+                <div>
+                    <label>Date</label>
+                    <input id="scheduleDate" type="date" required>
+                </div>
+
+                <div>
+                    <label>Time</label>
+                    <input id="scheduleTime" type="time" required>
+                </div>
+
+                <div class="full">
+                    <label>Description</label>
+                    <textarea id="scheduleDescription"></textarea>
+                </div>
+
+            </div>
+
+            <br>
+
+            <button class="primary" type="submit">
+                Save Schedule
+            </button>
+
+            <button
+                class="secondary hidden"
+                type="button"
+                id="cancelScheduleEdit">
+                Cancel Edit
+            </button>
+
+        </form>
+
+        <div id="scheduleList" class="item-list"></div>
+
+    </section>
+
+
+    <!-- NOTIFICATIONS -->
+    <section id="notificationsSection" class="admin-section hidden">
+
+        <h2>🔔 Notifications</h2>
+
+        <form id="notificationForm">
+
+            <div class="form-grid">
+
+                <div>
+                    <label>Title</label>
+                    <input id="notificationTitle" required>
+                </div>
+
+                <div>
+                    <label>Target</label>
+
+                    <select id="notificationTarget">
+                        <option value="all">All Users</option>
+                    </select>
+                </div>
+
+                <div class="full">
+                    <label>Message</label>
+                    <textarea id="notificationMessage" required></textarea>
+                </div>
+
+            </div>
+
+            <br>
+
+            <button class="primary" type="submit">
+                Send Notification
+            </button>
+
+        </form>
+
+        <div id="notificationsList" class="item-list"></div>
+
+    </section>
+
+
+    <!-- REFERRALS -->
+    <section id="referralsSection" class="admin-section hidden">
+
+        <h2>🤝 Referral System</h2>
+
+        <p>
+            Referral management itaongezwa hapa baada ya
+            msingi wa Admin kukamilika.
+        </p>
+
+    </section>
+
+
+    <!-- GAMER -->
+    <section id="gamerSection" class="admin-section hidden">
+
+        <h2>🎮 Gamer System</h2>
+
+        <p>
+            Gamer tournaments, matches, rankings na prizes
+            vitaongezwa hapa.
+        </p>
+
+    </section>
+
+
+    <!-- SETTINGS -->
+    <section id="settingsSection" class="admin-section hidden">
+
+        <h2>⚙️ System Settings</h2>
+
+        <p>
+            System settings zitaongezwa hapa.
+        </p>
+
+    </section>
+
+</main>
+
+<script src="./admin-dashboard.js"></script>
+
+</body>
+</html>

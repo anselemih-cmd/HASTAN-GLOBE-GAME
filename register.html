@@ -1,0 +1,970 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>HASTAN GLOBE - Register</title>
+
+<style>
+*{
+    box-sizing:border-box;
+}
+
+body{
+    margin:0;
+    font-family:Arial, sans-serif;
+    background:linear-gradient(135deg,#eaf8ee,#e8f6ff);
+    color:#172033;
+    min-height:100vh;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    padding:20px;
+}
+
+.container{
+    width:100%;
+    max-width:440px;
+    background:white;
+    border-radius:22px;
+    padding:25px 22px;
+    box-shadow:0 10px 35px rgba(0,0,0,.12);
+}
+
+.logo{
+    text-align:center;
+    margin-bottom:5px;
+}
+
+.logo h1{
+    margin:0;
+    font-size:32px;
+    font-weight:900;
+}
+
+.logo .h{
+    color:#f97316;
+}
+
+.logo .astan{
+    color:#176b3a;
+}
+
+.logo small{
+    color:#168bd0;
+    font-weight:bold;
+    display:block;
+    margin-left:95px;
+    margin-top:-3px;
+}
+
+.subtitle{
+    text-align:center;
+    color:#697586;
+    font-size:14px;
+    margin:12px 0 20px;
+}
+
+h2{
+    text-align:center;
+    color:#176b3a;
+    margin-bottom:18px;
+}
+
+label{
+    display:block;
+    margin:12px 0 6px;
+    font-weight:bold;
+    font-size:14px;
+}
+
+input{
+    width:100%;
+    padding:13px;
+    border:1px solid #d5dce5;
+    border-radius:11px;
+    font-size:15px;
+    outline:none;
+}
+
+input:focus{
+    border-color:#168bd0;
+}
+
+.ref-box{
+    display:none;
+    background:#eefbf1;
+    border:1px solid #b9dfc1;
+    padding:12px;
+    border-radius:12px;
+    margin-bottom:15px;
+}
+
+.ref-title{
+    font-size:12px;
+    color:#607064;
+}
+
+.ref-code{
+    color:#176b3a;
+    font-weight:bold;
+    font-size:16px;
+    margin-top:3px;
+}
+
+.password-note{
+    font-size:12px;
+    color:#777;
+    margin-top:5px;
+}
+
+.terms{
+    display:flex;
+    align-items:flex-start;
+    gap:8px;
+    margin:17px 0;
+    font-size:13px;
+    line-height:1.4;
+}
+
+.terms input{
+    width:auto;
+    margin-top:3px;
+}
+
+.terms a{
+    color:#168bd0;
+    font-weight:bold;
+    cursor:pointer;
+}
+
+button{
+    width:100%;
+    border:none;
+    padding:14px;
+    border-radius:12px;
+    background:linear-gradient(135deg,#176b3a,#168bd0);
+    color:white;
+    font-size:16px;
+    font-weight:bold;
+    cursor:pointer;
+}
+
+button:disabled{
+    opacity:.6;
+}
+
+.message{
+    text-align:center;
+    min-height:20px;
+    margin-top:13px;
+    font-size:14px;
+}
+
+.login{
+    text-align:center;
+    margin-top:18px;
+    font-size:14px;
+}
+
+.login a{
+    color:#168bd0;
+    font-weight:bold;
+    text-decoration:none;
+}
+
+.modal{
+    display:none;
+    position:fixed;
+    inset:0;
+    background:rgba(0,0,0,.55);
+    justify-content:center;
+    align-items:center;
+    padding:20px;
+    z-index:1000;
+}
+
+.modal-box{
+    background:white;
+    width:100%;
+    max-width:430px;
+    max-height:80vh;
+    overflow:auto;
+    border-radius:18px;
+    padding:22px;
+}
+
+.modal-box h3{
+    color:#176b3a;
+}
+
+.modal-box p{
+    color:#555;
+    font-size:14px;
+    line-height:1.6;
+}
+
+.close-btn{
+    background:#172033;
+    margin-top:10px;
+}
+</style>
+</head>
+
+<body>
+
+<div class="container">
+
+    <div class="logo">
+        <h1>
+            <span class="h">H</span><span class="astan">ASTAN</span>
+        </h1>
+        <small>GLOBE</small>
+    </div>
+
+    <div class="subtitle">
+        Create your HASTAN GLOBE account
+    </div>
+
+    <h2>Register</h2>
+
+    <!-- REFERRAL CODE -->
+    <div class="ref-box" id="refBox">
+        <div class="ref-title">Referral Code</div>
+        <div class="ref-code" id="referrerCode"></div>
+    </div>
+
+    <form id="registerForm">
+
+        <label for="username">Username</label>
+        <input
+            id="username"
+            type="text"
+            placeholder="e.g. baraka"
+            required
+        >
+
+        <label for="fullName">Full Name</label>
+        <input
+            id="fullName"
+            type="text"
+            placeholder="Your full name"
+            required
+        >
+
+        <label for="phone">Phone Number</label>
+        <input
+            id="phone"
+            type="tel"
+            placeholder="07XXXXXXXX"
+            required
+        >
+
+        <label for="email">Email</label>
+        <input
+            id="email"
+            type="email"
+            placeholder="example@gmail.com"
+            required
+        >
+
+        <label for="password">Password</label>
+        <input
+            id="password"
+            type="password"
+            placeholder="Minimum 6 characters"
+            required
+        >
+
+        <label for="confirmPassword">Confirm Password</label>
+        <input
+            id="confirmPassword"
+            type="password"
+            placeholder="Confirm your password"
+            required
+        >
+
+        <div class="password-note">
+            Password lazima zifanane.
+        </div>
+
+        <div class="terms">
+            <input type="checkbox" id="terms">
+
+            <div>
+                I agree to HASTAN GLOBE
+                <a id="termsLink">Terms & Conditions</a>.
+            </div>
+        </div>
+
+        <button type="submit" id="registerBtn">
+            Create Account
+        </button>
+
+        <div class="message" id="message"></div>
+
+    </form>
+
+    <div class="login">
+        Already have an account?
+        <a href="./login.html">Login</a>
+    </div>
+
+</div>
+
+
+<!-- TERMS MODAL -->
+
+<div class="modal" id="termsModal">
+
+    <div class="modal-box">
+
+        <h3>Terms & Conditions</h3>
+
+        <p>
+            By creating a HASTAN GLOBE account, you agree to provide
+            correct information during registration.
+        </p>
+
+        <p>
+            You agree to use the platform responsibly and follow
+            HASTAN GLOBE rules.
+        </p>
+
+        <p>
+            Referral codes must not be used for fraudulent activities.
+        </p>
+
+        <p>
+            HASTAN GLOBE may review accounts and activities to protect
+            the security and fairness of the platform.
+        </p>
+
+        <button
+            type="button"
+            class="close-btn"
+            id="closeTerms"
+        >
+            Close
+        </button>
+
+    </div>
+
+</div>
+
+
+<script type="module">
+
+import { auth, db } from "./firebase-config.js";
+
+import {
+    createUserWithEmailAndPassword
+} from "https://www.gstatic.com/firebasejs/12.1.0/firebase-auth.js";
+
+import {
+    doc,
+    getDoc,
+    setDoc,
+    serverTimestamp
+} from "https://www.gstatic.com/firebasejs/12.1.0/firebase-firestore.js";
+
+
+/* =========================================
+   ELEMENTS
+========================================= */
+
+const form =
+    document.getElementById("registerForm");
+
+const registerBtn =
+    document.getElementById("registerBtn");
+
+const message =
+    document.getElementById("message");
+
+const refBox =
+    document.getElementById("refBox");
+
+const referrerCode =
+    document.getElementById("referrerCode");
+
+const usernameInput =
+    document.getElementById("username");
+
+const fullNameInput =
+    document.getElementById("fullName");
+
+const phoneInput =
+    document.getElementById("phone");
+
+const emailInput =
+    document.getElementById("email");
+
+const passwordInput =
+    document.getElementById("password");
+
+const confirmPasswordInput =
+    document.getElementById("confirmPassword");
+
+const termsInput =
+    document.getElementById("terms");
+
+
+/* =========================================
+   GET REFERRAL CODE FROM URL
+========================================= */
+
+const params =
+    new URLSearchParams(
+        window.location.search
+    );
+
+const referralCode =
+    (params.get("ref") || "")
+    .trim()
+    .toUpperCase();
+
+
+/* =========================================
+   SHOW REFERRAL CODE
+========================================= */
+
+if(referralCode){
+
+    refBox.style.display =
+        "block";
+
+    referrerCode.textContent =
+        referralCode;
+}
+
+
+/* =========================================
+   FIND REFERRER
+========================================= */
+
+async function findUserByReferralCode(code){
+
+    const cleanCode =
+        String(code || "")
+        .trim()
+        .toUpperCase();
+
+    if(!cleanCode){
+        return null;
+    }
+
+    /*
+       IMPORTANT:
+       We read the document directly using
+       the referral code as DOCUMENT ID.
+    */
+
+    const referralRef =
+        doc(
+            db,
+            "referralCodes",
+            cleanCode
+        );
+
+    const snapshot =
+        await getDoc(referralRef);
+
+    console.log(
+        "Referral searched:",
+        cleanCode
+    );
+
+    console.log(
+        "Referral exists:",
+        snapshot.exists()
+    );
+
+    if(!snapshot.exists()){
+        return null;
+    }
+
+    const data =
+        snapshot.data();
+
+    console.log(
+        "Referral data:",
+        data
+    );
+
+    if(!data.uid){
+        return null;
+    }
+
+    return {
+
+        uid:
+            String(data.uid),
+
+        username:
+            String(data.username || "")
+    };
+}
+
+
+/* =========================================
+   GENERATE USER REFERRAL CODE
+========================================= */
+
+function generateReferralCode(uid){
+
+    return "HG" +
+        String(uid || "")
+        .replace(/[^a-zA-Z0-9]/g,"")
+        .slice(0,8)
+        .toUpperCase();
+}
+
+
+/* =========================================
+   MESSAGE
+========================================= */
+
+function showMessage(
+    text,
+    success = false
+){
+
+    message.textContent =
+        text;
+
+    message.style.color =
+        success
+        ? "#176b3a"
+        : "#d62828";
+}
+
+
+/* =========================================
+   REGISTER
+========================================= */
+
+form.addEventListener(
+    "submit",
+    async function(event){
+
+        event.preventDefault();
+
+        showMessage("");
+
+
+        const username =
+            usernameInput.value
+            .trim()
+            .toLowerCase();
+
+        const fullName =
+            fullNameInput.value
+            .trim();
+
+        const phone =
+            phoneInput.value
+            .trim();
+
+        const email =
+            emailInput.value
+            .trim()
+            .toLowerCase();
+
+        const password =
+            passwordInput.value;
+
+        const confirmPassword =
+            confirmPasswordInput.value;
+
+
+        /* =========================
+           USERNAME VALIDATION
+        ========================= */
+
+        if(
+            !/^[a-z0-9._-]{3,30}$/
+            .test(username)
+        ){
+
+            showMessage(
+                "Username iwe na herufi ndogo, namba, dot, underscore au dash tu."
+            );
+
+            return;
+        }
+
+
+        /* =========================
+           PASSWORD VALIDATION
+        ========================= */
+
+        if(password.length < 6){
+
+            showMessage(
+                "Password lazima iwe na angalau characters 6."
+            );
+
+            return;
+        }
+
+
+        if(
+            password !==
+            confirmPassword
+        ){
+
+            showMessage(
+                "Password na Confirm Password hazifanani."
+            );
+
+            return;
+        }
+
+
+        /* =========================
+           TERMS
+        ========================= */
+
+        if(!termsInput.checked){
+
+            showMessage(
+                "Please accept Terms & Conditions."
+            );
+
+            return;
+        }
+
+
+        /* =========================
+           REFERRAL CHECK
+        ========================= */
+
+        let referrer = null;
+
+        if(referralCode){
+
+            try{
+
+                referrer =
+                    await findUserByReferralCode(
+                        referralCode
+                    );
+
+                if(!referrer){
+
+                    showMessage(
+                        "Referral code does not exist. Please check the referral link."
+                    );
+
+                    return;
+                }
+
+            }catch(error){
+
+                console.error(
+                    "Referral error:",
+                    error
+                );
+
+                showMessage(
+                    "Referral check failed: " +
+                    (
+                        error.message ||
+                        "Unknown error"
+                    )
+                );
+
+                return;
+            }
+        }
+
+
+        /* =========================
+           BUTTON
+        ========================= */
+
+        registerBtn.disabled =
+            true;
+
+        registerBtn.textContent =
+            "Creating Account...";
+
+
+        try{
+
+            /* =========================
+               CREATE AUTH ACCOUNT
+            ========================= */
+
+            const credential =
+                await createUserWithEmailAndPassword(
+                    auth,
+                    email,
+                    password
+                );
+
+            const user =
+                credential.user;
+
+            const uid =
+                user.uid;
+
+
+            /* =========================
+               CREATE REFERRAL CODE
+            ========================= */
+
+            const newReferralCode =
+                generateReferralCode(uid);
+
+
+            /* =========================
+               USER DATA
+            ========================= */
+
+            const userData = {
+
+                uid: uid,
+
+                username: username,
+
+                fullName: fullName,
+
+                phone: phone,
+
+                email: email,
+
+                role: "user",
+
+                activationStatus: "pending",
+
+                mainBalance: 0,
+
+                taskBalance: 0,
+
+                referralBalance: 0,
+
+                totalEarned: 0,
+
+                totalWithdrawn: 0,
+
+                referralCode:
+                    newReferralCode,
+
+                referredBy:
+                    referrer
+                    ? referrer.uid
+                    : "",
+
+                referredByUsername:
+                    referrer
+                    ? referrer.username
+                    : "",
+
+                referralEarnings: 0,
+
+                directReferrals: 0,
+
+                gamerStatus: false,
+
+                termsAccepted: true,
+
+                createdAt:
+                    serverTimestamp(),
+
+                updatedAt:
+                    serverTimestamp()
+            };
+
+
+            /* =========================
+               SAVE USER
+            ========================= */
+
+            await setDoc(
+
+                doc(
+                    db,
+                    "users",
+                    uid
+                ),
+
+                userData
+            );
+
+
+            /* =========================
+               SAVE REFERRAL CODE
+            ========================= */
+
+            await setDoc(
+
+                doc(
+                    db,
+                    "referralCodes",
+                    newReferralCode
+                ),
+
+                {
+
+                    uid: uid,
+
+                    username: username,
+
+                    createdAt:
+                        serverTimestamp()
+                }
+            );
+
+
+            /* =========================
+               SUCCESS
+            ========================= */
+
+            showMessage(
+                "Account created successfully. Redirecting...",
+                true
+            );
+
+
+            setTimeout(
+                function(){
+
+                    window.location.href =
+                        "./activation.html";
+
+                },
+                1000
+            );
+
+
+        }catch(error){
+
+            console.error(
+                "Registration error:",
+                error
+            );
+
+
+            let errorMessage =
+                "Registration failed.";
+
+
+            switch(error.code){
+
+                case "auth/email-already-in-use":
+
+                    errorMessage =
+                        "Email hii tayari imesajiliwa.";
+
+                    break;
+
+
+                case "auth/invalid-email":
+
+                    errorMessage =
+                        "Email si sahihi.";
+
+                    break;
+
+
+                case "auth/weak-password":
+
+                    errorMessage =
+                        "Password ni dhaifu.";
+
+                    break;
+
+
+                case "permission-denied":
+
+                    errorMessage =
+                        "Permission denied. Check Firestore Rules.";
+
+                    break;
+
+
+                default:
+
+                    if(error.message){
+
+                        errorMessage =
+                            error.message;
+                    }
+            }
+
+
+            showMessage(
+                errorMessage
+            );
+
+
+            registerBtn.disabled =
+                false;
+
+            registerBtn.textContent =
+                "Create Account";
+
+        }
+
+    }
+);
+
+
+/* =========================================
+   TERMS MODAL
+========================================= */
+
+const termsModal =
+    document.getElementById("termsModal");
+
+const termsLink =
+    document.getElementById("termsLink");
+
+const closeTerms =
+    document.getElementById("closeTerms");
+
+
+termsLink.addEventListener(
+    "click",
+    function(){
+
+        termsModal.style.display =
+            "flex";
+
+    }
+);
+
+
+closeTerms.addEventListener(
+    "click",
+    function(){
+
+        termsModal.style.display =
+            "none";
+
+    }
+);
+
+
+termsModal.addEventListener(
+    "click",
+    function(event){
+
+        if(
+            event.target ===
+            termsModal
+        ){
+
+            termsModal.style.display =
+                "none";
+        }
+
+    }
+);
+
+</script>
+
+</body>
+</html>

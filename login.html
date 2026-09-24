@@ -1,0 +1,758 @@
+<!DOCTYPE html><html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"><title>HASTAN GLOBE - Login</title>
+
+<style>
+    * {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+    }
+
+    body {
+        font-family: Arial, sans-serif;
+        min-height: 100vh;
+        background: linear-gradient(135deg, #eaffea, #e8f4ff);
+
+        display: flex;
+        justify-content: center;
+        align-items: center;
+
+        padding: 20px;
+    }
+
+    .login-box {
+        width: 100%;
+        max-width: 400px;
+
+        background: white;
+
+        padding: 30px 25px;
+
+        border-radius: 18px;
+
+        box-shadow: 0 8px 30px rgba(0, 0, 0, 0.12);
+
+        position: relative;
+    }
+
+    /* =====================================
+       LOGO
+    ===================================== */
+
+    .logo {
+        text-align: center;
+
+        margin-bottom: 25px;
+    }
+
+    .logo h1 {
+        font-size: 32px;
+
+        font-weight: 900;
+
+        color: #188038;
+    }
+
+    .logo h1 span {
+        color: #f97316;
+    }
+
+    .logo p {
+        color: #555;
+
+        font-size: 14px;
+
+        margin-top: 5px;
+    }
+
+    /* =====================================
+       INPUTS
+    ===================================== */
+
+    .input-group {
+        margin-bottom: 17px;
+    }
+
+    label {
+        display: block;
+
+        margin-bottom: 7px;
+
+        color: #333;
+
+        font-weight: bold;
+
+        font-size: 14px;
+    }
+
+    input {
+        width: 100%;
+
+        padding: 13px 14px;
+
+        border: 1px solid #ccc;
+
+        border-radius: 10px;
+
+        font-size: 15px;
+
+        outline: none;
+    }
+
+    input:focus {
+        border-color: #188038;
+    }
+
+    /* =====================================
+       PASSWORD
+    ===================================== */
+
+    .password-box {
+        position: relative;
+    }
+
+    .password-box input {
+        padding-right: 50px;
+    }
+
+    .show-password {
+        position: absolute;
+
+        right: 12px;
+
+        top: 50%;
+
+        transform: translateY(-50%);
+
+        border: none;
+
+        background: transparent;
+
+        cursor: pointer;
+
+        font-size: 18px;
+    }
+
+    /* =====================================
+       FORGOT PASSWORD
+    ===================================== */
+
+    .forgot {
+        text-align: right;
+
+        margin-top: -5px;
+
+        margin-bottom: 20px;
+    }
+
+    .forgot button {
+        border: none;
+
+        background: none;
+
+        color: #188038;
+
+        cursor: pointer;
+
+        font-size: 13px;
+
+        font-weight: bold;
+    }
+
+    /* =====================================
+       LOGIN BUTTON
+    ===================================== */
+
+    .login-btn {
+        width: 100%;
+
+        padding: 14px;
+
+        border: none;
+
+        border-radius: 10px;
+
+        background: #188038;
+
+        color: white;
+
+        font-size: 16px;
+
+        font-weight: bold;
+
+        cursor: pointer;
+    }
+
+    .login-btn:hover {
+        background: #12652b;
+    }
+
+    .login-btn:disabled {
+        opacity: 0.6;
+
+        cursor: not-allowed;
+    }
+
+    /* =====================================
+       MESSAGE
+    ===================================== */
+
+    .message {
+        margin-top: 15px;
+
+        text-align: center;
+
+        font-size: 14px;
+
+        min-height: 20px;
+    }
+
+    /* =====================================
+       REGISTER
+    ===================================== */
+
+    .register-link {
+        text-align: center;
+
+        margin-top: 22px;
+
+        font-size: 14px;
+
+        color: #555;
+    }
+
+    .register-link a {
+        color: #188038;
+
+        font-weight: bold;
+
+        text-decoration: none;
+    }
+
+    /* =====================================
+       FOOTER
+    ===================================== */
+
+    .brand-footer {
+        text-align: center;
+
+        margin-top: 18px;
+
+        font-size: 10px;
+
+        color: #aaa;
+    }
+</style>
+
+</head><body><div class="login-box"><!-- =====================================
+     LOGO
+====================================== -->
+
+<div class="logo">
+
+    <h1>
+        <span>H</span>ASTAN GLOBE
+    </h1>
+
+    <p>
+        Welcome back
+    </p>
+
+</div>
+
+<!-- =====================================
+     LOGIN FORM
+====================================== -->
+
+<form id="loginForm">
+
+    <div class="input-group">
+
+        <label for="email">
+            Email
+        </label>
+
+        <input
+            type="email"
+            id="email"
+            placeholder="Enter your email"
+            autocomplete="email"
+            required
+        >
+
+    </div>
+
+    <div class="input-group">
+
+        <label for="password">
+            Password
+        </label>
+
+        <div class="password-box">
+
+            <input
+                type="password"
+                id="password"
+                placeholder="Enter your password"
+                autocomplete="current-password"
+                required
+            >
+
+            <button
+                type="button"
+                class="show-password"
+                id="showPassword"
+                aria-label="Show password"
+            >
+                👁️
+            </button>
+
+        </div>
+
+    </div>
+
+    <!-- =====================================
+         FORGOT PASSWORD
+    ====================================== -->
+
+    <div class="forgot">
+
+        <button
+            type="button"
+            id="forgotPassword"
+        >
+            Forgot Password?
+        </button>
+
+    </div>
+
+    <!-- =====================================
+         LOGIN
+    ====================================== -->
+
+    <button
+        type="submit"
+        class="login-btn"
+        id="loginBtn"
+    >
+        Login
+    </button>
+
+    <!-- MESSAGE -->
+
+    <div
+        class="message"
+        id="message"
+    ></div>
+
+</form>
+
+<!-- =====================================
+     REGISTER
+====================================== -->
+
+<div class="register-link">
+
+    Don't have an account?
+
+    <a href="./register.html">
+        Create Account
+    </a>
+
+</div>
+
+<div class="brand-footer">
+    HASTAN GLOBE
+</div>
+
+</div><script type="module">
+
+    /* ==========================================
+       FIREBASE CONFIG
+       DO NOT CHANGE
+    ========================================== */
+
+    import { auth } from "./firebase-config.js";
+
+    import {
+        signInWithEmailAndPassword,
+        sendPasswordResetEmail
+    }
+    from "https://www.gstatic.com/firebasejs/12.1.0/firebase-auth.js";
+
+
+    /* ==========================================
+       MAIN ADMIN UID
+       DO NOT CHANGE
+    ========================================== */
+
+    const MAIN_ADMIN_UID =
+        "FkMOO6jsgJZvnJV36sl3RrHLd063";
+
+
+    /* ==========================================
+       PAYMENT ADMIN UID
+    ========================================== */
+
+    const PAYMENT_ADMIN_UID =
+        "bRcIg5YO4ZheYcF9wlqI9K1Bphq2";
+
+
+    /* ==========================================
+       ELEMENTS
+    ========================================== */
+
+    const loginForm =
+        document.getElementById("loginForm");
+
+    const emailInput =
+        document.getElementById("email");
+
+    const passwordInput =
+        document.getElementById("password");
+
+    const loginBtn =
+        document.getElementById("loginBtn");
+
+    const message =
+        document.getElementById("message");
+
+    const showPassword =
+        document.getElementById("showPassword");
+
+    const forgotPassword =
+        document.getElementById("forgotPassword");
+
+
+    /* ==========================================
+       SHOW / HIDE PASSWORD
+    ========================================== */
+
+    showPassword.addEventListener(
+        "click",
+        () => {
+
+            if (
+                passwordInput.type === "password"
+            ) {
+
+                passwordInput.type = "text";
+
+                showPassword.textContent = "🙈";
+
+            } else {
+
+                passwordInput.type = "password";
+
+                showPassword.textContent = "👁️";
+
+            }
+
+        }
+    );
+
+
+    /* ==========================================
+       LOGIN
+    ========================================== */
+
+    loginForm.addEventListener(
+        "submit",
+        async (e) => {
+
+            e.preventDefault();
+
+
+            const email =
+                emailInput.value.trim();
+
+            const password =
+                passwordInput.value;
+
+
+            if (!email || !password) {
+
+                message.textContent =
+                    "Please enter email and password.";
+
+                message.style.color =
+                    "red";
+
+                return;
+            }
+
+
+            loginBtn.disabled = true;
+
+            loginBtn.textContent =
+                "Logging in...";
+
+            message.textContent = "";
+
+
+            try {
+
+                const userCredential =
+                    await signInWithEmailAndPassword(
+                        auth,
+                        email,
+                        password
+                    );
+
+
+                const user =
+                    userCredential.user;
+
+
+                console.log(
+                    "Logged in UID:",
+                    user.uid
+                );
+
+
+                /* ==================================
+                   MAIN ADMIN
+                ================================== */
+
+                if (
+                    user.uid === MAIN_ADMIN_UID
+                ) {
+
+                    localStorage.setItem(
+                        "hastan_admin_session",
+                        "true"
+                    );
+
+                    localStorage.setItem(
+                        "hastan_admin_uid",
+                        user.uid
+                    );
+
+                    localStorage.removeItem(
+                        "hastan_payment_admin_session"
+                    );
+
+                    localStorage.removeItem(
+                        "hastan_payment_admin_uid"
+                    );
+
+                    window.location.href =
+                        "./admin.html";
+
+                    return;
+                }
+
+
+                /* ==================================
+                   PAYMENT ADMIN
+                ================================== */
+
+                if (
+                    user.uid === PAYMENT_ADMIN_UID
+                ) {
+
+                    localStorage.setItem(
+                        "hastan_payment_admin_session",
+                        "true"
+                    );
+
+                    localStorage.setItem(
+                        "hastan_payment_admin_uid",
+                        user.uid
+                    );
+
+                    localStorage.removeItem(
+                        "hastan_admin_session"
+                    );
+
+                    localStorage.removeItem(
+                        "hastan_admin_uid"
+                    );
+
+                    window.location.href =
+                        "./payment-admin.html";
+
+                    return;
+                }
+
+
+                /* ==================================
+                   NORMAL USER
+                ================================== */
+
+                localStorage.setItem(
+                    "normal_user",
+                    "true"
+                );
+
+                localStorage.setItem(
+                    "normal_user_uid",
+                    user.uid
+                );
+
+
+                localStorage.removeItem(
+                    "hastan_admin_session"
+                );
+
+                localStorage.removeItem(
+                    "hastan_admin_uid"
+                );
+
+                localStorage.removeItem(
+                    "hastan_payment_admin_session"
+                );
+
+                localStorage.removeItem(
+                    "hastan_payment_admin_uid"
+                );
+
+
+                window.location.href =
+                    "./index.html";
+
+            }
+
+
+            catch (error) {
+
+                console.error(
+                    "Login error:",
+                    error
+                );
+
+
+                let errorMessage =
+                    "Login failed. Please check your email and password.";
+
+
+                if (
+                    error.code ===
+                    "auth/invalid-credential"
+                ) {
+
+                    errorMessage =
+                        "Wrong email or password.";
+
+                }
+
+                else if (
+                    error.code ===
+                    "auth/user-not-found"
+                ) {
+
+                    errorMessage =
+                        "Account not found.";
+
+                }
+
+                else if (
+                    error.code ===
+                    "auth/wrong-password"
+                ) {
+
+                    errorMessage =
+                        "Wrong password.";
+
+                }
+
+                else if (
+                    error.code ===
+                    "auth/invalid-email"
+                ) {
+
+                    errorMessage =
+                        "Invalid email address.";
+
+                }
+
+
+                message.textContent =
+                    errorMessage;
+
+                message.style.color =
+                    "red";
+
+            }
+
+
+            finally {
+
+                loginBtn.disabled =
+                    false;
+
+                loginBtn.textContent =
+                    "Login";
+
+            }
+
+        }
+    );
+
+
+    /* ==========================================
+       FORGOT PASSWORD
+    ========================================== */
+
+    forgotPassword.addEventListener(
+        "click",
+        async () => {
+
+            const email =
+                emailInput.value.trim();
+
+
+            if (!email) {
+
+                message.textContent =
+                    "Enter your email first.";
+
+                message.style.color =
+                    "red";
+
+                emailInput.focus();
+
+                return;
+            }
+
+
+            try {
+
+                await sendPasswordResetEmail(
+                    auth,
+                    email
+                );
+
+
+                message.textContent =
+                    "Password reset email sent. Check your email.";
+
+                message.style.color =
+                    "green";
+
+            }
+
+
+            catch (error) {
+
+                console.error(
+                    "Password reset error:",
+                    error
+                );
+
+
+                message.textContent =
+                    "Could not send reset email. Check the email address.";
+
+                message.style.color =
+                    "red";
+
+            }
+
+        }
+    );
+
+</script></body>
+</html>

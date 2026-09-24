@@ -1,0 +1,1255 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+  <meta charset="UTF-8">
+
+  <meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0"
+  >
+
+  <title>HASTAN GAME</title>
+
+  <link
+    rel="stylesheet"
+    href="style.css"
+  >
+
+</head>
+
+
+<body>
+
+
+<!-- =====================================================
+     TOP BAR
+===================================================== -->
+
+<header class="topbar">
+
+  <button
+    id="menuBtn"
+    class="icon-btn"
+    type="button"
+  >
+    ☰
+  </button>
+
+
+  <div class="brand">
+
+    <span>HASTAN</span>
+
+    <small>GAME</small>
+
+  </div>
+
+
+  <button
+    id="notificationBtn"
+    class="icon-btn"
+    type="button"
+  >
+    🔔
+  </button>
+
+</header>
+
+
+
+<!-- =====================================================
+     SIDE MENU
+===================================================== -->
+
+<aside
+  id="sideMenu"
+  class="side-menu"
+>
+
+  <div class="menu-head">
+
+    <strong>
+      HASTAN GAME
+    </strong>
+
+
+    <button
+      id="closeMenu"
+      class="icon-btn"
+      type="button"
+    >
+      ×
+    </button>
+
+  </div>
+
+
+  <button
+    class="menu-item"
+    data-page="home"
+    type="button"
+  >
+    🏠 Home
+  </button>
+
+
+  <button
+    class="menu-item"
+    data-page="competitions"
+    type="button"
+  >
+    🏆 Competitions
+  </button>
+
+
+  <button
+    class="menu-item"
+    data-page="matches"
+    type="button"
+  >
+    ⚽ My Matches
+  </button>
+
+
+  <button
+    class="menu-item"
+    data-page="ranking"
+    type="button"
+  >
+    🏅 Ranking
+  </button>
+
+
+  <button
+    class="menu-item"
+    data-page="statistics"
+    type="button"
+  >
+    📊 Statistics
+  </button>
+
+
+  <button
+    class="menu-item"
+    data-page="history"
+    type="button"
+  >
+    📜 History
+  </button>
+
+
+  <button
+    class="menu-item"
+    data-page="balance"
+    type="button"
+  >
+    💰 Gamer Balance
+  </button>
+
+
+  <button
+    class="menu-item"
+    data-page="withdrawal"
+    type="button"
+  >
+    💸 Withdrawal
+  </button>
+
+
+  <button
+    class="menu-item"
+    data-page="notifications"
+    type="button"
+  >
+    🔔 Notifications
+  </button>
+
+
+  <button
+    id="logoutBtn"
+    class="menu-item logout-item"
+    type="button"
+  >
+    🚪 Logout
+  </button>
+
+</aside>
+
+
+
+<div
+  id="menuOverlay"
+  class="menu-overlay"
+></div>
+
+
+
+<!-- =====================================================
+     MAIN APP
+===================================================== -->
+
+<main id="app">
+
+
+<!-- =====================================================
+     HOME
+===================================================== -->
+
+<section
+  id="homePage"
+  class="page"
+>
+
+
+  <div class="hero">
+
+    <p>
+      WELCOME TO
+    </p>
+
+
+    <h1>
+      HASTAN GAME
+    </h1>
+
+
+    <span>
+      PLAY • COMPETE • WIN
+    </span>
+
+  </div>
+
+
+
+  <!-- PLAYER -->
+
+  <div class="player-card">
+
+    <div class="player-avatar">
+      ⚽
+    </div>
+
+
+    <div class="player-info">
+
+      <span class="online">
+        ● ONLINE
+      </span>
+
+
+      <h2 id="playerName">
+        Player
+      </h2>
+
+
+      <p id="playerUsername">
+        @username
+      </p>
+
+    </div>
+
+  </div>
+
+
+
+  <!-- GAMER BALANCE -->
+
+  <div class="balance-card">
+
+    <div>
+
+      <span class="card-label">
+        GAMER BALANCE
+      </span>
+
+
+      <h2>
+
+        TSh
+
+        <span id="gamerBalance">
+          0
+        </span>
+
+      </h2>
+
+    </div>
+
+
+    <button
+      id="depositBtn"
+      type="button"
+    >
+      + Deposit
+    </button>
+
+  </div>
+
+
+
+  <!-- GAME CENTER -->
+
+  <div class="section-title">
+
+    <h2>
+      Game Center
+    </h2>
+
+
+    <span>
+      COMPETE
+    </span>
+
+  </div>
+
+
+
+  <div class="game-grid">
+
+
+    <button
+      class="game-card"
+      data-page="competitions"
+      type="button"
+    >
+
+      <span class="game-icon">
+        🏆
+      </span>
+
+
+      <strong>
+        Competitions
+      </strong>
+
+
+      <small>
+        Join a competition
+      </small>
+
+    </button>
+
+
+
+    <button
+      class="game-card"
+      data-page="matches"
+      type="button"
+    >
+
+      <span class="game-icon">
+        ⚽
+      </span>
+
+
+      <strong>
+        My Matches
+      </strong>
+
+
+      <small>
+        View your fixtures
+      </small>
+
+    </button>
+
+
+
+    <button
+      class="game-card"
+      data-page="ranking"
+      type="button"
+    >
+
+      <span class="game-icon">
+        🏅
+      </span>
+
+
+      <strong>
+        Ranking
+      </strong>
+
+
+      <small>
+        Competition standings
+      </small>
+
+    </button>
+
+
+
+    <button
+      class="game-card"
+      data-page="history"
+      type="button"
+    >
+
+      <span class="game-icon">
+        📜
+      </span>
+
+
+      <strong>
+        History
+      </strong>
+
+
+      <small>
+        Your game history
+      </small>
+
+    </button>
+
+  </div>
+
+
+
+  <!-- YOUR GAME -->
+
+  <div class="section-title">
+
+    <h2>
+      Your Game
+    </h2>
+
+  </div>
+
+
+
+  <div class="quick-grid">
+
+
+    <button
+      class="quick-card"
+      data-page="statistics"
+      type="button"
+    >
+
+      📊
+
+      <span>
+        Statistics
+      </span>
+
+    </button>
+
+
+
+    <button
+      class="quick-card"
+      data-page="balance"
+      type="button"
+    >
+
+      💰
+
+      <span>
+        Balance
+      </span>
+
+    </button>
+
+
+
+    <button
+      class="quick-card"
+      data-page="withdrawal"
+      type="button"
+    >
+
+      💸
+
+      <span>
+        Withdrawal
+      </span>
+
+    </button>
+
+
+
+    <button
+      class="quick-card"
+      data-page="notifications"
+      type="button"
+    >
+
+      🔔
+
+      <span>
+        Notifications
+      </span>
+
+    </button>
+
+  </div>
+
+
+</section>
+
+
+
+<!-- =====================================================
+     COMPETITIONS
+===================================================== -->
+
+<section
+  id="competitionsPage"
+  class="page hidden"
+>
+
+
+  <div class="page-head">
+
+    <button
+      class="back-btn"
+      type="button"
+    >
+      ←
+    </button>
+
+
+    <div>
+
+      <h2>
+        Competitions
+      </h2>
+
+
+      <p>
+        Choose a competition and join.
+      </p>
+
+    </div>
+
+  </div>
+
+
+  <div id="competitionList">
+
+    <div class="loading">
+      Loading competitions...
+    </div>
+
+  </div>
+
+
+</section>
+
+
+
+<!-- =====================================================
+     MATCHES
+===================================================== -->
+
+<section
+  id="matchesPage"
+  class="page hidden"
+>
+
+
+  <div class="page-head">
+
+    <button
+      class="back-btn"
+      type="button"
+    >
+      ←
+    </button>
+
+
+    <div>
+
+      <h2>
+        My Matches
+      </h2>
+
+
+      <p>
+        Your upcoming and completed matches.
+      </p>
+
+    </div>
+
+  </div>
+
+
+  <div id="myMatches">
+
+    <div class="empty">
+
+      <div>
+        ⚽
+      </div>
+
+
+      <h3>
+        No Matches Yet
+      </h3>
+
+
+      <p>
+        Your fixtures will appear here
+        after joining a competition.
+      </p>
+
+    </div>
+
+  </div>
+
+
+</section>
+
+
+
+<!-- =====================================================
+     RANKING
+===================================================== -->
+
+<section
+  id="rankingPage"
+  class="page hidden"
+>
+
+
+  <div class="page-head">
+
+    <button
+      class="back-btn"
+      type="button"
+    >
+      ←
+    </button>
+
+
+    <div>
+
+      <h2>
+        Ranking
+      </h2>
+
+
+      <p>
+        Competition standings.
+      </p>
+
+    </div>
+
+  </div>
+
+
+  <div id="rankingList">
+
+    <div class="empty">
+
+      <div>
+        🏅
+      </div>
+
+
+      <h3>
+        No Ranking Yet
+      </h3>
+
+
+      <p>
+        Rankings will appear when
+        competitions begin.
+      </p>
+
+    </div>
+
+  </div>
+
+
+</section>
+
+
+
+<!-- =====================================================
+     STATISTICS
+===================================================== -->
+
+<section
+  id="statisticsPage"
+  class="page hidden"
+>
+
+
+  <div class="page-head">
+
+    <button
+      class="back-btn"
+      type="button"
+    >
+      ←
+    </button>
+
+
+    <div>
+
+      <h2>
+        Statistics
+      </h2>
+
+
+      <p>
+        Your performance.
+      </p>
+
+    </div>
+
+  </div>
+
+
+
+  <div class="stats-grid">
+
+
+    <div class="stat-card">
+
+      <strong id="matchesPlayed">
+        0
+      </strong>
+
+      <span>
+        Matches
+      </span>
+
+    </div>
+
+
+
+    <div class="stat-card">
+
+      <strong id="wins">
+        0
+      </strong>
+
+      <span>
+        Wins
+      </span>
+
+    </div>
+
+
+
+    <div class="stat-card">
+
+      <strong id="draws">
+        0
+      </strong>
+
+      <span>
+        Draws
+      </span>
+
+    </div>
+
+
+
+    <div class="stat-card">
+
+      <strong id="losses">
+        0
+      </strong>
+
+      <span>
+        Losses
+      </span>
+
+    </div>
+
+
+  </div>
+
+
+</section>
+
+
+
+<!-- =====================================================
+     HISTORY
+===================================================== -->
+
+<section
+  id="historyPage"
+  class="page hidden"
+>
+
+
+  <div class="page-head">
+
+    <button
+      class="back-btn"
+      type="button"
+    >
+      ←
+    </button>
+
+
+    <div>
+
+      <h2>
+        History
+      </h2>
+
+
+      <p>
+        Your permanent game records.
+      </p>
+
+    </div>
+
+  </div>
+
+
+
+  <div id="historyList">
+
+    <div class="empty">
+
+      <div>
+        📜
+      </div>
+
+
+      <h3>
+        No History Yet
+      </h3>
+
+
+      <p>
+        Your deposits, matches,
+        results and prizes will appear here.
+      </p>
+
+    </div>
+
+  </div>
+
+
+</section>
+
+
+
+<!-- =====================================================
+     GAMER BALANCE
+===================================================== -->
+
+<section
+  id="balancePage"
+  class="page hidden"
+>
+
+
+  <div class="page-head">
+
+    <button
+      class="back-btn"
+      type="button"
+    >
+      ←
+    </button>
+
+
+    <div>
+
+      <h2>
+        Gamer Balance
+      </h2>
+
+
+      <p>
+        Manage your gaming funds.
+      </p>
+
+    </div>
+
+  </div>
+
+
+
+  <div class="big-balance">
+
+    <span>
+      AVAILABLE BALANCE
+    </span>
+
+
+    <strong>
+
+      TSh
+
+      <span id="balanceAmount">
+        0
+      </span>
+
+    </strong>
+
+
+    <button
+      id="balanceDepositBtn"
+      type="button"
+    >
+      + DEPOSIT
+    </button>
+
+  </div>
+
+
+
+  <div class="transaction-box">
+
+    <h3>
+      Transactions
+    </h3>
+
+
+    <div id="transactions">
+
+      <div class="empty">
+        No transactions yet.
+      </div>
+
+    </div>
+
+  </div>
+
+
+</section>
+
+
+
+<!-- =====================================================
+     WITHDRAWAL
+===================================================== -->
+
+<section
+  id="withdrawalPage"
+  class="page hidden"
+>
+
+
+  <div class="page-head">
+
+    <button
+      class="back-btn"
+      type="button"
+    >
+      ←
+    </button>
+
+
+    <div>
+
+      <h2>
+        Withdrawal
+      </h2>
+
+
+      <p>
+        Withdraw your available winnings.
+      </p>
+
+    </div>
+
+  </div>
+
+
+
+  <div class="withdraw-card">
+
+
+    <label for="withdrawAmount">
+      Amount
+    </label>
+
+
+    <input
+      id="withdrawAmount"
+      type="number"
+      min="1"
+      inputmode="numeric"
+      placeholder="Enter amount"
+    >
+
+
+
+    <label for="withdrawNumber">
+      Payment Number
+    </label>
+
+
+    <input
+      id="withdrawNumber"
+      type="tel"
+      inputmode="tel"
+      placeholder="07XXXXXXXX"
+    >
+
+
+
+    <button
+      id="withdrawBtn"
+      type="button"
+    >
+      REQUEST WITHDRAWAL
+    </button>
+
+
+
+    <div id="withdrawMessage"></div>
+
+
+  </div>
+
+
+
+  <div class="transaction-box">
+
+    <h3>
+      Withdrawal History
+    </h3>
+
+
+    <div id="withdrawalHistory">
+
+      <div class="empty">
+        No withdrawals yet.
+      </div>
+
+    </div>
+
+  </div>
+
+
+</section>
+
+
+
+<!-- =====================================================
+     NOTIFICATIONS
+===================================================== -->
+
+<section
+  id="notificationsPage"
+  class="page hidden"
+>
+
+
+  <div class="page-head">
+
+    <button
+      class="back-btn"
+      type="button"
+    >
+      ←
+    </button>
+
+
+    <div>
+
+      <h2>
+        Notifications
+      </h2>
+
+
+      <p>
+        HASTAN GAME updates.
+      </p>
+
+    </div>
+
+  </div>
+
+
+
+  <div id="notificationList">
+
+    <div class="empty">
+
+      <div>
+        🔔
+      </div>
+
+
+      <h3>
+        No Notifications
+      </h3>
+
+
+      <p>
+        New game updates will appear here.
+      </p>
+
+    </div>
+
+  </div>
+
+
+</section>
+
+
+</main>
+
+
+
+<!-- =====================================================
+     BOTTOM NAVIGATION
+===================================================== -->
+
+<nav class="bottom-nav">
+
+
+  <button
+    class="bottom-item active"
+    data-page="home"
+    type="button"
+  >
+
+    <span>
+      ⌂
+    </span>
+
+    <small>
+      Home
+    </small>
+
+  </button>
+
+
+
+  <button
+    class="bottom-item"
+    data-page="competitions"
+    type="button"
+  >
+
+    <span>
+      🏆
+    </span>
+
+    <small>
+      Games
+    </small>
+
+  </button>
+
+
+
+  <button
+    class="bottom-item"
+    data-page="matches"
+    type="button"
+  >
+
+    <span>
+      ⚽
+    </span>
+
+    <small>
+      Matches
+    </small>
+
+  </button>
+
+
+
+  <button
+    class="bottom-item"
+    data-page="history"
+    type="button"
+  >
+
+    <span>
+      📜
+    </span>
+
+    <small>
+      History
+    </small>
+
+  </button>
+
+
+
+  <button
+    class="bottom-item"
+    data-page="balance"
+    type="button"
+  >
+
+    <span>
+      💰
+    </span>
+
+    <small>
+      Balance
+    </small>
+
+  </button>
+
+
+</nav>
+
+
+
+<!-- =====================================================
+     LOGIN OVERLAY
+===================================================== -->
+
+<div
+  id="loginOverlay"
+  class="login-overlay hidden"
+>
+
+
+  <div class="login-card">
+
+
+    <div class="login-logo">
+      HASTAN GAME
+    </div>
+
+
+    <h2>
+      Login Required
+    </h2>
+
+
+    <p>
+      Please login to access HASTAN GAME.
+    </p>
+
+
+    <button
+      id="loginBtn"
+      type="button"
+    >
+      LOGIN
+    </button>
+
+
+  </div>
+
+
+</div>
+
+
+
+<!-- =====================================================
+     JAVASCRIPT
+===================================================== -->
+
+<script
+  type="module"
+  src="script.js?v=2"
+></script>
+
+
+</body>
+
+</html>

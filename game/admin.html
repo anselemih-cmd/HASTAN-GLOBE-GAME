@@ -1,0 +1,531 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>HASTAN GAME - Main Admin</title>
+  <link rel="stylesheet" href="admin.css">
+</head>
+
+<body>
+
+<header class="admin-topbar">
+  <button id="menuBtn" class="icon-btn">☰</button>
+
+  <div class="brand">
+    <span>HASTAN</span>
+    <small>GAME</small>
+  </div>
+
+  <button id="notifyBtn" class="icon-btn">🔔</button>
+</header>
+
+<aside id="sideMenu" class="side-menu">
+
+  <div class="admin-profile">
+    <div class="admin-avatar">A</div>
+    <div>
+      <strong>Main Admin</strong>
+      <small>HASTAN GAME</small>
+    </div>
+  </div>
+
+  <nav>
+    <button data-page="dashboardPage">🏠 Dashboard</button>
+    <button data-page="verificationPage">🔐 Verification</button>
+    <button data-page="depositsPage">💰 Deposits</button>
+    <button data-page="withdrawalsPage">💸 Withdrawals</button>
+    <button data-page="competitionsPage">🏆 Competitions</button>
+    <button data-page="matchesPage">⚽ Matches</button>
+    <button data-page="resultsPage">📝 Results</button>
+    <button data-page="playersPage">👥 Players</button>
+    <button data-page="notificationsPage">🔔 Notifications</button>
+    <button data-page="statisticsPage">📊 Statistics</button>
+    <button data-page="standingsPage">🏅 Standings</button>
+    <button data-page="historyPage">📜 History</button>
+    <button id="logoutBtn" class="logout">🚪 Logout</button>
+  </nav>
+
+</aside>
+
+<div id="overlay"></div>
+
+<main class="admin-main">
+
+  <!-- DASHBOARD -->
+  <section id="dashboardPage" class="page active">
+
+    <div class="page-title">
+      <span>MAIN ADMIN</span>
+      <h1>Control Center</h1>
+      <p>Manage HASTAN GAME from one place.</p>
+    </div>
+
+    <div class="welcome-card">
+      <div>
+        <small>WELCOME BACK</small>
+        <h2>HASTAN GAME</h2>
+        <p>Main Administration Panel</p>
+      </div>
+
+      <div class="game-icon">🎮</div>
+    </div>
+
+    <div class="admin-grid">
+
+      <button class="admin-card" data-page="verificationPage">
+        <span>🔐</span>
+        <strong>Verification</strong>
+        <small>Verify players</small>
+      </button>
+
+      <button class="admin-card" data-page="depositsPage">
+        <span>💰</span>
+        <strong>Deposits</strong>
+        <small>Manage deposits</small>
+      </button>
+
+      <button class="admin-card" data-page="withdrawalsPage">
+        <span>💸</span>
+        <strong>Withdrawals</strong>
+        <small>Manage withdrawals</small>
+      </button>
+
+      <button class="admin-card" data-page="competitionsPage">
+        <span>🏆</span>
+        <strong>Competitions</strong>
+        <small>Competition Engine</small>
+      </button>
+
+      <button class="admin-card" data-page="matchesPage">
+        <span>⚽</span>
+        <strong>Matches</strong>
+        <small>Manage fixtures</small>
+      </button>
+
+      <button class="admin-card" data-page="resultsPage">
+        <span>📝</span>
+        <strong>Results</strong>
+        <small>Verify results</small>
+      </button>
+
+      <button class="admin-card" data-page="playersPage">
+        <span>👥</span>
+        <strong>Players</strong>
+        <small>Manage players</small>
+      </button>
+
+      <button class="admin-card" data-page="historyPage">
+        <span>📜</span>
+        <strong>History</strong>
+        <small>Permanent records</small>
+      </button>
+
+    </div>
+
+  </section>
+
+
+  <!-- VERIFICATION -->
+  <section id="verificationPage" class="page">
+
+    <div class="page-title">
+      <span>PLAYER MANAGEMENT</span>
+      <h1>Verification</h1>
+      <p>Verify gaming accounts.</p>
+    </div>
+
+    <div id="verificationList" class="content-list">
+      <div class="empty">No verification requests.</div>
+    </div>
+
+  </section>
+
+
+  <!-- DEPOSITS -->
+  <section id="depositsPage" class="page">
+
+    <div class="page-title">
+      <span>GAMER BALANCE</span>
+      <h1>Deposits</h1>
+      <p>Review player deposits.</p>
+    </div>
+
+    <div id="depositList" class="content-list">
+      <div class="empty">No deposits.</div>
+    </div>
+
+  </section>
+
+
+  <!-- WITHDRAWALS -->
+  <section id="withdrawalsPage" class="page">
+
+    <div class="page-title">
+      <span>GAMER BALANCE</span>
+      <h1>Withdrawals</h1>
+      <p>Process player withdrawals.</p>
+    </div>
+
+    <div id="withdrawalList" class="content-list">
+      <div class="empty">No withdrawals.</div>
+    </div>
+
+  </section>
+
+
+  <!-- COMPETITIONS -->
+  <section id="competitionsPage" class="page">
+
+    <div class="page-title">
+      <span>COMPETITION ENGINE</span>
+      <h1>Competitions</h1>
+      <p>Create and manage all competitions.</p>
+    </div>
+
+    <button id="createCompetitionBtn" class="primary-btn">
+      ＋ Create Competition
+    </button>
+
+    <!-- CREATE FORM -->
+    <div id="competitionForm" class="form-card" style="display:none; margin-top:20px;">
+
+      <div class="page-title" style="margin-bottom:15px;">
+        <span>NEW COMPETITION</span>
+        <h2>Create Competition</h2>
+        <p>Set all competition details below.</p>
+      </div>
+
+      <form id="competitionCreateForm">
+
+        <div class="form-group">
+          <label for="competitionName">Competition Name</label>
+          <input
+            type="text"
+            id="competitionName"
+            placeholder="Example: HASTAN Super League"
+            required
+          >
+        </div>
+
+        <div class="form-group">
+          <label for="competitionType">Competition Type</label>
+
+          <select id="competitionType" required>
+            <option value="">Select Type</option>
+            <option value="League">League</option>
+            <option value="Cup">Cup</option>
+            <option value="Tournament">Tournament</option>
+            <option value="1 VS 1">1 VS 1</option>
+            <option value="HASTAN MATCH">HASTAN MATCH</option>
+          </select>
+        </div>
+
+        <div class="form-group">
+          <label for="entryFee">Entry Fee (TSh)</label>
+
+          <input
+            type="number"
+            id="entryFee"
+            min="0"
+            step="100"
+            placeholder="Admin enters amount"
+            required
+          >
+        </div>
+
+        <div class="form-group">
+          <label for="maxPlayers">Maximum Players</label>
+
+          <input
+            type="number"
+            id="maxPlayers"
+            min="2"
+            step="1"
+            placeholder="Example: 16"
+            required
+          >
+        </div>
+
+        <div class="form-group">
+          <label for="firstPrize">1st Prize (TSh)</label>
+
+          <input
+            type="number"
+            id="firstPrize"
+            min="0"
+            step="100"
+            placeholder="Enter 1st prize"
+            required
+          >
+        </div>
+
+        <div class="form-group">
+          <label for="secondPrize">2nd Prize (TSh)</label>
+
+          <input
+            type="number"
+            id="secondPrize"
+            min="0"
+            step="100"
+            placeholder="Enter 2nd prize"
+            value="0"
+          >
+        </div>
+
+        <div class="form-group">
+          <label for="thirdPrize">3rd Prize (TSh)</label>
+
+          <input
+            type="number"
+            id="thirdPrize"
+            min="0"
+            step="100"
+            placeholder="Enter 3rd prize"
+            value="0"
+          >
+        </div>
+
+        <div class="form-group">
+          <label for="startAt">Start Date & Time</label>
+
+          <input
+            type="datetime-local"
+            id="startAt"
+            required
+          >
+        </div>
+
+        <div class="form-group">
+          <label for="competitionRules">
+            Rules / Description
+          </label>
+
+          <textarea
+            id="competitionRules"
+            rows="5"
+            placeholder="Write competition rules and description..."
+          ></textarea>
+        </div>
+
+        <div class="form-group">
+
+          <label for="joiningStatus">
+            Joining Status
+          </label>
+
+          <select id="joiningStatus">
+            <option value="open">Open</option>
+            <option value="closed">Closed</option>
+          </select>
+
+        </div>
+
+        <div class="form-group">
+
+          <label for="paymentStatus">
+            Payment Status
+          </label>
+
+          <select id="paymentStatus">
+            <option value="open">Open</option>
+            <option value="closed">Closed</option>
+          </select>
+
+        </div>
+
+        <div style="
+          display:flex;
+          gap:10px;
+          flex-wrap:wrap;
+          margin-top:18px;
+        ">
+
+          <button
+            type="submit"
+            id="saveCompetitionBtn"
+            class="primary-btn"
+          >
+            💾 Create Competition
+          </button>
+
+          <button
+            type="button"
+            id="cancelCompetitionBtn"
+            class="secondary-btn"
+          >
+            Cancel
+          </button>
+
+        </div>
+
+        <div
+          id="competitionFormMessage"
+          style="
+            margin-top:14px;
+            font-size:13px;
+            line-height:1.5;
+          "
+        ></div>
+
+      </form>
+
+    </div>
+
+
+    <div
+      id="competitionList"
+      class="content-list"
+      style="margin-top:20px;"
+    >
+      <div class="empty">No competitions created.</div>
+    </div>
+
+  </section>
+
+
+  <!-- MATCHES -->
+  <section id="matchesPage" class="page">
+
+    <div class="page-title">
+      <span>FIXTURES</span>
+      <h1>Matches</h1>
+      <p>Manage automatically generated fixtures.</p>
+    </div>
+
+    <div id="matchList" class="content-list">
+      <div class="empty">No matches.</div>
+    </div>
+
+  </section>
+
+
+  <!-- RESULTS -->
+  <section id="resultsPage" class="page">
+
+    <div class="page-title">
+      <span>RESULT MANAGEMENT</span>
+      <h1>Results</h1>
+      <p>Verify submitted match results.</p>
+    </div>
+
+    <div id="resultList" class="content-list">
+      <div class="empty">No pending results.</div>
+    </div>
+
+  </section>
+
+
+  <!-- PLAYERS -->
+  <section id="playersPage" class="page">
+
+    <div class="page-title">
+      <span>GAMERS</span>
+      <h1>Players</h1>
+      <p>View and manage HASTAN GAME players.</p>
+    </div>
+
+    <div id="playerList" class="content-list">
+      <div class="empty">No players.</div>
+    </div>
+
+  </section>
+
+
+  <!-- NOTIFICATIONS -->
+  <section id="notificationsPage" class="page">
+
+    <div class="page-title">
+      <span>COMMUNICATION</span>
+      <h1>Notifications</h1>
+      <p>Send notifications to players.</p>
+    </div>
+
+    <button id="sendNotificationBtn" class="primary-btn">
+      ＋ Send Notification
+    </button>
+
+    <div id="notificationList" class="content-list">
+      <div class="empty">No notifications.</div>
+    </div>
+
+  </section>
+
+
+  <!-- STATISTICS -->
+  <section id="statisticsPage" class="page">
+
+    <div class="page-title">
+      <span>ANALYTICS</span>
+      <h1>Statistics</h1>
+      <p>HASTAN GAME performance overview.</p>
+    </div>
+
+    <div class="stats-grid">
+
+      <div class="stat-card">
+        <span>👥</span>
+        <strong id="totalPlayers">0</strong>
+        <small>Players</small>
+      </div>
+
+      <div class="stat-card">
+        <span>🏆</span>
+        <strong id="totalCompetitions">0</strong>
+        <small>Competitions</small>
+      </div>
+
+      <div class="stat-card">
+        <span>⚽</span>
+        <strong id="totalMatches">0</strong>
+        <small>Matches</small>
+      </div>
+
+      <div class="stat-card">
+        <span>💰</span>
+        <strong id="totalTransactions">0</strong>
+        <small>Transactions</small>
+      </div>
+
+    </div>
+
+  </section>
+
+
+  <!-- STANDINGS -->
+  <section id="standingsPage" class="page">
+
+    <div class="page-title">
+      <span>COMPETITION ENGINE</span>
+      <h1>Standings</h1>
+      <p>Competition standings and rankings.</p>
+    </div>
+
+    <div id="standingList" class="content-list">
+      <div class="empty">No standings available.</div>
+    </div>
+
+  </section>
+
+
+  <!-- HISTORY -->
+  <section id="historyPage" class="page">
+
+    <div class="page-title">
+      <span>RECORDS</span>
+      <h1>History</h1>
+      <p>Permanent HASTAN GAME records.</p>
+    </div>
+
+    <div id="historyList" class="content-list">
+      <div class="empty">No history records.</div>
+    </div>
+
+  </section>
+
+</main>
+
+<script type="module" src="admin.js?v=6"></script>
+
+</body>
+</html>

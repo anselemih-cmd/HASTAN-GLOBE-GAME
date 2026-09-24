@@ -1,0 +1,4590 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+  <meta charset="UTF-8">
+
+  <meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0"
+  >
+
+  <title>Payment Admin - HASTAN GLOBE</title>
+
+  <style>
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: Arial, sans-serif;
+    }
+
+    body {
+      background: #f3f8f5;
+      color: #172033;
+    }
+
+    header {
+      background: linear-gradient(
+        135deg,
+        #0b7a53,
+        #0876b9
+      );
+
+      color: white;
+      padding: 18px;
+
+      position: sticky;
+      top: 0;
+
+      z-index: 10;
+
+      box-shadow:
+        0 3px 10px rgba(0,0,0,0.15);
+    }
+
+    .header-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .brand {
+      font-size: 22px;
+      font-weight: bold;
+    }
+
+    .brand span {
+      color: #ff9800;
+    }
+
+    .admin-label {
+      font-size: 13px;
+      opacity: .9;
+      margin-top: 4px;
+    }
+
+    .logout-btn {
+      border: none;
+      background: #e53935;
+      color: white;
+      padding: 10px 14px;
+      border-radius: 8px;
+      font-weight: bold;
+      cursor: pointer;
+    }
+
+    .container {
+      max-width: 1100px;
+      margin: auto;
+      padding: 20px;
+    }
+
+    .welcome {
+      background: white;
+      padding: 20px;
+      border-radius: 14px;
+      margin-bottom: 20px;
+
+      box-shadow:
+        0 3px 12px rgba(0,0,0,0.07);
+    }
+
+    .welcome h2 {
+      color: #0876b9;
+      margin-bottom: 7px;
+    }
+
+    /*
+      ==========================================
+      MAIN ADMIN AREA SWITCH
+      ==========================================
+    */
+
+    .main-switch {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 15px;
+      margin-bottom: 20px;
+    }
+
+    .main-switch-btn {
+      border: 2px solid #dce9e4;
+      background: white;
+      padding: 18px;
+      border-radius: 14px;
+      cursor: pointer;
+      font-weight: bold;
+      font-size: 17px;
+      color: #172033;
+
+      box-shadow:
+        0 3px 12px rgba(0,0,0,0.06);
+
+      transition: .2s;
+    }
+
+    .main-switch-btn:hover {
+      transform: translateY(-1px);
+    }
+
+    .main-switch-btn.active.payment-mode {
+      background: #0876b9;
+      color: white;
+      border-color: #0876b9;
+    }
+
+    .main-switch-btn.active.activation-mode {
+      background: #0b7a53;
+      color: white;
+      border-color: #0b7a53;
+    }
+
+    .switch-icon {
+      display: block;
+      font-size: 27px;
+      margin-bottom: 6px;
+    }
+
+    .switch-description {
+      display: block;
+      font-size: 12px;
+      font-weight: normal;
+      opacity: .8;
+      margin-top: 5px;
+    }
+
+    /*
+      ==========================================
+      WORKSPACES
+      ==========================================
+    */
+
+    .workspace {
+      display: none;
+    }
+
+    .workspace.active {
+      display: block;
+    }
+
+    /*
+      ==========================================
+      STATISTICS
+      ==========================================
+    */
+
+    .cards {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 15px;
+      margin-bottom: 20px;
+    }
+
+    .card {
+      background: white;
+      padding: 20px;
+      border-radius: 14px;
+
+      box-shadow:
+        0 3px 12px rgba(0,0,0,0.07);
+    }
+
+    .card h3 {
+      font-size: 14px;
+      color: #666;
+      margin-bottom: 10px;
+    }
+
+    .card .number {
+      font-size: 28px;
+      font-weight: bold;
+    }
+
+    .total .number {
+      color: #0876b9;
+    }
+
+    .pending .number {
+      color: #f39c12;
+    }
+
+    .approved .number {
+      color: #0b8f5a;
+    }
+
+    .rejected .number {
+      color: #e53935;
+    }
+
+    /*
+      ==========================================
+      SECTION
+      ==========================================
+    */
+
+    .section {
+      background: white;
+      border-radius: 14px;
+      padding: 20px;
+      margin-bottom: 20px;
+
+      box-shadow:
+        0 3px 12px rgba(0,0,0,0.07);
+
+      overflow: hidden;
+    }
+
+    .section h2 {
+      margin-bottom: 15px;
+      color: #0b7a53;
+    }
+
+    .payment-workspace-title {
+      color: #0876b9 !important;
+    }
+
+    .activation-workspace-title {
+      color: #0b7a53 !important;
+    }
+
+    .section-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 10px;
+      flex-wrap: wrap;
+      margin-bottom: 15px;
+    }
+
+    .section-header h2 {
+      margin-bottom: 0;
+    }
+
+    .section-actions {
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+    }
+
+    /*
+      ==========================================
+      TABS
+      ==========================================
+    */
+
+    .tabs {
+      display: flex;
+      gap: 10px;
+      margin-bottom: 20px;
+      flex-wrap: wrap;
+    }
+
+    .tab-btn,
+    .withdraw-tab-btn {
+      border: none;
+      padding: 11px 17px;
+      border-radius: 8px;
+      background: #e8f0ed;
+      cursor: pointer;
+      font-weight: bold;
+    }
+
+    .tab-btn.active {
+      background: #0b7a53;
+      color: white;
+    }
+
+    .withdraw-tab-btn.active {
+      background: #0876b9;
+      color: white;
+    }
+
+    /*
+      ==========================================
+      PAYMENT ITEM
+      ==========================================
+    */
+
+    .payment-item {
+      border: 1px solid #e2e8e5;
+      border-radius: 12px;
+      padding: 16px;
+      margin-bottom: 12px;
+      background: #fbfdfc;
+    }
+
+    .payment-top {
+      display: flex;
+      justify-content: space-between;
+      gap: 10px;
+      flex-wrap: wrap;
+      margin-bottom: 10px;
+    }
+
+    .payment-id {
+      font-size: 12px;
+      color: #777;
+      word-break: break-all;
+    }
+
+    .payment-info {
+      line-height: 1.7;
+      font-size: 14px;
+    }
+
+    .transaction-id {
+      display: inline-block;
+      background: #fff8e1;
+      border: 1px solid #ffe082;
+      padding: 4px 7px;
+      border-radius: 6px;
+      font-weight: bold;
+      color: #8a5a00;
+      word-break: break-all;
+    }
+
+    .payment-number {
+      display: inline-block;
+      background: #e8f5e9;
+      padding: 4px 7px;
+      border-radius: 6px;
+      font-weight: bold;
+      color: #0b7a53;
+    }
+
+    /*
+      ==========================================
+      STATUS
+      ==========================================
+    */
+
+    .status {
+      display: inline-block;
+      padding: 5px 9px;
+      border-radius: 20px;
+      font-size: 12px;
+      font-weight: bold;
+    }
+
+    .status.pending {
+      background: #fff3cd;
+      color: #856404;
+    }
+
+    .status.approved,
+    .status.paid {
+      background: #d4edda;
+      color: #155724;
+    }
+
+    .status.rejected {
+      background: #f8d7da;
+      color: #721c24;
+    }
+
+    /*
+      ==========================================
+      TYPE BADGE
+      ==========================================
+    */
+
+    .type-badge {
+      display: inline-block;
+      padding: 5px 9px;
+      border-radius: 20px;
+      font-size: 12px;
+      font-weight: bold;
+      background: #e8f0ed;
+      color: #172033;
+    }
+
+    .type-badge.gamer {
+      background: #e8ddff;
+      color: #5b21b6;
+    }
+
+    .type-badge.normal {
+      background: #dff2ff;
+      color: #075985;
+    }
+
+    /*
+      ==========================================
+      BUTTONS
+      ==========================================
+    */
+
+    .actions {
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+      margin-top: 14px;
+    }
+
+    .btn {
+      border: none;
+      padding: 10px 14px;
+      border-radius: 8px;
+      cursor: pointer;
+      font-weight: bold;
+    }
+
+    .approve {
+      background: #0b8f5a;
+      color: white;
+    }
+
+    .reject {
+      background: #e53935;
+      color: white;
+    }
+
+    .view {
+      background: #0876b9;
+      color: white;
+    }
+
+    .refresh {
+      background: #172033;
+      color: white;
+    }
+
+    .clear {
+      background: #b91c1c;
+      color: white;
+    }
+
+    .clear:hover {
+      background: #991b1b;
+    }
+
+    /*
+      ==========================================
+      EMPTY / LOADING / ERROR
+      ==========================================
+    */
+
+    .empty {
+      padding: 30px;
+      text-align: center;
+      color: #777;
+      background: #f8faf9;
+      border-radius: 10px;
+    }
+
+    .loading {
+      padding: 25px;
+      text-align: center;
+      color: #0876b9;
+      font-weight: bold;
+    }
+
+    .error {
+      background: #ffe5e5;
+      color: #a40000;
+      padding: 15px;
+      border-radius: 10px;
+      margin-bottom: 15px;
+      word-break: break-word;
+    }
+
+    /*
+      ==========================================
+      WITHDRAWAL SUMMARY
+      ==========================================
+    */
+
+    .withdraw-summary {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 12px;
+      margin-bottom: 20px;
+    }
+
+    .withdraw-summary-card {
+      background: #f5f9f7;
+      border: 1px solid #e2e8e5;
+      padding: 15px;
+      border-radius: 10px;
+    }
+
+    .withdraw-summary-card strong {
+      display: block;
+      font-size: 13px;
+      color: #666;
+      margin-bottom: 7px;
+    }
+
+    .withdraw-summary-card span {
+      font-size: 22px;
+      font-weight: bold;
+      color: #0876b9;
+    }
+
+    .withdraw-amount {
+      font-size: 20px;
+      font-weight: bold;
+      color: #0b7a53;
+    }
+
+    .withdraw-payment-number {
+      font-weight: bold;
+      color: #0876b9;
+    }
+
+    /*
+      ==========================================
+      MODAL
+      ==========================================
+    */
+
+    .modal {
+      display: none;
+      position: fixed;
+      inset: 0;
+      background: rgba(0,0,0,.55);
+      z-index: 100;
+      padding: 20px;
+      overflow-y: auto;
+    }
+
+    .modal-box {
+      background: white;
+      max-width: 600px;
+      margin: 40px auto;
+      border-radius: 15px;
+      padding: 22px;
+    }
+
+    .modal-box h2 {
+      color: #0876b9;
+      margin-bottom: 15px;
+    }
+
+    .close-btn {
+      float: right;
+      border: none;
+      background: #eee;
+      padding: 8px 12px;
+      border-radius: 7px;
+      cursor: pointer;
+    }
+
+    .detail {
+      background: #f5f8f7;
+      padding: 12px;
+      border-radius: 8px;
+      margin-bottom: 8px;
+      word-break: break-word;
+    }
+
+    /*
+      ==========================================
+      ACCESS DENIED
+      ==========================================
+    */
+
+    .access-denied {
+      min-height: 100vh;
+      display: none;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+      text-align: center;
+    }
+
+    .access-box {
+      background: white;
+      padding: 30px;
+      border-radius: 15px;
+      max-width: 450px;
+      width: 100%;
+
+      box-shadow:
+        0 5px 20px rgba(0,0,0,.1);
+    }
+
+    .access-box h2 {
+      color: #e53935;
+      margin-bottom: 10px;
+    }
+
+    .access-box button {
+      margin-top: 20px;
+      border: none;
+      background: #0876b9;
+      color: white;
+      padding: 12px 18px;
+      border-radius: 8px;
+      cursor: pointer;
+      font-weight: bold;
+    }
+
+    #dashboard {
+      display: none;
+    }
+
+    /*
+      ==========================================
+      MOBILE
+      ==========================================
+    */
+
+    @media (max-width: 900px) {
+
+      .cards {
+        grid-template-columns: 1fr 1fr;
+      }
+
+      .withdraw-summary {
+        grid-template-columns: 1fr 1fr;
+      }
+
+    }
+
+    @media (max-width: 700px) {
+
+      .container {
+        padding: 12px;
+      }
+
+      header {
+        padding: 14px;
+      }
+
+      .brand {
+        font-size: 18px;
+      }
+
+      .withdraw-summary {
+        grid-template-columns: 1fr;
+      }
+
+      .section-actions {
+        width: 100%;
+      }
+
+      .section-actions .btn {
+        flex: 1;
+      }
+
+      .main-switch {
+        grid-template-columns: 1fr 1fr;
+        gap: 10px;
+      }
+
+      .main-switch-btn {
+        padding: 14px 8px;
+        font-size: 14px;
+      }
+
+      .switch-icon {
+        font-size: 23px;
+      }
+
+    }
+
+    @media (max-width: 480px) {
+
+      .cards {
+        grid-template-columns: 1fr;
+      }
+
+      .header-row {
+        align-items: flex-start;
+      }
+
+      .logout-btn {
+        padding: 8px 10px;
+        font-size: 12px;
+      }
+
+      .payment-item {
+        padding: 13px;
+      }
+
+      .btn {
+        width: 100%;
+      }
+
+      .section-actions {
+        display: grid;
+        grid-template-columns: 1fr;
+      }
+
+      .main-switch {
+        grid-template-columns: 1fr 1fr;
+      }
+
+      .main-switch-btn {
+        min-height: 105px;
+      }
+
+    }
+
+  </style>
+
+</head>
+
+<body>
+
+
+  <!-- ==========================================
+       ACCESS DENIED
+       ========================================== -->
+
+  <div
+    id="accessDenied"
+    class="access-denied"
+  >
+
+    <div class="access-box">
+
+      <h2>
+        Access Denied
+      </h2>
+
+      <p id="accessMessage">
+        You are not authorized to access Payment Admin.
+      </p>
+
+      <button onclick="goToLogin()">
+        Go To Login
+      </button>
+
+    </div>
+
+  </div>
+
+
+  <!-- ==========================================
+       PAYMENT ADMIN DASHBOARD
+       ========================================== -->
+
+  <div id="dashboard">
+
+    <header>
+
+      <div class="header-row">
+
+        <div>
+
+          <div class="brand">
+            HASTAN <span>GLOBE</span>
+          </div>
+
+          <div class="admin-label">
+            Payment Admin Dashboard
+          </div>
+
+        </div>
+
+        <button
+          class="logout-btn"
+          onclick="logoutAdmin()"
+        >
+          Logout
+        </button>
+
+      </div>
+
+    </header>
+
+
+    <main class="container">
+
+
+      <!-- ======================================
+           WELCOME
+           ====================================== -->
+
+      <div class="welcome">
+
+        <h2 id="workspaceTitle">
+          Payment Management
+        </h2>
+
+        <p id="workspaceDescription">
+          Manage withdrawal payments.
+        </p>
+
+      </div>
+
+
+      <!-- ======================================
+           MAIN SWITCH
+           ====================================== -->
+
+      <div class="main-switch">
+
+        <button
+          id="paymentModeButton"
+          class="main-switch-btn active payment-mode"
+          onclick="switchWorkspace('payments')"
+        >
+
+          <span class="switch-icon">
+            💳
+          </span>
+
+          PAYMENTS
+
+          <span class="switch-description">
+            Withdrawal payments
+          </span>
+
+        </button>
+
+
+        <button
+          id="activationModeButton"
+          class="main-switch-btn activation-mode"
+          onclick="switchWorkspace('activations')"
+        >
+
+          <span class="switch-icon">
+            🔐
+          </span>
+
+          ACTIVATIONS
+
+          <span class="switch-description">
+            Account activation payments
+          </span>
+
+        </button>
+
+      </div>
+
+
+      <!-- ======================================
+           PAYMENTS WORKSPACE
+           ====================================== -->
+
+      <div
+        id="paymentsWorkspace"
+        class="workspace active"
+      >
+
+
+        <!-- PAYMENT STATISTICS -->
+
+        <div class="withdraw-summary">
+
+          <div class="withdraw-summary-card">
+
+            <strong>
+              Total Requests
+            </strong>
+
+            <span id="withdrawTotalCount">
+              0
+            </span>
+
+          </div>
+
+
+          <div class="withdraw-summary-card">
+
+            <strong>
+              Pending
+            </strong>
+
+            <span id="withdrawPendingCount">
+              0
+            </span>
+
+          </div>
+
+
+          <div class="withdraw-summary-card">
+
+            <strong>
+              Paid
+            </strong>
+
+            <span id="withdrawPaidCount">
+              0
+            </span>
+
+          </div>
+
+        </div>
+
+
+        <div class="section">
+
+          <div class="section-header">
+
+            <h2 class="payment-workspace-title">
+              💳 Payment Workspace
+            </h2>
+
+            <div class="section-actions">
+
+              <button
+                class="btn clear"
+                onclick="clearPaidWithdrawals()"
+              >
+                🗑 Clear Paid
+              </button>
+
+              <button
+                class="btn refresh"
+                onclick="loadWithdrawals()"
+              >
+                ↻ Refresh
+              </button>
+
+            </div>
+
+          </div>
+
+
+          <!-- WITHDRAWAL FILTER -->
+
+          <div class="tabs">
+
+            <button
+              class="withdraw-tab-btn active"
+              id="withdrawTabAll"
+              onclick="setWithdrawalFilter('all')"
+            >
+              All
+            </button>
+
+
+            <button
+              class="withdraw-tab-btn"
+              id="withdrawTabPending"
+              onclick="setWithdrawalFilter('pending')"
+            >
+              Pending
+            </button>
+
+
+            <button
+              class="withdraw-tab-btn"
+              id="withdrawTabPaid"
+              onclick="setWithdrawalFilter('paid')"
+            >
+              Paid
+            </button>
+
+
+            <button
+              class="withdraw-tab-btn"
+              id="withdrawTabRejected"
+              onclick="setWithdrawalFilter('rejected')"
+            >
+              Rejected
+            </button>
+
+          </div>
+
+
+          <div id="withdrawalsList">
+
+            <div class="loading">
+              Loading withdrawal requests...
+            </div>
+
+          </div>
+
+        </div>
+
+      </div>
+
+
+      <!-- ======================================
+           ACTIVATIONS WORKSPACE
+           ====================================== -->
+
+      <div
+        id="activationsWorkspace"
+        class="workspace"
+      >
+
+
+        <!-- ACTIVATION STATISTICS -->
+
+        <div class="cards">
+
+          <div class="card total">
+
+            <h3>
+              Total Activation Payments
+            </h3>
+
+            <div
+              class="number"
+              id="totalCount"
+            >
+              0
+            </div>
+
+          </div>
+
+
+          <div class="card pending">
+
+            <h3>
+              Pending Activation
+            </h3>
+
+            <div
+              class="number"
+              id="pendingCount"
+            >
+              0
+            </div>
+
+          </div>
+
+
+          <div class="card approved">
+
+            <h3>
+              Approved Activation
+            </h3>
+
+            <div
+              class="number"
+              id="approvedCount"
+            >
+              0
+            </div>
+
+          </div>
+
+
+          <div class="card rejected">
+
+            <h3>
+              Rejected Activation
+            </h3>
+
+            <div
+              class="number"
+              id="rejectedCount"
+            >
+              0
+            </div>
+
+          </div>
+
+        </div>
+
+
+        <div class="section">
+
+          <div class="section-header">
+
+            <h2 class="activation-workspace-title">
+              🔐 Activation Workspace
+            </h2>
+
+            <div class="section-actions">
+
+              <button
+                class="btn clear"
+                onclick="clearApprovedPayments()"
+              >
+                🗑 Clear Approved
+              </button>
+
+              <button
+                class="btn refresh"
+                onclick="loadPayments()"
+              >
+                ↻ Refresh
+              </button>
+
+            </div>
+
+          </div>
+
+
+          <!-- ACTIVATION FILTER -->
+
+          <div class="tabs">
+
+            <button
+              class="tab-btn active"
+              id="tabAll"
+              onclick="setFilter('all')"
+            >
+              All
+            </button>
+
+
+            <button
+              class="tab-btn"
+              id="tabPending"
+              onclick="setFilter('pending')"
+            >
+              Pending
+            </button>
+
+
+            <button
+              class="tab-btn"
+              id="tabApproved"
+              onclick="setFilter('approved')"
+            >
+              Approved
+            </button>
+
+
+            <button
+              class="tab-btn"
+              id="tabRejected"
+              onclick="setFilter('rejected')"
+            >
+              Rejected
+            </button>
+
+          </div>
+
+
+          <div id="message"></div>
+
+
+          <div id="paymentsList">
+
+            <div class="loading">
+              Loading payments...
+            </div>
+
+          </div>
+
+        </div>
+
+      </div>
+
+    </main>
+
+  </div>
+
+
+  <!-- ==========================================
+       DETAILS MODAL
+       ========================================== -->
+
+  <div
+    id="detailsModal"
+    class="modal"
+  >
+
+    <div class="modal-box">
+
+      <button
+        class="close-btn"
+        onclick="closeModal()"
+      >
+        ✕ Close
+      </button>
+
+      <h2 id="detailsTitle">
+        Payment Details
+      </h2>
+
+      <div id="paymentDetails"></div>
+
+    </div>
+
+  </div>
+
+
+  <!-- ==========================================
+       FIREBASE
+       ========================================== -->
+
+  <script type="module">
+
+
+    /*
+      ==========================================
+      HASTAN GLOBE PAYMENT ADMIN
+      FIREBASE 12.1.0
+      ==========================================
+    */
+
+    import {
+      auth,
+      db
+    } from "./firebase-config.js";
+
+
+    import {
+      onAuthStateChanged,
+      signOut
+    }
+    from
+      "https://www.gstatic.com/firebasejs/12.1.0/firebase-auth.js";
+
+
+    import {
+      collection,
+      getDocs,
+      doc,
+      updateDoc,
+      deleteDoc,
+      runTransaction,
+      serverTimestamp
+    }
+    from
+      "https://www.gstatic.com/firebasejs/12.1.0/firebase-firestore.js";
+
+
+    /*
+      ==========================================
+      PAYMENT ADMIN UID
+      ==========================================
+    */
+
+    const PAYMENT_ADMIN_UID =
+      "bRcIg5YO4ZheYcF9wlqI9K1Bphq2";
+
+
+    /*
+      ==========================================
+      COMMISSION SETTINGS
+      ==========================================
+    */
+
+    const LEVEL_1_COMMISSION =
+      5000;
+
+    const LEVEL_2_COMMISSION =
+      2000;
+
+
+    /*
+      ==========================================
+      COLLECTIONS
+      ==========================================
+    */
+
+    const ACTIVATION_COLLECTION =
+      "activationPayments";
+
+    const WITHDRAWAL_COLLECTION =
+      "withdrawals";
+
+
+    /*
+      ==========================================
+      VARIABLES
+      ==========================================
+    */
+
+    let allPayments = [];
+
+    let currentFilter = "all";
+
+    let currentUser = null;
+
+    let allWithdrawals = [];
+
+    let currentWithdrawalFilter = "all";
+
+
+    /*
+      ==========================================
+      WORKSPACE SWITCH
+      ==========================================
+    */
+
+    window.switchWorkspace =
+      function(workspace) {
+
+        const paymentsWorkspace =
+          document.getElementById(
+            "paymentsWorkspace"
+          );
+
+        const activationsWorkspace =
+          document.getElementById(
+            "activationsWorkspace"
+          );
+
+        const paymentButton =
+          document.getElementById(
+            "paymentModeButton"
+          );
+
+        const activationButton =
+          document.getElementById(
+            "activationModeButton"
+          );
+
+        const title =
+          document.getElementById(
+            "workspaceTitle"
+          );
+
+        const description =
+          document.getElementById(
+            "workspaceDescription"
+          );
+
+
+        if (
+          workspace === "activations"
+        ) {
+
+          paymentsWorkspace
+            .classList
+            .remove("active");
+
+          activationsWorkspace
+            .classList
+            .add("active");
+
+          paymentButton
+            .classList
+            .remove("active");
+
+          activationButton
+            .classList
+            .add("active");
+
+          title.textContent =
+            "Activation Management";
+
+          description.textContent =
+            "Manage account activation payments.";
+
+        }
+
+        else {
+
+          activationsWorkspace
+            .classList
+            .remove("active");
+
+          paymentsWorkspace
+            .classList
+            .add("active");
+
+          activationButton
+            .classList
+            .remove("active");
+
+          paymentButton
+            .classList
+            .add("active");
+
+          title.textContent =
+            "Payment Management";
+
+          description.textContent =
+            "Manage withdrawal payments.";
+
+        }
+
+      };
+
+
+    /*
+      ==========================================
+      FIREBASE CHECK
+      ==========================================
+    */
+
+    console.log(
+      "HASTAN GLOBE Payment Admin started."
+    );
+
+    console.log(
+      "Firebase DB:",
+      db
+    );
+
+    console.log(
+      "Firebase Auth:",
+      auth
+    );
+
+
+    /*
+      ==========================================
+      AUTHENTICATION
+      ==========================================
+    */
+
+    onAuthStateChanged(
+      auth,
+      async (user) => {
+
+        if (!user) {
+
+          showAccessDenied(
+            "You must login first to access Payment Admin."
+          );
+
+          return;
+
+        }
+
+        currentUser = user;
+
+        console.log(
+          "Logged in UID:",
+          user.uid
+        );
+
+
+        /*
+          ONLY PAYMENT ADMIN
+        */
+
+        if (
+          user.uid !== PAYMENT_ADMIN_UID
+        ) {
+
+          showAccessDenied(
+            "This account is not registered as the HASTAN GLOBE Payment Admin."
+          );
+
+          try {
+
+            await signOut(auth);
+
+          } catch (error) {
+
+            console.error(
+              "Sign out error:",
+              error
+            );
+
+          }
+
+          return;
+
+        }
+
+
+        /*
+          SHOW DASHBOARD
+        */
+
+        document
+          .getElementById(
+            "accessDenied"
+          )
+          .style.display =
+          "none";
+
+        document
+          .getElementById(
+            "dashboard"
+          )
+          .style.display =
+          "block";
+
+
+        /*
+          LOAD DATA
+        */
+
+        await loadPayments();
+
+        await loadWithdrawals();
+
+      }
+    );
+
+
+    /*
+      ==========================================
+      LOAD ACTIVATION PAYMENTS
+      ==========================================
+    */
+
+    async function loadPayments() {
+
+      const list =
+        document.getElementById(
+          "paymentsList"
+        );
+
+      list.innerHTML = `
+
+        <div class="loading">
+          Loading payments...
+        </div>
+
+      `;
+
+
+      try {
+
+        if (!db) {
+
+          throw new Error(
+            "Firestore database is not available."
+          );
+
+        }
+
+        const paymentsCollection =
+          collection(
+            db,
+            ACTIVATION_COLLECTION
+          );
+
+        const snapshot =
+          await getDocs(
+            paymentsCollection
+          );
+
+        allPayments = [];
+
+        snapshot.forEach(
+          (item) => {
+
+            allPayments.push({
+
+              id: item.id,
+
+              ...item.data()
+
+            });
+
+          }
+        );
+
+
+        allPayments.sort(
+          (a, b) => {
+
+            const aTime =
+              getTimeValue(
+                a.createdAt
+              );
+
+            const bTime =
+              getTimeValue(
+                b.createdAt
+              );
+
+            return bTime - aTime;
+
+          }
+        );
+
+        updateStatistics();
+
+        renderPayments();
+
+        console.log(
+          "Activation payments loaded:",
+          allPayments.length
+        );
+
+
+      } catch (error) {
+
+        console.error(
+          "Failed to load activation payments:",
+          error
+        );
+
+        list.innerHTML = `
+
+          <div class="error">
+
+            <strong>
+              Failed to load activation payments.
+            </strong>
+
+            <br><br>
+
+            ${escapeHtml(
+              error.message
+            )}
+
+          </div>
+
+        `;
+
+      }
+
+    }
+
+
+    /*
+      ==========================================
+      LOAD WITHDRAWALS
+      ==========================================
+    */
+
+    async function loadWithdrawals() {
+
+      const list =
+        document.getElementById(
+          "withdrawalsList"
+        );
+
+      list.innerHTML = `
+
+        <div class="loading">
+          Loading withdrawal requests...
+        </div>
+
+      `;
+
+
+      try {
+
+        if (!db) {
+
+          throw new Error(
+            "Firestore database is not available."
+          );
+
+        }
+
+        const withdrawalsCollection =
+          collection(
+            db,
+            WITHDRAWAL_COLLECTION
+          );
+
+        const snapshot =
+          await getDocs(
+            withdrawalsCollection
+          );
+
+        allWithdrawals = [];
+
+        snapshot.forEach(
+          (item) => {
+
+            allWithdrawals.push({
+
+              id: item.id,
+
+              ...item.data()
+
+            });
+
+          }
+        );
+
+
+        allWithdrawals.sort(
+          (a, b) => {
+
+            return (
+              getTimeValue(
+                b.createdAt
+              ) -
+              getTimeValue(
+                a.createdAt
+              )
+            );
+
+          }
+        );
+
+        updateWithdrawalStatistics();
+
+        renderWithdrawals();
+
+        console.log(
+          "Withdrawal requests loaded:",
+          allWithdrawals.length
+        );
+
+
+      } catch (error) {
+
+        console.error(
+          "Failed to load withdrawals:",
+          error
+        );
+
+        list.innerHTML = `
+
+          <div class="error">
+
+            <strong>
+              Failed to load withdrawal requests.
+            </strong>
+
+            <br><br>
+
+            ${escapeHtml(
+              error.message
+            )}
+
+          </div>
+
+        `;
+
+      }
+
+    }
+
+
+    /*
+      ==========================================
+      TIMESTAMP
+      ==========================================
+    */
+
+    function getTimeValue(
+      value
+    ) {
+
+      if (!value) {
+        return 0;
+      }
+
+      if (
+        value &&
+        typeof value.toDate === "function"
+      ) {
+
+        return value.toDate().getTime();
+
+      }
+
+      if (
+        typeof value.seconds === "number"
+      ) {
+
+        return value.seconds * 1000;
+
+      }
+
+      if (
+        typeof value === "number"
+      ) {
+
+        return value;
+
+      }
+
+      if (
+        value instanceof Date
+      ) {
+
+        return value.getTime();
+
+      }
+
+      if (
+        typeof value === "string"
+      ) {
+
+        const time =
+          new Date(value).getTime();
+
+        return Number.isNaN(time)
+          ? 0
+          : time;
+
+      }
+
+      return 0;
+
+    }
+
+
+    /*
+      ==========================================
+      DATE FORMAT
+      ==========================================
+    */
+
+    function formatDate(
+      value
+    ) {
+
+      const time =
+        getTimeValue(value);
+
+      if (!time) {
+        return "N/A";
+      }
+
+      try {
+
+        return new Date(
+          time
+        ).toLocaleString(
+          "en-TZ"
+        );
+
+      } catch {
+
+        return new Date(
+          time
+        ).toLocaleString();
+
+      }
+
+    }
+
+
+    /*
+      ==========================================
+      ACTIVATION STATISTICS
+      ==========================================
+    */
+
+    function updateStatistics() {
+
+      const total =
+        allPayments.length;
+
+      const pending =
+        allPayments.filter(
+          p =>
+            String(
+              p.status ||
+              "pending"
+            ).toLowerCase()
+            === "pending"
+        ).length;
+
+      const approved =
+        allPayments.filter(
+          p =>
+            String(
+              p.status ||
+              ""
+            ).toLowerCase()
+            === "approved"
+        ).length;
+
+      const rejected =
+        allPayments.filter(
+          p =>
+            String(
+              p.status ||
+              ""
+            ).toLowerCase()
+            === "rejected"
+        ).length;
+
+      document
+        .getElementById(
+          "totalCount"
+        )
+        .textContent =
+        total;
+
+      document
+        .getElementById(
+          "pendingCount"
+        )
+        .textContent =
+        pending;
+
+      document
+        .getElementById(
+          "approvedCount"
+        )
+        .textContent =
+        approved;
+
+      document
+        .getElementById(
+          "rejectedCount"
+        )
+        .textContent =
+        rejected;
+
+    }
+
+
+    /*
+      ==========================================
+      WITHDRAWAL STATISTICS
+      ==========================================
+    */
+
+    function updateWithdrawalStatistics() {
+
+      const total =
+        allWithdrawals.length;
+
+      const pending =
+        allWithdrawals.filter(
+          item =>
+            String(
+              item.status ||
+              "pending"
+            ).toLowerCase()
+            === "pending"
+        ).length;
+
+      const paid =
+        allWithdrawals.filter(
+          item =>
+            String(
+              item.status ||
+              ""
+            ).toLowerCase()
+            === "paid"
+        ).length;
+
+      document
+        .getElementById(
+          "withdrawTotalCount"
+        )
+        .textContent =
+        total;
+
+      document
+        .getElementById(
+          "withdrawPendingCount"
+        )
+        .textContent =
+        pending;
+
+      document
+        .getElementById(
+          "withdrawPaidCount"
+        )
+        .textContent =
+        paid;
+
+    }
+
+
+    /*
+      ==========================================
+      RENDER ACTIVATION PAYMENTS
+      ==========================================
+    */
+
+    function renderPayments() {
+
+      const list =
+        document.getElementById(
+          "paymentsList"
+        );
+
+      let payments =
+        [...allPayments];
+
+
+      if (
+        currentFilter !== "all"
+      ) {
+
+        payments =
+          payments.filter(
+            p =>
+              String(
+                p.status ||
+                "pending"
+              ).toLowerCase()
+              === currentFilter
+          );
+
+      }
+
+
+      if (
+        payments.length === 0
+      ) {
+
+        list.innerHTML = `
+
+          <div class="empty">
+            No activation payments found.
+          </div>
+
+        `;
+
+        return;
+
+      }
+
+
+      list.innerHTML = "";
+
+
+      payments.forEach(
+        payment => {
+
+          const item =
+            document.createElement(
+              "div"
+            );
+
+          item.className =
+            "payment-item";
+
+
+          const status =
+            String(
+              payment.status ||
+              "pending"
+            ).toLowerCase();
+
+
+          const amount =
+            payment.amount ??
+            payment.activationAmount ??
+            10000;
+
+
+          const userId =
+            payment.userId ??
+            payment.uid ??
+            "N/A";
+
+
+          const username =
+            payment.username ??
+            "N/A";
+
+
+          const fullName =
+            payment.fullName ??
+            "N/A";
+
+
+          const email =
+            payment.email ??
+            "N/A";
+
+
+          const phone =
+            payment.phone ??
+            payment.phoneNumber ??
+            "N/A";
+
+
+          const paymentNumber =
+            payment.paymentNumber ??
+            "356574572";
+
+
+          const transactionId =
+            payment.paymentReference ??
+            payment.transactionId ??
+            payment.transactionID ??
+            "N/A";
+
+
+          const paymentMethod =
+            payment.paymentMethod ??
+            "N/A";
+
+
+          item.innerHTML = `
+
+            <div class="payment-top">
+
+              <strong>
+                Activation Payment
+              </strong>
+
+              <span
+                class="status ${escapeHtml(status)}"
+              >
+
+                ${escapeHtml(
+                  status.toUpperCase()
+                )}
+
+              </span>
+
+            </div>
+
+
+            <div class="payment-info">
+
+              <strong>
+                Amount:
+              </strong>
+
+              TSh
+              ${formatMoney(amount)}
+
+              <br>
+
+
+              <strong>
+                Username:
+              </strong>
+
+              ${escapeHtml(username)}
+
+              <br>
+
+
+              <strong>
+                Full Name:
+              </strong>
+
+              ${escapeHtml(fullName)}
+
+              <br>
+
+
+              <strong>
+                User UID:
+              </strong>
+
+              ${escapeHtml(userId)}
+
+              <br>
+
+
+              <strong>
+                Email:
+              </strong>
+
+              ${escapeHtml(email)}
+
+              <br>
+
+
+              <strong>
+                User Phone:
+              </strong>
+
+              ${escapeHtml(phone)}
+
+              <br>
+
+
+              <strong>
+                Payment Number:
+              </strong>
+
+              <span class="payment-number">
+                ${escapeHtml(paymentNumber)}
+              </span>
+
+              <br>
+
+
+              <strong>
+                Transaction ID:
+              </strong>
+
+              <span class="transaction-id">
+                ${escapeHtml(transactionId)}
+              </span>
+
+              <br>
+
+
+              <strong>
+                Payment Method:
+              </strong>
+
+              ${escapeHtml(paymentMethod)}
+
+              <br>
+
+
+              <strong>
+                Date:
+              </strong>
+
+              ${escapeHtml(
+                formatDate(
+                  payment.createdAt
+                )
+              )}
+
+              <br>
+
+
+              <span class="payment-id">
+
+                Payment ID:
+                ${escapeHtml(payment.id)}
+
+              </span>
+
+            </div>
+
+
+            <div class="actions">
+
+              <button
+                class="btn view"
+                onclick="viewPayment('${escapeAttribute(payment.id)}')"
+              >
+                View
+              </button>
+
+
+              ${
+                status === "pending"
+
+                ? `
+
+                  <button
+                    class="btn approve"
+                    onclick="approvePayment('${escapeAttribute(payment.id)}')"
+                  >
+                    ✓ Approve
+                  </button>
+
+
+                  <button
+                    class="btn reject"
+                    onclick="rejectPayment('${escapeAttribute(payment.id)}')"
+                  >
+                    ✕ Reject
+                  </button>
+
+                `
+
+                : ""
+
+              }
+
+            </div>
+
+          `;
+
+
+          list.appendChild(item);
+
+        }
+      );
+
+    }
+
+
+    /*
+      ==========================================
+      RENDER WITHDRAWALS
+      ==========================================
+    */
+
+    function renderWithdrawals() {
+
+      const list =
+        document.getElementById(
+          "withdrawalsList"
+        );
+
+      let withdrawals =
+        [...allWithdrawals];
+
+
+      if (
+        currentWithdrawalFilter !== "all"
+      ) {
+
+        withdrawals =
+          withdrawals.filter(
+            item =>
+              String(
+                item.status ||
+                "pending"
+              ).toLowerCase()
+              === currentWithdrawalFilter
+          );
+
+      }
+
+
+      if (
+        withdrawals.length === 0
+      ) {
+
+        list.innerHTML = `
+
+          <div class="empty">
+            No withdrawal requests found.
+          </div>
+
+        `;
+
+        return;
+
+      }
+
+
+      list.innerHTML = "";
+
+
+      withdrawals.forEach(
+        withdrawal => {
+
+          const item =
+            document.createElement(
+              "div"
+            );
+
+          item.className =
+            "payment-item";
+
+
+          const status =
+            String(
+              withdrawal.status ||
+              "pending"
+            ).toLowerCase();
+
+
+          const type =
+            String(
+              withdrawal.type ||
+              "normal"
+            ).toLowerCase();
+
+
+          const typeLabel =
+            type === "gamer"
+              ? "Gamer Withdrawal"
+              : "Normal Withdrawal";
+
+
+          const userId =
+            withdrawal.uid ||
+            "N/A";
+
+
+          const email =
+            withdrawal.email ||
+            "N/A";
+
+
+          const amount =
+            Number(
+              withdrawal.amount || 0
+            );
+
+
+          const paymentNumber =
+            withdrawal.paymentNumber ||
+            "N/A";
+
+
+          item.innerHTML = `
+
+            <div class="payment-top">
+
+              <div>
+
+                <strong>
+                  ${escapeHtml(typeLabel)}
+                </strong>
+
+                <br><br>
+
+                <span
+                  class="type-badge ${type === "gamer" ? "gamer" : "normal"}"
+                >
+                  ${escapeHtml(
+                    type === "gamer"
+                      ? "GAMER"
+                      : "NORMAL"
+                  )}
+                </span>
+
+              </div>
+
+
+              <span
+                class="status ${escapeHtml(status)}"
+              >
+
+                ${escapeHtml(
+                  status.toUpperCase()
+                )}
+
+              </span>
+
+            </div>
+
+
+            <div class="payment-info">
+
+              <strong>
+                Amount:
+              </strong>
+
+              <span class="withdraw-amount">
+
+                TSh
+                ${formatMoney(amount)}
+
+              </span>
+
+              <br>
+
+
+              <strong>
+                Payment Number:
+              </strong>
+
+              <span class="withdraw-payment-number">
+
+                ${escapeHtml(
+                  paymentNumber
+                )}
+
+              </span>
+
+              <br>
+
+
+              <strong>
+                User UID:
+              </strong>
+
+              ${escapeHtml(userId)}
+
+              <br>
+
+
+              <strong>
+                Email:
+              </strong>
+
+              ${escapeHtml(email)}
+
+              <br>
+
+
+              <strong>
+                Date:
+              </strong>
+
+              ${escapeHtml(
+                formatDate(
+                  withdrawal.createdAt
+                )
+              )}
+
+              <br>
+
+
+              <span class="payment-id">
+
+                Withdrawal ID:
+                ${escapeHtml(withdrawal.id)}
+
+              </span>
+
+            </div>
+
+
+            <div class="actions">
+
+              <button
+                class="btn view"
+                onclick="viewWithdrawal('${escapeAttribute(withdrawal.id)}')"
+              >
+                View
+              </button>
+
+
+              ${
+                status === "pending"
+
+                ? `
+
+                  <button
+                    class="btn approve"
+                    onclick="approveWithdrawal('${escapeAttribute(withdrawal.id)}')"
+                  >
+                    ✓ Mark Paid
+                  </button>
+
+
+                  <button
+                    class="btn reject"
+                    onclick="rejectWithdrawal('${escapeAttribute(withdrawal.id)}')"
+                  >
+                    ✕ Reject
+                  </button>
+
+                `
+
+                : ""
+
+              }
+
+            </div>
+
+          `;
+
+
+          list.appendChild(item);
+
+        }
+      );
+
+    }
+
+
+    /*
+      ==========================================
+      CLEAR APPROVED ACTIVATION PAYMENTS
+      ==========================================
+    */
+
+    window.clearApprovedPayments =
+      async function() {
+
+        const approvedPayments =
+          allPayments.filter(
+            payment =>
+              String(
+                payment.status ||
+                ""
+              ).toLowerCase()
+              === "approved"
+          );
+
+
+        if (
+          approvedPayments.length === 0
+        ) {
+
+          alert(
+            "There are no approved activation payment records to clear."
+          );
+
+          return;
+
+        }
+
+
+        const confirmed =
+          confirm(
+
+            "⚠️ CLEAR APPROVED ACTIVATIONS\n\n" +
+
+            "You are about to permanently remove " +
+            approvedPayments.length +
+            " approved activation payment record(s) from Payment Admin.\n\n" +
+
+            "This will NOT deactivate users who are already ACTIVE.\n\n" +
+
+            "It will only remove the old payment records from the activationPayments collection.\n\n" +
+
+            "Do you want to continue?"
+
+          );
+
+
+        if (!confirmed) {
+
+          return;
+
+        }
+
+
+        try {
+
+          let deletedCount = 0;
+
+
+          for (
+            const payment
+            of approvedPayments
+          ) {
+
+            await deleteDoc(
+
+              doc(
+                db,
+                ACTIVATION_COLLECTION,
+                payment.id
+              )
+
+            );
+
+            deletedCount++;
+
+          }
+
+
+          alert(
+
+            "Approved activation records cleared successfully.\n\n" +
+
+            "Deleted: " +
+            deletedCount +
+            " record(s)."
+
+          );
+
+
+          await loadPayments();
+
+
+        } catch (error) {
+
+          console.error(
+            "Clear approved activation payments error:",
+            error
+          );
+
+
+          alert(
+
+            "Failed to clear approved activation payments.\n\n" +
+
+            error.message
+
+          );
+
+
+          await loadPayments();
+
+        }
+
+      };
+
+
+    /*
+      ==========================================
+      CLEAR PAID WITHDRAWALS
+      ==========================================
+    */
+
+    window.clearPaidWithdrawals =
+      async function() {
+
+        const paidWithdrawals =
+          allWithdrawals.filter(
+            withdrawal =>
+              String(
+                withdrawal.status ||
+                ""
+              ).toLowerCase()
+              === "paid"
+          );
+
+
+        if (
+          paidWithdrawals.length === 0
+        ) {
+
+          alert(
+            "There are no paid withdrawal records to clear."
+          );
+
+          return;
+
+        }
+
+
+        const confirmed =
+          confirm(
+
+            "⚠️ CLEAR PAID WITHDRAWALS\n\n" +
+
+            "You are about to permanently remove " +
+            paidWithdrawals.length +
+            " paid withdrawal record(s) from Payment Admin.\n\n" +
+
+            "This will NOT change the user's balance or account.\n\n" +
+
+            "It will only remove the old PAID withdrawal records from the withdrawals collection.\n\n" +
+
+            "Do you want to continue?"
+
+          );
+
+
+        if (!confirmed) {
+
+          return;
+
+        }
+
+
+        try {
+
+          let deletedCount = 0;
+
+
+          for (
+            const withdrawal
+            of paidWithdrawals
+          ) {
+
+            await deleteDoc(
+
+              doc(
+                db,
+                WITHDRAWAL_COLLECTION,
+                withdrawal.id
+              )
+
+            );
+
+            deletedCount++;
+
+          }
+
+
+          alert(
+
+            "Paid withdrawal records cleared successfully.\n\n" +
+
+            "Deleted: " +
+            deletedCount +
+            " record(s)."
+
+          );
+
+
+          await loadWithdrawals();
+
+
+        } catch (error) {
+
+          console.error(
+            "Clear paid withdrawals error:",
+            error
+          );
+
+
+          alert(
+
+            "Failed to clear paid withdrawal records.\n\n" +
+
+            error.message
+
+          );
+
+
+          await loadWithdrawals();
+
+        }
+
+      };
+
+
+    /*
+      ==========================================
+      ACTIVATION FILTER
+      ==========================================
+    */
+
+    window.setFilter =
+      function(filter) {
+
+        currentFilter =
+          filter;
+
+        document
+          .querySelectorAll(
+            ".tab-btn"
+          )
+          .forEach(
+            btn =>
+              btn.classList.remove(
+                "active"
+              )
+          );
+
+
+        const buttonIds = {
+
+          all:
+            "tabAll",
+
+          pending:
+            "tabPending",
+
+          approved:
+            "tabApproved",
+
+          rejected:
+            "tabRejected"
+
+        };
+
+
+        const button =
+          document.getElementById(
+            buttonIds[filter]
+          );
+
+
+        if (button) {
+
+          button.classList.add(
+            "active"
+          );
+
+        }
+
+
+        renderPayments();
+
+      };
+
+
+    /*
+      ==========================================
+      WITHDRAWAL FILTER
+      ==========================================
+    */
+
+    window.setWithdrawalFilter =
+      function(filter) {
+
+        currentWithdrawalFilter =
+          filter;
+
+
+        document
+          .querySelectorAll(
+            ".withdraw-tab-btn"
+          )
+          .forEach(
+            btn =>
+              btn.classList.remove(
+                "active"
+              )
+          );
+
+
+        const buttonIds = {
+
+          all:
+            "withdrawTabAll",
+
+          pending:
+            "withdrawTabPending",
+
+          paid:
+            "withdrawTabPaid",
+
+          rejected:
+            "withdrawTabRejected"
+
+        };
+
+
+        const button =
+          document.getElementById(
+            buttonIds[filter]
+          );
+
+
+        if (button) {
+
+          button.classList.add(
+            "active"
+          );
+
+        }
+
+
+        renderWithdrawals();
+
+      };
+
+
+    /*
+      ==========================================
+      VIEW ACTIVATION PAYMENT
+      ==========================================
+    */
+
+    window.viewPayment =
+      function(paymentId) {
+
+        const payment =
+          allPayments.find(
+            p =>
+              p.id === paymentId
+          );
+
+
+        if (!payment) {
+
+          alert(
+            "Payment not found."
+          );
+
+          return;
+
+        }
+
+
+        showDetails(
+          "Payment Details",
+          payment
+        );
+
+      };
+
+
+    /*
+      ==========================================
+      VIEW WITHDRAWAL
+      ==========================================
+    */
+
+    window.viewWithdrawal =
+      function(withdrawalId) {
+
+        const withdrawal =
+          allWithdrawals.find(
+            item =>
+              item.id === withdrawalId
+          );
+
+
+        if (!withdrawal) {
+
+          alert(
+            "Withdrawal request not found."
+          );
+
+          return;
+
+        }
+
+
+        showDetails(
+          "Withdrawal Details",
+          withdrawal
+        );
+
+      };
+
+
+    /*
+      ==========================================
+      SHOW DETAILS
+      ==========================================
+    */
+
+    function showDetails(
+      title,
+      data
+    ) {
+
+      const details =
+        document.getElementById(
+          "paymentDetails"
+        );
+
+
+      let html = "";
+
+
+      Object.keys(data)
+        .forEach(
+          key => {
+
+            let value =
+              data[key];
+
+
+            if (
+              value &&
+              typeof value.toDate === "function"
+            ) {
+
+              value =
+                value.toDate()
+                  .toLocaleString();
+
+            }
+
+            else if (
+              value &&
+              typeof value === "object" &&
+              typeof value.seconds === "number"
+            ) {
+
+              value =
+                new Date(
+                  value.seconds * 1000
+                ).toLocaleString();
+
+            }
+
+
+            if (
+              value &&
+              typeof value === "object"
+            ) {
+
+              try {
+
+                value =
+                  JSON.stringify(
+                    value
+                  );
+
+              } catch {
+
+                value =
+                  String(value);
+
+              }
+
+            }
+
+
+            html += `
+
+              <div class="detail">
+
+                <strong>
+                  ${escapeHtml(key)}:
+                </strong>
+
+                <br>
+
+                ${escapeHtml(
+                  String(
+                    value ?? ""
+                  )
+                )}
+
+              </div>
+
+            `;
+
+          }
+        );
+
+
+      details.innerHTML =
+        html;
+
+
+      document
+        .getElementById(
+          "detailsTitle"
+        )
+        .textContent =
+        title;
+
+
+      document
+        .getElementById(
+          "detailsModal"
+        )
+        .style.display =
+        "block";
+
+    }
+
+
+    /*
+      ==========================================
+      APPROVE ACTIVATION
+      ==========================================
+
+      ALL FIRESTORE READS HAPPEN BEFORE WRITES.
+      ==========================================
+    */
+
+    window.approvePayment =
+      async function(paymentId) {
+
+        const payment =
+          allPayments.find(
+            p =>
+              p.id === paymentId
+          );
+
+
+        if (!payment) {
+
+          alert(
+            "Payment not found."
+          );
+
+          return;
+
+        }
+
+
+        const currentPaymentStatus =
+          String(
+            payment.status ||
+            ""
+          ).toLowerCase();
+
+
+        if (
+          currentPaymentStatus ===
+          "approved"
+        ) {
+
+          alert(
+            "This payment is already approved."
+          );
+
+          return;
+
+        }
+
+
+        const userId =
+          payment.userId ??
+          payment.uid;
+
+
+        if (!userId) {
+
+          alert(
+            "Cannot activate this user because the payment does not contain a user ID."
+          );
+
+          return;
+
+        }
+
+
+        const transactionId =
+          payment.paymentReference ??
+          payment.transactionId ??
+          payment.transactionID ??
+          "";
+
+
+        const confirmApprove =
+          confirm(
+
+            "Approve this activation payment?\n\n" +
+
+            "Amount: TSh " +
+            formatMoney(
+              payment.amount ??
+              10000
+            ) +
+
+            "\nTransaction ID: " +
+            (
+              transactionId ||
+              "N/A"
+            ) +
+
+            "\n\n" +
+
+            "User account will become ACTIVE." +
+
+            "\n\n" +
+
+            "Level 1 commission: TSh 5,000" +
+
+            "\nLevel 2 commission: TSh 2,000" +
+
+            "\n\n" +
+
+            "Maximum total commission: TSh 7,000."
+
+          );
+
+
+        if (!confirmApprove) {
+
+          return;
+
+        }
+
+
+        try {
+
+          const result =
+            await runTransaction(
+              db,
+              async (transaction) => {
+
+                const paymentRef =
+                  doc(
+                    db,
+                    ACTIVATION_COLLECTION,
+                    paymentId
+                  );
+
+
+                const userRef =
+                  doc(
+                    db,
+                    "users",
+                    userId
+                  );
+
+
+                const paymentSnap =
+                  await transaction.get(
+                    paymentRef
+                  );
+
+
+                if (
+                  !paymentSnap.exists()
+                ) {
+
+                  throw new Error(
+                    "Activation payment record no longer exists."
+                  );
+
+                }
+
+
+                const paymentData =
+                  paymentSnap.data() || {};
+
+
+                const liveStatus =
+                  String(
+                    paymentData.status ||
+                    "pending"
+                  ).toLowerCase();
+
+
+                if (
+                  liveStatus ===
+                  "approved"
+                ) {
+
+                  return {
+
+                    alreadyApproved:
+                      true,
+
+                    level1Paid:
+                      false,
+
+                    level2Paid:
+                      false,
+
+                    level1Found:
+                      false,
+
+                    level2Found:
+                      false,
+
+                    level1Username:
+                      "",
+
+                    level2Username:
+                      "",
+
+                    level1Uid:
+                      "",
+
+                    level2Uid:
+                      ""
+
+                  };
+
+                }
+
+
+                const userSnap =
+                  await transaction.get(
+                    userRef
+                  );
+
+
+                if (
+                  !userSnap.exists()
+                ) {
+
+                  throw new Error(
+                    "User account was not found in Firestore."
+                  );
+
+                }
+
+
+                const userData =
+                  userSnap.data() || {};
+
+
+                const level1Uid =
+                  String(
+                    userData.referredBy ||
+                    ""
+                  ).trim();
+
+
+                let level1Ref =
+                  null;
+
+                let level1Snap =
+                  null;
+
+                let level1Data =
+                  null;
+
+
+                let level2Ref =
+                  null;
+
+                let level2Snap =
+                  null;
+
+                let level2Data =
+                  null;
+
+
+                let level2Uid =
+                  "";
+
+
+                if (
+                  level1Uid &&
+                  level1Uid !== userId
+                ) {
+
+                  level1Ref =
+                    doc(
+                      db,
+                      "users",
+                      level1Uid
+                    );
+
+
+                  level1Snap =
+                    await transaction.get(
+                      level1Ref
+                    );
+
+
+                  if (
+                    level1Snap.exists()
+                  ) {
+
+                    level1Data =
+                      level1Snap.data() || {};
+
+                  }
+
+                }
+
+
+                if (
+                  level1Data
+                ) {
+
+                  const possibleLevel2Uid =
+                    String(
+                      level1Data.referredBy ||
+                      ""
+                    ).trim();
+
+
+                  if (
+                    possibleLevel2Uid &&
+                    possibleLevel2Uid !== userId &&
+                    possibleLevel2Uid !== level1Uid
+                  ) {
+
+                    level2Uid =
+                      possibleLevel2Uid;
+
+                  }
+
+                }
+
+
+                if (
+                  level2Uid
+                ) {
+
+                  level2Ref =
+                    doc(
+                      db,
+                      "users",
+                      level2Uid
+                    );
+
+
+                  level2Snap =
+                    await transaction.get(
+                      level2Ref
+                    );
+
+
+                  if (
+                    level2Snap.exists()
+                  ) {
+
+                    level2Data =
+                      level2Snap.data() || {};
+
+                  }
+
+                }
+
+
+                /*
+                  ALL READS ARE FINISHED HERE.
+                  ONLY WRITES BELOW.
+                */
+
+                let level1Paid =
+                  false;
+
+                let level2Paid =
+                  false;
+
+
+                let level1Found =
+                  Boolean(
+                    level1Snap &&
+                    level1Snap.exists()
+                  );
+
+
+                let level2Found =
+                  Boolean(
+                    level2Snap &&
+                    level2Snap.exists()
+                  );
+
+
+                let level1Username =
+                  "";
+
+                let level2Username =
+                  "";
+
+
+                if (
+                  level1Data
+                ) {
+
+                  level1Username =
+                    String(
+                      level1Data.username ||
+                      level1Data.userName ||
+                      level1Data.displayName ||
+                      ""
+                    );
+
+                }
+
+
+                if (
+                  level2Data
+                ) {
+
+                  level2Username =
+                    String(
+                      level2Data.username ||
+                      level2Data.userName ||
+                      level2Data.displayName ||
+                      ""
+                    );
+
+                }
+
+
+                const level1AlreadyPaid =
+                  Boolean(
+                    userData.activationCommissionPaid
+                  );
+
+
+                if (
+                  level1Found &&
+                  !level1AlreadyPaid &&
+                  level1Ref &&
+                  level1Data
+                ) {
+
+                  const currentMainBalance =
+                    Number(
+                      level1Data.mainBalance ||
+                      0
+                    );
+
+
+                  const currentReferralEarnings =
+                    Number(
+                      level1Data.referralEarnings ||
+                      0
+                    );
+
+
+                  const currentTotalEarned =
+                    Number(
+                      level1Data.totalEarned ||
+                      0
+                    );
+
+
+                  const currentNetProfit =
+                    Number(
+                      level1Data.netProfit ||
+                      0
+                    );
+
+
+                  const currentDirectReferrals =
+                    Number(
+                      level1Data.directReferrals ||
+                      0
+                    );
+
+
+                  transaction.update(
+
+                    level1Ref,
+
+                    {
+
+                      mainBalance:
+                        currentMainBalance +
+                        LEVEL_1_COMMISSION,
+
+                      referralEarnings:
+                        currentReferralEarnings +
+                        LEVEL_1_COMMISSION,
+
+                      totalEarned:
+                        currentTotalEarned +
+                        LEVEL_1_COMMISSION,
+
+                      netProfit:
+                        currentNetProfit +
+                        LEVEL_1_COMMISSION,
+
+                      directReferrals:
+                        currentDirectReferrals +
+                        1,
+
+                      updatedAt:
+                        serverTimestamp()
+
+                    }
+
+                  );
+
+
+                  level1Paid =
+                    true;
+
+                }
+
+
+                const level2AlreadyPaid =
+                  Boolean(
+                    userData.activationLevel2CommissionPaid
+                  );
+
+
+                if (
+                  level2Found &&
+                  !level2AlreadyPaid &&
+                  level2Ref &&
+                  level2Data
+                ) {
+
+                  const currentMainBalance2 =
+                    Number(
+                      level2Data.mainBalance ||
+                      0
+                    );
+
+
+                  const currentReferralEarnings2 =
+                    Number(
+                      level2Data.referralEarnings ||
+                      0
+                    );
+
+
+                  const currentTotalEarned2 =
+                    Number(
+                      level2Data.totalEarned ||
+                      0
+                    );
+
+
+                  const currentNetProfit2 =
+                    Number(
+                      level2Data.netProfit ||
+                      0
+                    );
+
+
+                  transaction.update(
+
+                    level2Ref,
+
+                    {
+
+                      mainBalance:
+                        currentMainBalance2 +
+                        LEVEL_2_COMMISSION,
+
+                      referralEarnings:
+                        currentReferralEarnings2 +
+                        LEVEL_2_COMMISSION,
+
+                      totalEarned:
+                        currentTotalEarned2 +
+                        LEVEL_2_COMMISSION,
+
+                      netProfit:
+                        currentNetProfit2 +
+                        LEVEL_2_COMMISSION,
+
+                      updatedAt:
+                        serverTimestamp()
+
+                    }
+
+                  );
+
+
+                  level2Paid =
+                    true;
+
+                }
+
+
+                transaction.update(
+
+                  paymentRef,
+
+                  {
+
+                    status:
+                      "approved",
+
+                    reviewedBy:
+                      PAYMENT_ADMIN_UID,
+
+                    reviewedAt:
+                      serverTimestamp(),
+
+                    level1CommissionAmount:
+                      level1Paid
+                        ? LEVEL_1_COMMISSION
+                        : 0,
+
+                    level1CommissionPaid:
+                      level1Paid,
+
+                    level1CommissionPaidAt:
+                      level1Paid
+                        ? serverTimestamp()
+                        : null,
+
+                    level1CommissionReferrerUid:
+                      level1Paid
+                        ? level1Uid
+                        : "",
+
+                    level1CommissionReferrerUsername:
+                      level1Paid
+                        ? level1Username
+                        : "",
+
+                    level2CommissionAmount:
+                      level2Paid
+                        ? LEVEL_2_COMMISSION
+                        : 0,
+
+                    level2CommissionPaid:
+                      level2Paid,
+
+                    level2CommissionPaidAt:
+                      level2Paid
+                        ? serverTimestamp()
+                        : null,
+
+                    level2CommissionReferrerUid:
+                      level2Paid
+                        ? level2Uid
+                        : "",
+
+                    level2CommissionReferrerUsername:
+                      level2Paid
+                        ? level2Username
+                        : "",
+
+                    commissionAmount:
+                      (
+                        level1Paid
+                          ? LEVEL_1_COMMISSION
+                          : 0
+                      ) +
+                      (
+                        level2Paid
+                          ? LEVEL_2_COMMISSION
+                          : 0
+                      ),
+
+                    commissionPaid:
+                      (
+                        level1Paid ||
+                        level2Paid
+                      ),
+
+                    commissionType:
+                      level1Paid &&
+                      level2Paid
+
+                        ? "level_1_and_level_2"
+
+                        : level1Paid
+
+                          ? "level_1"
+
+                          : level2Paid
+
+                            ? "level_2"
+
+                            : "none"
+
+                  }
+
+                );
+
+
+                transaction.update(
+
+                  userRef,
+
+                  {
+
+                    activationStatus:
+                      "active",
+
+                    activatedAt:
+                      serverTimestamp(),
+
+                    activatedBy:
+                      PAYMENT_ADMIN_UID,
+
+                    activationCommissionPaid:
+                      level1Paid,
+
+                    activationCommissionAmount:
+                      level1Paid
+                        ? LEVEL_1_COMMISSION
+                        : 0,
+
+                    activationCommissionReferrer:
+                      level1Paid
+                        ? level1Uid
+                        : "",
+
+                    activationLevel2CommissionPaid:
+                      level2Paid,
+
+                    activationLevel2CommissionAmount:
+                      level2Paid
+                        ? LEVEL_2_COMMISSION
+                        : 0,
+
+                    activationLevel2CommissionReferrer:
+                      level2Paid
+                        ? level2Uid
+                        : "",
+
+                    updatedAt:
+                      serverTimestamp()
+
+                  }
+
+                );
+
+
+                return {
+
+                  alreadyApproved:
+                    false,
+
+                  level1Paid:
+                    level1Paid,
+
+                  level2Paid:
+                    level2Paid,
+
+                  level1Found:
+                    level1Found,
+
+                  level2Found:
+                    level2Found,
+
+                  level1Username:
+                    level1Username,
+
+                  level2Username:
+                    level2Username,
+
+                  level1Uid:
+                    level1Uid,
+
+                  level2Uid:
+                    level2Uid
+
+                };
+
+              }
+            );
+
+
+          if (
+            result.alreadyApproved
+          ) {
+
+            alert(
+              "This payment was already approved."
+            );
+
+            await loadPayments();
+
+            return;
+
+          }
+
+
+          if (
+            result.level1Paid &&
+            result.level2Paid
+          ) {
+
+            alert(
+
+              "Payment approved successfully.\n\n" +
+
+              "User account: ACTIVE\n\n" +
+
+              "Level 1 commission: TSh 5,000\n" +
+
+              "Paid to: " +
+              (
+                result.level1Username ||
+                result.level1Uid
+              ) +
+
+              "\n\n" +
+
+              "Level 2 commission: TSh 2,000\n" +
+
+              "Paid to: " +
+              (
+                result.level2Username ||
+                result.level2Uid
+              ) +
+
+              "\n\n" +
+
+              "Total commission paid: TSh 7,000"
+
+            );
+
+          }
+
+          else if (
+            result.level1Paid &&
+            !result.level2Paid
+          ) {
+
+            if (
+              result.level1Found &&
+              !result.level2Found
+            ) {
+
+              alert(
+
+                "Payment approved successfully.\n\n" +
+
+                "User account: ACTIVE\n\n" +
+
+                "Level 1 commission: TSh 5,000\n" +
+
+                "Paid to: " +
+                (
+                  result.level1Username ||
+                  result.level1Uid
+                ) +
+
+                "\n\n" +
+
+                "Level 2 commission: NOT PAID.\n\n" +
+
+                "Reason: Level 1 referrer does not have a valid referrer."
+
+              );
+
+            }
+
+            else {
+
+              alert(
+
+                "Payment approved successfully.\n\n" +
+
+                "User account: ACTIVE\n\n" +
+
+                "Level 1 commission: TSh 5,000\n" +
+
+                "Paid to: " +
+                (
+                  result.level1Username ||
+                  result.level1Uid
+                ) +
+
+                "\n\n" +
+
+                "Level 2 commission: NOT PAID."
+
+              );
+
+            }
+
+          }
+
+          else if (
+            !result.level1Paid &&
+            result.level2Paid
+          ) {
+
+            alert(
+
+              "Payment approved successfully.\n\n" +
+
+              "User account: ACTIVE\n\n" +
+
+              "Level 2 commission: TSh 2,000\n" +
+
+              "Paid to: " +
+              (
+                result.level2Username ||
+                result.level2Uid
+              )
+
+            );
+
+          }
+
+          else {
+
+            alert(
+
+              "Payment approved successfully.\n\n" +
+
+              "User account: ACTIVE.\n\n" +
+
+              "No referral commission was paid because no valid referral chain was found."
+
+            );
+
+          }
+
+
+          await loadPayments();
+
+
+        } catch (error) {
+
+          console.error(
+            "Approve payment / commission error:",
+            error
+          );
+
+
+          alert(
+
+            "Failed to approve payment.\n\n" +
+
+            error.message
+
+          );
+
+        }
+
+      };
+
+
+    /*
+      ==========================================
+      REJECT ACTIVATION
+      ==========================================
+    */
+
+    window.rejectPayment =
+      async function(paymentId) {
+
+        const payment =
+          allPayments.find(
+            p =>
+              p.id === paymentId
+          );
+
+
+        if (!payment) {
+
+          alert(
+            "Payment not found."
+          );
+
+          return;
+
+        }
+
+
+        const reason =
+          prompt(
+            "Enter rejection reason:"
+          );
+
+
+        if (
+          reason === null
+        ) {
+
+          return;
+
+        }
+
+
+        try {
+
+          await updateDoc(
+
+            doc(
+              db,
+              ACTIVATION_COLLECTION,
+              paymentId
+            ),
+
+            {
+
+              status:
+                "rejected",
+
+              rejectionReason:
+                reason.trim() ||
+                "Payment rejected",
+
+              reviewedBy:
+                PAYMENT_ADMIN_UID,
+
+              reviewedAt:
+                serverTimestamp()
+
+            }
+
+          );
+
+
+          alert(
+            "Payment rejected."
+          );
+
+
+          await loadPayments();
+
+
+        } catch (error) {
+
+          console.error(
+            "Reject payment error:",
+            error
+          );
+
+
+          alert(
+            "Failed to reject payment:\n\n" +
+            error.message
+          );
+
+        }
+
+      };
+
+
+    /*
+      ==========================================
+      APPROVE WITHDRAWAL
+      ==========================================
+    */
+
+    window.approveWithdrawal =
+      async function(withdrawalId) {
+
+        const withdrawal =
+          allWithdrawals.find(
+            item =>
+              item.id === withdrawalId
+          );
+
+
+        if (!withdrawal) {
+
+          alert(
+            "Withdrawal request not found."
+          );
+
+          return;
+
+        }
+
+
+        const currentStatus =
+          String(
+            withdrawal.status ||
+            "pending"
+          ).toLowerCase();
+
+
+        if (
+          currentStatus !== "pending"
+        ) {
+
+          alert(
+            "This withdrawal request has already been processed."
+          );
+
+          return;
+
+        }
+
+
+        const amount =
+          Number(
+            withdrawal.amount || 0
+          );
+
+
+        const paymentNumber =
+          withdrawal.paymentNumber ||
+          "N/A";
+
+
+        const confirmApprove =
+          confirm(
+
+            "Confirm withdrawal payment?\n\n" +
+
+            "Amount: TSh " +
+            formatMoney(amount) +
+
+            "\nPayment Number: " +
+            paymentNumber +
+
+            "\n\nThis will change the status from PENDING to PAID."
+
+          );
+
+
+        if (!confirmApprove) {
+
+          return;
+
+        }
+
+
+        try {
+
+          await updateDoc(
+
+            doc(
+              db,
+              WITHDRAWAL_COLLECTION,
+              withdrawalId
+            ),
+
+            {
+
+              status:
+                "paid",
+
+              reviewedBy:
+                PAYMENT_ADMIN_UID,
+
+              reviewedAt:
+                serverTimestamp()
+
+            }
+
+          );
+
+
+          alert(
+            "Withdrawal marked as PAID successfully."
+          );
+
+
+          await loadWithdrawals();
+
+
+        } catch (error) {
+
+          console.error(
+            "Approve withdrawal error:",
+            error
+          );
+
+
+          alert(
+            "Failed to approve withdrawal:\n\n" +
+            error.message
+          );
+
+        }
+
+      };
+
+
+    /*
+      ==========================================
+      REJECT WITHDRAWAL
+      ==========================================
+    */
+
+    window.rejectWithdrawal =
+      async function(withdrawalId) {
+
+        const withdrawal =
+          allWithdrawals.find(
+            item =>
+              item.id === withdrawalId
+          );
+
+
+        if (!withdrawal) {
+
+          alert(
+            "Withdrawal request not found."
+          );
+
+          return;
+
+        }
+
+
+        const currentStatus =
+          String(
+            withdrawal.status ||
+            "pending"
+          ).toLowerCase();
+
+
+        if (
+          currentStatus !== "pending"
+        ) {
+
+          alert(
+            "This withdrawal request has already been processed."
+          );
+
+          return;
+
+        }
+
+
+        const reason =
+          prompt(
+            "Enter withdrawal rejection reason:"
+          );
+
+
+        if (
+          reason === null
+        ) {
+
+          return;
+
+        }
+
+
+        try {
+
+          await updateDoc(
+
+            doc(
+              db,
+              WITHDRAWAL_COLLECTION,
+              withdrawalId
+            ),
+
+            {
+
+              status:
+                "rejected",
+
+              rejectionReason:
+                reason.trim() ||
+                "Withdrawal rejected",
+
+              reviewedBy:
+                PAYMENT_ADMIN_UID,
+
+              reviewedAt:
+                serverTimestamp()
+
+            }
+
+          );
+
+
+          alert(
+            "Withdrawal rejected successfully."
+          );
+
+
+          await loadWithdrawals();
+
+
+        } catch (error) {
+
+          console.error(
+            "Reject withdrawal error:",
+            error
+          );
+
+
+          alert(
+            "Failed to reject withdrawal:\n\n" +
+            error.message
+          );
+
+        }
+
+      };
+
+
+    /*
+      ==========================================
+      LOGOUT
+      ==========================================
+    */
+
+    window.logoutAdmin =
+      async function() {
+
+        try {
+
+          await signOut(auth);
+
+          localStorage.removeItem(
+            "hastan_payment_admin_session"
+          );
+
+          localStorage.removeItem(
+            "hastan_payment_admin_uid"
+          );
+
+          window.location.replace(
+            "./admin-login.html"
+          );
+
+        } catch (error) {
+
+          console.error(
+            "Logout error:",
+            error
+          );
+
+          alert(
+            "Logout failed: " +
+            error.message
+          );
+
+        }
+
+      };
+
+
+    /*
+      ==========================================
+      ACCESS DENIED
+      ==========================================
+    */
+
+    function showAccessDenied(
+      message
+    ) {
+
+      document
+        .getElementById(
+          "dashboard"
+        )
+        .style.display =
+        "none";
+
+      document
+        .getElementById(
+          "accessDenied"
+        )
+        .style.display =
+        "flex";
+
+      document
+        .getElementById(
+          "accessMessage"
+        )
+        .textContent =
+        message;
+
+    }
+
+
+    /*
+      ==========================================
+      LOGIN
+      ==========================================
+    */
+
+    window.goToLogin =
+      function() {
+
+        window.location.replace(
+          "./admin-login.html"
+        );
+
+      };
+
+
+    /*
+      ==========================================
+      CLOSE MODAL
+      ==========================================
+    */
+
+    window.closeModal =
+      function() {
+
+        document
+          .getElementById(
+            "detailsModal"
+          )
+          .style.display =
+          "none";
+
+      };
+
+
+    /*
+      ==========================================
+      MONEY
+      ==========================================
+    */
+
+    function formatMoney(
+      amount
+    ) {
+
+      const number =
+        Number(amount);
+
+
+      if (
+        Number.isNaN(number)
+      ) {
+
+        return "0";
+
+      }
+
+
+      return number.toLocaleString(
+        "en-US"
+      );
+
+    }
+
+
+    /*
+      ==========================================
+      ESCAPE HTML
+      ==========================================
+    */
+
+    function escapeHtml(
+      value
+    ) {
+
+      return String(value)
+
+        .replace(
+          /&/g,
+          "&amp;"
+        )
+
+        .replace(
+          /</g,
+          "&lt;"
+        )
+
+        .replace(
+          />/g,
+          "&gt;"
+        )
+
+        .replace(
+          /"/g,
+          "&quot;"
+        )
+
+        .replace(
+          /'/g,
+          "&#039;"
+        );
+
+    }
+
+
+    /*
+      ==========================================
+      ESCAPE ATTRIBUTE
+      ==========================================
+    */
+
+    function escapeAttribute(
+      value
+    ) {
+
+      return String(value)
+
+        .replace(
+          /\\/g,
+          "\\\\"
+        )
+
+        .replace(
+          /'/g,
+          "\\'"
+        );
+
+    }
+
+
+    /*
+      ==========================================
+      GLOBAL REFRESH
+      ==========================================
+    */
+
+    window.loadPayments =
+      loadPayments;
+
+    window.loadWithdrawals =
+      loadWithdrawals;
+
+
+  </script>
+
+</body>
+</html>

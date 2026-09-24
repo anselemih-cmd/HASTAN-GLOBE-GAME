@@ -1,0 +1,1458 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Activate Account - HASTAN GLOBE</title>
+
+  <style>
+    *{
+      box-sizing:border-box;
+      margin:0;
+      padding:0;
+    }
+
+    body{
+      font-family:Arial,Helvetica,sans-serif;
+      background:linear-gradient(135deg,#eefaf4,#eaf5ff);
+      color:#172033;
+      min-height:100vh;
+      padding:20px 12px 40px;
+    }
+
+    .container{
+      width:100%;
+      max-width:720px;
+      margin:auto;
+    }
+
+    .header{
+      text-align:center;
+      margin-bottom:18px;
+    }
+
+    .logo-box{
+      width:90px;
+      height:90px;
+      margin:0 auto 10px;
+      border-radius:50%;
+      background:#fff;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      box-shadow:0 8px 25px rgba(0,0,0,.10);
+      overflow:hidden;
+    }
+
+    .logo-box img{
+      width:82px;
+      height:82px;
+      object-fit:contain;
+    }
+
+    .brand{
+      font-size:28px;
+      font-weight:800;
+      color:#087443;
+    }
+
+    .tagline{
+      margin-top:5px;
+      color:#607080;
+      font-size:14px;
+    }
+
+    .main-card{
+      background:#fff;
+      border-radius:20px;
+      padding:20px;
+      box-shadow:0 10px 35px rgba(0,0,0,.08);
+      margin-bottom:16px;
+    }
+
+    .activation-card{
+      background:linear-gradient(135deg,#087443,#0b8b50);
+      color:#fff;
+      border-radius:18px;
+      padding:20px;
+      text-align:center;
+      margin-bottom:20px;
+    }
+
+    .activation-card .small{
+      font-size:13px;
+      opacity:.9;
+      margin-bottom:5px;
+    }
+
+    .activation-amount{
+      font-size:34px;
+      font-weight:800;
+      margin:5px 0;
+    }
+
+    .payment-number{
+      background:#fff;
+      color:#087443;
+      padding:13px;
+      border-radius:12px;
+      margin-top:14px;
+      font-weight:700;
+    }
+
+    .payment-number strong{
+      display:block;
+      font-size:25px;
+      margin-top:4px;
+    }
+
+    .merchant{
+      font-size:13px;
+      margin-top:5px;
+      color:#526;
+    }
+
+    h2{
+      color:#087443;
+      font-size:21px;
+      margin-bottom:8px;
+    }
+
+    h3{
+      font-size:17px;
+      margin-bottom:7px;
+    }
+
+    .intro{
+      color:#596575;
+      font-size:14px;
+      line-height:1.6;
+      margin-bottom:16px;
+    }
+
+    /* NETWORK CARDS */
+
+    .network{
+      border:1px solid #e2e8ed;
+      border-radius:16px;
+      margin-bottom:14px;
+      overflow:hidden;
+      background:#fff;
+    }
+
+    .network-header{
+      display:flex;
+      align-items:center;
+      gap:12px;
+      padding:15px;
+      background:#f8fbfa;
+      border-bottom:1px solid #edf0f2;
+    }
+
+    .network-icon{
+      width:48px;
+      height:48px;
+      min-width:48px;
+      border-radius:13px;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      color:#fff;
+      font-weight:800;
+      font-size:17px;
+      box-shadow:0 4px 10px rgba(0,0,0,.10);
+    }
+
+    .mpesa{
+      background:#e31837;
+    }
+
+    .airtel{
+      background:#e4002b;
+    }
+
+    .mixx{
+      background:#087cca;
+    }
+
+    .halo{
+      background:#f28c00;
+    }
+
+    .tpesa{
+      background:#f5b900;
+      color:#172033;
+    }
+
+    .azam{
+      background:#1475c9;
+    }
+
+    .bank{
+      background:#087443;
+    }
+
+    .network-title{
+      flex:1;
+    }
+
+    .network-title strong{
+      display:block;
+      font-size:16px;
+      color:#172033;
+    }
+
+    .network-title span{
+      display:block;
+      font-size:12px;
+      color:#697586;
+      margin-top:3px;
+    }
+
+    .steps{
+      padding:15px 16px 16px;
+    }
+
+    .steps ol{
+      padding-left:21px;
+    }
+
+    .steps li{
+      margin-bottom:8px;
+      line-height:1.5;
+      font-size:14px;
+    }
+
+    .steps li:last-child{
+      margin-bottom:0;
+    }
+
+    .code{
+      display:inline-block;
+      background:#eef7f2;
+      color:#087443;
+      border-radius:7px;
+      padding:3px 7px;
+      font-weight:700;
+      font-family:monospace;
+    }
+
+    .important{
+      margin-top:13px;
+      padding:12px;
+      background:#fff8e6;
+      border-left:4px solid #f0ad00;
+      border-radius:8px;
+      font-size:13px;
+      line-height:1.5;
+    }
+
+    .payment-info{
+      margin-top:13px;
+      padding:12px;
+      background:#eaf8f1;
+      border-radius:10px;
+      font-size:13px;
+      line-height:1.6;
+    }
+
+    .payment-info strong{
+      color:#087443;
+    }
+
+    /* FORM */
+
+    .form-group{
+      margin-bottom:15px;
+    }
+
+    label{
+      display:block;
+      font-weight:700;
+      font-size:14px;
+      margin-bottom:7px;
+    }
+
+    select,
+    input{
+      width:100%;
+      padding:13px 14px;
+      border:1px solid #d8e0e6;
+      border-radius:11px;
+      font-size:15px;
+      outline:none;
+      background:#fff;
+    }
+
+    select:focus,
+    input:focus{
+      border-color:#087443;
+      box-shadow:0 0 0 3px rgba(8,116,67,.10);
+    }
+
+    .transaction-note{
+      background:#f3f7fb;
+      border-radius:10px;
+      padding:12px;
+      font-size:13px;
+      line-height:1.5;
+      margin-bottom:15px;
+    }
+
+    .transaction-note strong{
+      color:#087443;
+    }
+
+    .confirm-box{
+      display:flex;
+      gap:9px;
+      align-items:flex-start;
+      margin:14px 0;
+      font-size:13px;
+      line-height:1.5;
+    }
+
+    .confirm-box input{
+      width:18px;
+      height:18px;
+      margin-top:2px;
+      flex:none;
+    }
+
+    .submit-btn{
+      width:100%;
+      border:none;
+      border-radius:12px;
+      padding:15px;
+      background:#087443;
+      color:#fff;
+      font-size:16px;
+      font-weight:800;
+      cursor:pointer;
+      transition:.2s;
+    }
+
+    .submit-btn:hover{
+      background:#075d36;
+    }
+
+    .submit-btn:disabled{
+      opacity:.6;
+      cursor:not-allowed;
+    }
+
+    .message{
+      display:none;
+      padding:13px;
+      border-radius:10px;
+      margin-bottom:15px;
+      font-size:14px;
+      line-height:1.5;
+    }
+
+    .success{
+      background:#e9f8ef;
+      color:#087443;
+      border:1px solid #bce7ce;
+    }
+
+    .error{
+      background:#fff0f0;
+      color:#b42318;
+      border:1px solid #f0c4c0;
+    }
+
+    .pending{
+      background:#fff8e6;
+      color:#805b00;
+      border:1px solid #f0d68a;
+    }
+
+    .loading{
+      text-align:center;
+      padding:30px;
+      color:#687684;
+      font-size:14px;
+    }
+
+    .footer{
+      text-align:center;
+      color:#74808d;
+      font-size:12px;
+      margin-top:15px;
+      line-height:1.6;
+    }
+
+    .hidden{
+      display:none !important;
+    }
+
+    @media(max-width:480px){
+      body{
+        padding:12px 9px 30px;
+      }
+
+      .main-card{
+        padding:15px;
+      }
+
+      .brand{
+        font-size:24px;
+      }
+
+      .activation-amount{
+        font-size:30px;
+      }
+
+      .network-header{
+        padding:13px;
+      }
+
+      .steps{
+        padding:14px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+<div class="container">
+
+  <div class="header">
+    <div class="logo-box">
+      <img src="./logo.png" alt="HASTAN GLOBE Logo"
+           onerror="this.style.display='none';this.parentElement.innerHTML='🌍';this.parentElement.style.fontSize='45px';">
+    </div>
+
+    <div class="brand">HASTAN GLOBE</div>
+    <div class="tagline">Activate your account and start using HASTAN GLOBE</div>
+  </div>
+
+
+  <!-- LOADING -->
+  <div id="loadingBox" class="main-card loading">
+    Checking your account...
+  </div>
+
+
+  <!-- MAIN CONTENT -->
+  <div id="activationContent" class="hidden">
+
+    <!-- ACTIVATION FEE -->
+    <div class="activation-card">
+
+      <div class="small">ACCOUNT ACTIVATION FEE</div>
+
+      <div class="activation-amount">
+        TSh 10,000
+      </div>
+
+      <div style="font-size:13px;opacity:.92;">
+        One-time account activation payment
+      </div>
+
+      <div class="payment-number">
+        LIPA NUMBER
+        <strong>356574572</strong>
+        <div class="merchant">
+          LIPA HASTAN GLOBE
+        </div>
+      </div>
+
+    </div>
+
+
+    <!-- PAYMENT INSTRUCTIONS -->
+    <div class="main-card">
+
+      <h2>💳 How to Pay TSh 10,000</h2>
+
+      <p class="intro">
+        Chagua mtandao unaotumia hapa chini. Hatua za malipo zimewekwa
+        moja kwa moja hapa ili uweze kufuata bila kutafuta menu nyingine.
+      </p>
+
+
+      <!-- M-PESA -->
+      <div class="network">
+
+        <div class="network-header">
+
+          <div class="network-icon mpesa">
+            M
+          </div>
+
+          <div class="network-title">
+            <strong>M-Pesa</strong>
+            <span>Vodacom M-Pesa Tanzania</span>
+          </div>
+
+        </div>
+
+        <div class="steps">
+
+          <ol>
+            <li>Piga <span class="code">*150*00#</span></li>
+            <li>Chagua <strong>4 — Lipa kwa M-Pesa</strong></li>
+            <li>Chagua <strong>1 — Lipa kwa Simu</strong></li>
+            <li>Weka <strong>Lipa Namba: 356574572</strong></li>
+            <li>Hakikisha jina linaonekana <strong>LIPA HASTAN GLOBE</strong></li>
+            <li>Weka kiasi cha <strong>TSh 10,000</strong></li>
+            <li>Thibitisha malipo</li>
+            <li>Weka PIN yako</li>
+            <li>Baada ya malipo, chukua <strong>Transaction ID</strong> kutoka kwenye SMS.</li>
+          </ol>
+
+          <div class="payment-info">
+            <strong>Lipa Number:</strong> 356574572<br>
+            <strong>Jina:</strong> LIPA HASTAN GLOBE<br>
+            <strong>Kiasi:</strong> TSh 10,000
+          </div>
+
+        </div>
+      </div>
+
+
+      <!-- AIRTEL MONEY -->
+      <div class="network">
+
+        <div class="network-header">
+
+          <div class="network-icon airtel">
+            A
+          </div>
+
+          <div class="network-title">
+            <strong>Airtel Money</strong>
+            <span>Airtel Money Tanzania</span>
+          </div>
+
+        </div>
+
+        <div class="steps">
+
+          <ol>
+            <li>Piga <span class="code">*150*60#</span></li>
+            <li>Chagua <strong>5 — Make Payments</strong></li>
+            <li>Chagua <strong>4 — Enter Business Number</strong></li>
+            <li>Weka <strong>356574572</strong></li>
+            <li>Hakikisha jina ni <strong>LIPA HASTAN GLOBE</strong></li>
+            <li>Weka kiasi cha <strong>TSh 10,000</strong></li>
+            <li>Thibitisha malipo</li>
+            <li>Weka PIN yako</li>
+            <li>Chukua <strong>Transaction ID</strong> kutoka kwenye SMS.</li>
+          </ol>
+
+          <div class="payment-info">
+            <strong>Business/Lipa Number:</strong> 356574572<br>
+            <strong>Jina:</strong> LIPA HASTAN GLOBE<br>
+            <strong>Kiasi:</strong> TSh 10,000
+          </div>
+
+        </div>
+      </div>
+
+
+      <!-- MIXX BY YAS -->
+      <div class="network">
+
+        <div class="network-header">
+
+          <div class="network-icon mixx">
+            Y
+          </div>
+
+          <div class="network-title">
+            <strong>Mixx by Yas</strong>
+            <span>Formerly Tigo Pesa</span>
+          </div>
+
+        </div>
+
+        <div class="steps">
+
+          <ol>
+            <li>Piga <span class="code">*150*01#</span></li>
+            <li>Chagua huduma ya <strong>Lipa kwa Simu / Payments</strong></li>
+            <li>Chagua huduma ya kulipa biashara/merchant</li>
+            <li>Weka <strong>Lipa Number: 356574572</strong></li>
+            <li>Hakikisha jina ni <strong>LIPA HASTAN GLOBE</strong></li>
+            <li>Weka <strong>TSh 10,000</strong></li>
+            <li>Thibitisha malipo kwa PIN</li>
+            <li>Chukua <strong>Transaction ID</strong> kutoka SMS.</li>
+          </ol>
+
+          <div class="payment-info">
+            <strong>Lipa Number:</strong> 356574572<br>
+            <strong>Jina:</strong> LIPA HASTAN GLOBE<br>
+            <strong>Kiasi:</strong> TSh 10,000
+          </div>
+
+        </div>
+      </div>
+
+
+      <!-- HALOPESA -->
+      <div class="network">
+
+        <div class="network-header">
+
+          <div class="network-icon halo">
+            H
+          </div>
+
+          <div class="network-title">
+            <strong>HaloPesa</strong>
+            <span>HaloPesa Tanzania</span>
+          </div>
+
+        </div>
+
+        <div class="steps">
+
+          <ol>
+            <li>Piga USSD ya <strong>HaloPesa</strong> kwenye simu yako.</li>
+            <li>Chagua <strong>Malipo / Payments</strong></li>
+            <li>Chagua <strong>Lipa kwa Simu / Business</strong></li>
+            <li>Weka <strong>Lipa Number: 356574572</strong></li>
+            <li>Hakikisha jina ni <strong>LIPA HASTAN GLOBE</strong></li>
+            <li>Weka <strong>TSh 10,000</strong></li>
+            <li>Thibitisha malipo kwa PIN</li>
+            <li>Chukua <strong>Transaction ID</strong> kutoka kwenye ujumbe wa malipo.</li>
+          </ol>
+
+          <div class="payment-info">
+            <strong>Lipa Number:</strong> 356574572<br>
+            <strong>Jina:</strong> LIPA HASTAN GLOBE<br>
+            <strong>Kiasi:</strong> TSh 10,000
+          </div>
+
+        </div>
+      </div>
+
+
+      <!-- T-PESA -->
+      <div class="network">
+
+        <div class="network-header">
+
+          <div class="network-icon tpesa">
+            T
+          </div>
+
+          <div class="network-title">
+            <strong>T-Pesa</strong>
+            <span>Tanzania mobile money</span>
+          </div>
+
+        </div>
+
+        <div class="steps">
+
+          <ol>
+            <li>Fungua menyu ya <strong>T-Pesa</strong></li>
+            <li>Chagua <strong>Lipa / Payments</strong></li>
+            <li>Chagua <strong>Lipa kwa Simu / Business</strong></li>
+            <li>Weka <strong>356574572</strong></li>
+            <li>Hakikisha jina ni <strong>LIPA HASTAN GLOBE</strong></li>
+            <li>Weka kiasi cha <strong>TSh 10,000</strong></li>
+            <li>Thibitisha kwa PIN</li>
+            <li>Chukua <strong>Transaction ID</strong> kutoka kwenye ujumbe wa malipo.</li>
+          </ol>
+
+          <div class="payment-info">
+            <strong>Lipa Number:</strong> 356574572<br>
+            <strong>Jina:</strong> LIPA HASTAN GLOBE<br>
+            <strong>Kiasi:</strong> TSh 10,000
+          </div>
+
+        </div>
+      </div>
+
+
+      <!-- AZAMPESA -->
+      <div class="network">
+
+        <div class="network-header">
+
+          <div class="network-icon azam">
+            A+
+          </div>
+
+          <div class="network-title">
+            <strong>AzamPesa</strong>
+            <span>AzamPesa Tanzania</span>
+          </div>
+
+        </div>
+
+        <div class="steps">
+
+          <ol>
+            <li>Fungua menyu ya <strong>AzamPesa</strong></li>
+            <li>Chagua <strong>Malipo / Payments</strong></li>
+            <li>Chagua <strong>Business / Lipa kwa Simu</strong></li>
+            <li>Weka <strong>356574572</strong></li>
+            <li>Hakikisha jina ni <strong>LIPA HASTAN GLOBE</strong></li>
+            <li>Weka <strong>TSh 10,000</strong></li>
+            <li>Thibitisha malipo kwa PIN</li>
+            <li>Chukua <strong>Transaction ID</strong> kutoka kwenye ujumbe wa malipo.</li>
+          </ol>
+
+          <div class="payment-info">
+            <strong>Lipa Number:</strong> 356574572<br>
+            <strong>Jina:</strong> LIPA HASTAN GLOBE<br>
+            <strong>Kiasi:</strong> TSh 10,000
+          </div>
+
+        </div>
+      </div>
+
+
+      <!-- BANK -->
+      <div class="network">
+
+        <div class="network-header">
+
+          <div class="network-icon bank">
+            🏦
+          </div>
+
+          <div class="network-title">
+            <strong>Bank Transfer</strong>
+            <span>Kwa malipo ya benki</span>
+          </div>
+
+        </div>
+
+        <div class="steps">
+
+          <ol>
+            <li>Chagua <strong>Bank Transfer</strong> ikiwa umepewa taarifa rasmi za benki.</li>
+            <li>Fanya malipo ya <strong>TSh 10,000</strong>.</li>
+            <li>Hakikisha jina la mpokeaji na taarifa za malipo ni sahihi.</li>
+            <li>Hifadhi <strong>Transaction/Reference Number</strong> ya benki.</li>
+            <li>Weka namba hiyo kwenye sehemu ya Transaction ID hapa chini.</li>
+          </ol>
+
+        </div>
+      </div>
+
+
+      <div class="important">
+        ⚠️ <strong>Muhimu:</strong><br>
+        <strong>356574572</strong> ni Lipa Number ya HASTAN GLOBE.
+        Si Transaction ID.
+        Transaction ID ni namba unayopewa baada ya kukamilisha malipo.
+      </div>
+
+    </div>
+
+
+    <!-- SUBMISSION FORM -->
+    <div class="main-card">
+
+      <h2>🧾 Submit Payment</h2>
+
+      <p class="intro">
+        Baada ya kufanya malipo ya TSh 10,000, jaza taarifa zako hapa chini.
+        Payment Admin atakagua na kuthibitisha malipo yako.
+      </p>
+
+
+      <div id="successMessage" class="message success"></div>
+      <div id="errorMessage" class="message error"></div>
+      <div id="pendingMessage" class="message pending"></div>
+
+
+      <div class="form-group">
+
+        <label for="paymentMethod">
+          Payment Method
+        </label>
+
+        <select id="paymentMethod">
+
+          <option value="">
+            Select payment network
+          </option>
+
+          <option value="M-Pesa">
+            🔴 M-Pesa
+          </option>
+
+          <option value="Airtel Money">
+            🔴 Airtel Money
+          </option>
+
+          <option value="Mixx by Yas">
+            🔵 Mixx by Yas
+          </option>
+
+          <option value="HaloPesa">
+            🟠 HaloPesa
+          </option>
+
+          <option value="T-Pesa">
+            🟡 T-Pesa
+          </option>
+
+          <option value="AzamPesa">
+            🔵 AzamPesa
+          </option>
+
+          <option value="Bank Transfer">
+            🏦 Bank Transfer
+          </option>
+
+        </select>
+
+      </div>
+
+
+      <div class="form-group">
+
+        <label for="paymentReference">
+          Transaction ID / Reference
+        </label>
+
+        <input
+          id="paymentReference"
+          type="text"
+          placeholder="Enter Transaction ID from SMS"
+          autocomplete="off"
+        >
+
+      </div>
+
+
+      <div class="transaction-note">
+
+        <strong>Example:</strong><br>
+
+        Ukimaliza malipo utapokea SMS yenye Transaction ID.
+        Weka hiyo namba hapa.
+
+        <br><br>
+
+        ❌ <strong>Usiweke:</strong> 356574572
+
+        <br>
+
+        ✅ <strong>Weka:</strong> Transaction ID uliyopewa baada ya malipo.
+
+      </div>
+
+
+      <label class="confirm-box">
+
+        <input type="checkbox" id="paymentConfirmation">
+
+        <span>
+          Nimefanya malipo ya <strong>TSh 10,000</strong> kwenda
+          <strong>356574572 — LIPA HASTAN GLOBE</strong>
+          na nimehakikisha Transaction ID niliyoingiza ni sahihi.
+        </span>
+
+      </label>
+
+
+      <button
+        id="submitButton"
+        class="submit-btn"
+        type="button"
+      >
+        ✅ Submit Activation
+      </button>
+
+    </div>
+
+  </div>
+
+
+  <div class="footer">
+    HASTAN GLOBE © 2026<br>
+    Your activation request will remain pending until Payment Admin verifies your payment.
+  </div>
+
+</div>
+
+
+<script type="module">
+
+  import {
+    auth,
+    db
+  } from "./firebase-config.js";
+
+  import {
+    onAuthStateChanged
+  } from "https://www.gstatic.com/firebasejs/12.1.0/firebase-auth.js";
+
+  import {
+    collection,
+    query,
+    where,
+    getDocs,
+    doc,
+    getDoc,
+    addDoc,
+    serverTimestamp
+  } from "https://www.gstatic.com/firebasejs/12.1.0/firebase-firestore.js";
+
+
+  const ACTIVATION_FEE = 10000;
+
+  const PAYMENT_NUMBER = "356574572";
+
+  const MERCHANT_NAME = "LIPA HASTAN GLOBE";
+
+
+  let currentUser = null;
+
+  let submitting = false;
+
+
+  const loadingBox =
+    document.getElementById("loadingBox");
+
+  const activationContent =
+    document.getElementById("activationContent");
+
+  const submitButton =
+    document.getElementById("submitButton");
+
+  const successMessage =
+    document.getElementById("successMessage");
+
+  const errorMessage =
+    document.getElementById("errorMessage");
+
+  const pendingMessage =
+    document.getElementById("pendingMessage");
+
+
+  function showMessage(element, message){
+
+    successMessage.style.display = "none";
+    errorMessage.style.display = "none";
+    pendingMessage.style.display = "none";
+
+    element.innerHTML = message;
+    element.style.display = "block";
+
+  }
+
+
+  function escapeHtml(value){
+
+    return String(value ?? "")
+      .replace(/&/g,"&amp;")
+      .replace(/</g,"&lt;")
+      .replace(/>/g,"&gt;")
+      .replace(/"/g,"&quot;")
+      .replace(/'/g,"&#039;");
+
+  }
+
+
+  async function loadUserProfile(user){
+
+    const userRef =
+      doc(db,"users",user.uid);
+
+    const snap =
+      await getDoc(userRef);
+
+    if(!snap.exists()){
+
+      return {
+        username:
+          user.email
+            ? user.email.split("@")[0]
+            : "Member",
+
+        fullName:"",
+
+        phone:""
+
+      };
+
+    }
+
+    return snap.data();
+
+  }
+
+
+  async function checkExistingPendingPayment(user){
+
+    try{
+
+      const paymentsRef =
+        collection(db,"activationPayments");
+
+      const q =
+        query(
+          paymentsRef,
+          where("userId","==",user.uid),
+          where("status","==","pending")
+        );
+
+      const snap =
+        await getDocs(q);
+
+      return !snap.empty;
+
+    }catch(error){
+
+      console.error(
+        "Pending payment check error:",
+        error
+      );
+
+      /*
+        If Firestore rules/indexes prevent the
+        query, we don't block the page.
+      */
+
+      return false;
+
+    }
+
+  }
+
+
+  async function checkActivationStatus(user){
+
+    const userRef =
+      doc(db,"users",user.uid);
+
+    const snap =
+      await getDoc(userRef);
+
+    if(!snap.exists()){
+
+      return null;
+
+    }
+
+    return snap.data();
+
+  }
+
+
+  async function initializeActivation(user){
+
+    try{
+
+      currentUser = user;
+
+
+      const userData =
+        await checkActivationStatus(user);
+
+
+      /*
+        If account is already active,
+        send user to Normal Dashboard.
+      */
+
+      if(
+        userData &&
+        userData.activationStatus === "active"
+      ){
+
+        window.location.replace("./index.html");
+
+        return;
+
+      }
+
+
+      const hasPending =
+        await checkExistingPendingPayment(user);
+
+
+      loadingBox.classList.add("hidden");
+
+      activationContent.classList.remove("hidden");
+
+
+      if(hasPending){
+
+        showMessage(
+          pendingMessage,
+          "⏳ <strong>Activation Request Pending</strong><br><br>" +
+          "Tayari umetuma activation request yako. " +
+          "Payment Admin bado hajathibitisha malipo yako.<br><br>" +
+          "Tafadhali subiri mpaka malipo yako yatakapokaguliwa."
+        );
+
+        submitButton.disabled = true;
+
+        submitButton.innerText =
+          "⏳ Activation Pending";
+
+      }
+
+    }catch(error){
+
+      console.error(
+        "Activation initialization error:",
+        error
+      );
+
+      loadingBox.classList.add("hidden");
+
+      activationContent.classList.remove("hidden");
+
+      showMessage(
+        errorMessage,
+        "⚠️ Imeshindikana kupakia taarifa za akaunti yako. " +
+        "Tafadhali refresh page ujaribu tena."
+      );
+
+    }
+
+  }
+
+
+  submitButton.addEventListener(
+    "click",
+    async function(){
+
+      if(submitting){
+
+        return;
+
+      }
+
+
+      if(!currentUser){
+
+        showMessage(
+          errorMessage,
+          "🔐 Tafadhali login kwenye akaunti yako kwanza."
+        );
+
+        return;
+
+      }
+
+
+      const paymentMethod =
+        document
+          .getElementById("paymentMethod")
+          .value
+          .trim();
+
+
+      const paymentReference =
+        document
+          .getElementById("paymentReference")
+          .value
+          .trim();
+
+
+      const confirmed =
+        document
+          .getElementById("paymentConfirmation")
+          .checked;
+
+
+      /*
+        VALIDATION
+      */
+
+      if(!paymentMethod){
+
+        showMessage(
+          errorMessage,
+          "⚠️ Tafadhali chagua mtandao uliotumia kulipa."
+        );
+
+        return;
+
+      }
+
+
+      if(!paymentReference){
+
+        showMessage(
+          errorMessage,
+          "⚠️ Tafadhali weka Transaction ID / Reference."
+        );
+
+        return;
+
+      }
+
+
+      if(paymentReference === PAYMENT_NUMBER){
+
+        showMessage(
+          errorMessage,
+          "⚠️ Umeweka Lipa Number badala ya Transaction ID. " +
+          "Tafadhali fungua SMS ya malipo na uweke Transaction ID uliyopewa."
+        );
+
+        return;
+
+      }
+
+
+      if(!confirmed){
+
+        showMessage(
+          errorMessage,
+          "⚠️ Tafadhali thibitisha kwanza kwamba umefanya malipo ya TSh 10,000."
+        );
+
+        return;
+
+      }
+
+
+      /*
+        CONFIRMATION
+      */
+
+      const confirmedPayment =
+        confirm(
+          "Je, tayari umelipa TSh 10,000 kwenda " +
+          "LIPA HASTAN GLOBE (" +
+          PAYMENT_NUMBER +
+          ")?"
+        );
+
+
+      if(!confirmedPayment){
+
+        return;
+
+      }
+
+
+      submitting = true;
+
+      submitButton.disabled = true;
+
+      submitButton.innerText =
+        "⏳ Submitting...";
+
+
+      try{
+
+        /*
+          Get user profile
+        */
+
+        const userData =
+          await loadUserProfile(currentUser);
+
+
+        /*
+          Check again for duplicate pending
+          payment before creating.
+        */
+
+        const existingPending =
+          await checkExistingPendingPayment(
+            currentUser
+          );
+
+
+        if(existingPending){
+
+          showMessage(
+            pendingMessage,
+            "⏳ <strong>Activation Request Pending</strong><br><br>" +
+            "Tayari una activation request inayosubiri verification."
+          );
+
+          submitButton.innerText =
+            "⏳ Activation Pending";
+
+          return;
+
+        }
+
+
+        /*
+          CREATE ACTIVATION PAYMENT
+        */
+
+        await addDoc(
+          collection(db,"activationPayments"),
+          {
+
+            userId:
+              currentUser.uid,
+
+            username:
+              userData.username ||
+              userData.userName ||
+              (
+                currentUser.email
+                  ? currentUser.email.split("@")[0]
+                  : "Member"
+              ),
+
+            fullName:
+              userData.fullName ||
+              userData.name ||
+              "",
+
+            phone:
+              userData.phone ||
+              userData.phoneNumber ||
+              "",
+
+            email:
+              currentUser.email || "",
+
+            amount:
+              ACTIVATION_FEE,
+
+            paymentMethod:
+              paymentMethod,
+
+            paymentReference:
+              paymentReference,
+
+            /*
+              IMPORTANT:
+              This is the HASTAN GLOBE
+              receiving payment number.
+            */
+
+            paymentNumber:
+              PAYMENT_NUMBER,
+
+            merchantName:
+              MERCHANT_NAME,
+
+            status:
+              "pending",
+
+            createdAt:
+              serverTimestamp()
+
+          }
+        );
+
+
+        /*
+          SUCCESS
+        */
+
+        showMessage(
+          successMessage,
+          "✅ <strong>Activation Request Submitted!</strong><br><br>" +
+          "Malipo yako ya TSh 10,000 yamewasilishwa kwa verification.<br><br>" +
+          "<strong>Transaction ID:</strong> " +
+          escapeHtml(paymentReference) +
+          "<br><br>" +
+          "Payment Admin atakagua malipo yako. " +
+          "Baada ya kuthibitishwa, akaunti yako ita-activate."
+        );
+
+
+        submitButton.innerText =
+          "⏳ Waiting for Verification";
+
+
+        /*
+          Disable fields after successful submission
+        */
+
+        document.getElementById(
+          "paymentMethod"
+        ).disabled = true;
+
+        document.getElementById(
+          "paymentReference"
+        ).disabled = true;
+
+        document.getElementById(
+          "paymentConfirmation"
+        ).disabled = true;
+
+
+      }catch(error){
+
+        console.error(
+          "Activation submission error:",
+          error
+        );
+
+
+        let message =
+          "⚠️ Imeshindikana kutuma activation request. Tafadhali jaribu tena.";
+
+
+        if(
+          error &&
+          (
+            error.code ===
+            "permission-denied"
+          )
+        ){
+
+          message =
+            "⚠️ Firestore imekataa activation request. " +
+            "Hakikisha Firestore Rules zako zimeruhusu user kutuma activation payment.";
+
+        }
+
+
+        showMessage(
+          errorMessage,
+          message
+        );
+
+
+        submitButton.disabled = false;
+
+        submitButton.innerText =
+          "✅ Submit Activation";
+
+      }finally{
+
+        submitting = false;
+
+      }
+
+    }
+  );
+
+
+  /*
+    AUTH CHECK
+  */
+
+  onAuthStateChanged(
+    auth,
+    async function(user){
+
+      if(!user){
+
+        loadingBox.innerHTML =
+          "🔐 You must login before activating your account.";
+
+        return;
+
+      }
+
+
+      await initializeActivation(user);
+
+    }
+  );
+
+</script>
+
+</body>
+</html>
