@@ -584,7 +584,7 @@ const PAYMENT_ADMIN_PAGE=
 "./payment-admin.html";
 
 const SYSTEM_DIRECT_LINK=
-"https://hastanglobe.com/register";
+"https://hastanglobe.online/register";
 
 
 let currentUser=null;
